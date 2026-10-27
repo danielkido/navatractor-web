@@ -626,6 +626,39 @@ a.kick{cursor:pointer}
 .fic-precio .fp-h{font:600 .95rem/1.3 var(--t);color:var(--txt)}
 .fic-precio .fp-g{font:700 .85rem/1.3 var(--t);color:var(--amarillo)}
 @media(max-width:520px){.gar-sello .gs-extra{display:none}}
+/* stock por unidades y vendidos (27-10-2026) */
+.card .tag span.sst{background:var(--amarillo);color:#1b1600;border-color:var(--amarillo)}
+.card .tag span.vnd,.fic-tag.vnd{background:#d32f2f;color:#fff;border-color:#d32f2f}
+.card.vend .ph img{filter:grayscale(1) brightness(.55)}
+.card.vend .bts{grid-template-columns:minmax(0,1fr) 44px!important}
+.card.vend .bts .btn.lin{white-space:normal!important;line-height:1.15;font-size:.8rem!important;padding-left:6px!important;padding-right:6px!important;min-width:0}
+.card .tag{flex-wrap:wrap}
+.card .precio .pd{font:700 .78rem/1 var(--mono);text-transform:uppercase;letter-spacing:.05em;color:var(--txt)}
+.card .precio.cons b{font-size:clamp(1.4rem,5vw,1.7rem)}
+.fic-tag.sst{background:var(--amarillo);color:#111}
+.fic-tag.vnd{left:auto;right:12px}
+.fic-main.vend img{filter:grayscale(1) brightness(.55)}
+.fic-sin{position:absolute;inset:0;display:grid;place-content:center;text-align:center;color:var(--mut2);font-weight:600;gap:10px}
+.fic-sin img{width:80px!important;height:80px!important;border-radius:50%;opacity:.25;margin:0 auto;filter:grayscale(1)}
+.fic-precio.vend{background:rgba(211,47,47,.12);border-left-color:#d32f2f}
+.fic-precio.vend b{color:#ff6b6b}
+.fic-eq h3,.fic-uds h3{font:800 1.05rem/1.2 var(--h);margin:18px 0 8px}
+.fic-uds h3 small{font:600 .85rem var(--t);color:var(--mut)}
+.ud-ex{list-style:none;display:flex;flex-wrap:wrap;gap:6px;margin:0;padding:0}
+.ud-ex li{background:var(--bg3);border:1px solid rgba(255,255,255,.1);padding:6px 10px;font-size:.88rem;line-height:1.25}
+.ud-ex li.no{color:var(--mut)}
+.ud{border:1px solid rgba(255,255,255,.12);margin-bottom:8px;background:rgba(255,255,255,.02)}
+.ud summary{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 14px;cursor:pointer;list-style:none;font-size:1rem}
+.ud summary::-webkit-details-marker{display:none}
+.ud summary::after{content:'+';font:700 1.3rem/1 var(--mono);color:var(--amarillo)}
+.ud[open] summary::after{content:'–'}
+.ud summary span{margin-left:auto;font-weight:700;color:var(--amarillo);white-space:nowrap}
+.ud[open]{border-color:var(--amarillo)}
+.ud>ul,.ud>.ud-f,.ud>.btn,.ud>.ud-v{margin:0 14px 12px}
+.ud>.btn{width:calc(100% - 28px)}
+.ud-f{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}.ud-f img{width:100%;aspect-ratio:4/3;object-fit:cover}
+.ud.vend summary b{color:var(--mut)}.ud.vend summary span em{font-style:normal;background:#d32f2f;color:#fff;padding:3px 8px;font-size:.8rem}
+.ud-v{color:var(--mut);font-size:.92rem}
 </style>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "¿Dónde está Navatractor?", "acceptedAnswer": {"@type": "Answer", "text": "En la C. Cruces, 16620 Pinarejo (Cuenca). Antes de venir, agenda una llamada o escríbenos por WhatsApp."}}, {"@type": "Question", "name": "¿Qué tractores tenéis?", "acceptedAnswer": {"@type": "Answer", "text": "Tractores John Deere de ocasión de la Serie R, las series 6020/6030 y 7020/7030, la Serie 6M, la Serie 5 y clásicos, además de algunos de otras marcas y telescópicas Merlo y JCB. En el catálogo ves los que hay ahora en la nave."}}, {"@type": "Question", "name": "¿Puedo ver y probar el tractor antes de comprarlo?", "acceptedAnswer": {"@type": "Answer", "text": "Sí. Ven a la nave de Pinarejo, lo ves y lo pruebas."}}, {"@type": "Question", "name": "¿Dais garantía?", "acceptedAnswer": {"@type": "Answer", "text": "Sí, nuestros tractores tienen garantía de 6 meses o 300 horas de trabajo, lo que ocurra primero."}}, {"@type": "Question", "name": "¿Cómo sé el precio, el año y las horas?", "acceptedAnswer": {"@type": "Answer", "text": "Te los da Javier en la llamada o por WhatsApp, unidad por unidad."}}, {"@type": "Question", "name": "¿Tenéis correo electrónico?", "acceptedAnswer": {"@type": "Answer", "text": "Sí: infonavatractor@gmail.com. Escríbenos con tus datos y el tractor que te interesa."}}, {"@type": "Question", "name": "¿Cómo pido una cita?", "acceptedAnswer": {"@type": "Answer", "text": "Pulsa «Agendar llamada», elige día y hora en la agenda de Javier y él te llama."}}]}</script>
 </head>
@@ -720,8 +753,8 @@ a.kick{cursor:pointer}
 <section id="aperos"><div class="wrap">
   <div class="sec-t rv"><div><span class="kick"><i></i>Palas y aperos</span><h2>Palas, cazos <span>y más</span></h2></div><p>Lo que tenemos ahora mismo en la nave. Pregúntanos por cualquiera.</p></div>
   <div class="bento rv">
-    <figure><img src="img/acc/pala-elleon-410e.jpg" alt="Pala El León 410E" loading="lazy"><figcaption>Pala El León 410E</figcaption></figure>
-    <figure><img src="img/acc/pala-elleon-nueva.jpg" alt="Pala El León" loading="lazy"><figcaption>Pala El León</figcaption></figure>
+    <figure><img src="img/acc/pala-elleon-410e.jpg" alt="Pala León 410E" loading="lazy"><figcaption>Pala León 410E</figcaption></figure>
+    <figure><img src="img/acc/pala-elleon-nueva.jpg" alt="Pala León 385E" loading="lazy"><figcaption>Pala León 385E</figcaption></figure>
     <figure><img src="img/acc/pala-metaltechnik.jpg" alt="Pala Metal-Technik" loading="lazy"><figcaption>Pala Metal-Technik</figcaption></figure>
     <figure><img src="img/acc/cazos.jpg" alt="Cazos" loading="lazy"><figcaption>Cazos</figcaption></figure>
     <figure><img src="img/acc/atomizador.jpg" alt="Atomizador" loading="lazy"><figcaption>Atomizador</figcaption></figure>
@@ -816,12 +849,15 @@ a.kick{cursor:pointer}
   </div>
 </div>
 
-<script src="js/datos.js?v=26"></script>
+<script src="js/datos.js?v=27"></script>
 <script>
 const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
-const WA='34689631687', usados=STOCK.filter(t=>t.s==='oc'), conFoto=STOCK.filter(t=>t.img);
+const WA='34689631687', usados=STOCK.filter(t=>t.s==='oc'&&!t.vendido), conFoto=STOCK.filter(t=>t.img&&!t.vendido);
 const nombre=t=>t.s==='acc'?t.m:t.s==='tel'?t.m+' telescópica':t.marca?t.m:'John Deere '+t.m;
-const waTxt=t=>`https://wa.me/${WA}?text=${encodeURIComponent(t.s==='acc'?'Hola Javier, me interesa '+t.m+' de la web. ¿Me pasas precio y fotos?':'Hola Javier, me interesa el '+nombre(t)+' de la web. ¿Me pasas año, horas y precio?')}`;
+const waTxt=t=>`https://wa.me/${WA}?text=${encodeURIComponent(t.vendido?'Hola Javier, he visto en la web que el '+nombre(t)+' está vendido. ¿Tienes alguno parecido?':t.s==='acc'?'Hola Javier, me interesa '+t.m+' de la web. ¿Me pasas fotos?':'Hola Javier, me interesa el '+nombre(t)+' de la web. ¿Me pasas '+(t.precio?'más fotos y el año?':'año, horas y precio?'))}`;
+const fH=h=>h?miles(h)+' h':'';
+/* precio en tarjeta: una unidad, varias («desde») o «Consultar» */
+const precioCard=t=>t.vendido?'':t.precio?`<div class="precio">${t.uds>1?`<span class="pd">${t.uds} unidades · desde</span>`:''}<b>${miles(t.precio)}&nbsp;€</b><span>${t.uds>1||!t.horas?'':fH(t.horas)+' de trabajo · '}garantía incluida</span></div>`:`<div class="precio cons">${t.uds>1?`<span class="pd">${t.uds} unidades</span>`:''}<b>Consultar</b><span>Precio en la llamada · garantía incluida</span></div>`;
 
 /* cabecera sólida al bajar */
 const cab=$('#cab');addEventListener('scroll',()=>cab.classList.toggle('solid',scrollY>40),{passive:true});
@@ -866,16 +902,16 @@ addEventListener('resize',colocar);colocar();
 /* clasificación por gama (orden de aparición) */
 const GAMAS=[
  ['6r','Serie R','2011–2021 · 110–250 CV'],
- ['7000','Serie 7020 / 7030','2003–2010 · 165–195 CV'],
- ['6000','Serie 6020 / 6030','2002–2012 · 90–155 CV'],
- ['6m','Serie 6M y 6RC','2013–2018 · 110–125 CV'],
+ ['7000','Serie 7020 / 7030','2003–2010 · 180–185 CV'],
+ ['6000','Serie 6020 / 6030','2002–2012 · 100–160 CV'],
+ ['6m','Serie 6M y 6RC','110–150 CV'],
  ['5','Serie 5','5100R · 5125R · 5720'],
  ['util','Clásicos','3350 · 2450M'],
- ['otras','Otras marcas y remolques','New Holland · Massey Ferguson · Griselda'],
+ ['otras','Otras marcas','New Holland · Massey Ferguson · Renault'],
  ['tel','Telescópicas','Merlo · JCB']];
 const gamaDe=t=>t.s==='tel'?'tel':t.marca?'otras':/^[23]\d{3}/.test(t.m)?'util':/^5\d{3}/.test(t.m)?'5':/^\d{4}R$/.test(t.m)?'6r':/RC$|M$/.test(t.m.split(' ')[0])?'6m':/^7/.test(t.m)?'7000':/^6\d[23]0/.test(t.m)?'6000':'util';
 STOCK.forEach(t=>t.g=gamaDe(t));
-const ordenar=l=>l.slice().sort((a,b)=>GAMAS.findIndex(g=>g[0]===a.g)-GAMAS.findIndex(g=>g[0]===b.g)||(b.dest-a.dest)||b.cv-a.cv);
+const ordenar=l=>l.slice().sort((a,b)=>GAMAS.findIndex(g=>g[0]===a.g)-GAMAS.findIndex(g=>g[0]===b.g)||(a.vendido-b.vendido)||(b.dest-a.dest)||b.cv-a.cv);
 const F=[['todos','Todos'],...GAMAS.map(g=>[g[0],g[1]]),['pala','Con pala']];
 let f='todos';
 function filtros(){
@@ -885,7 +921,7 @@ function lista(){
   const q=($('#q')?.value||'').toLowerCase().replace(/\s/g,'');
   return STOCK.filter(t=>{
     if(q&&!t.m.toLowerCase().replace(/\s/g,'').includes(q))return false;
-    if(f==='pala')return /pala/i.test(t.extra);
+    if(f==='pala')return t.conPala;
     if(f!=='todos')return t.g===f;
     return true;
   }).sort((a,b)=>0);
@@ -893,20 +929,20 @@ function lista(){
 function correo(e){if(/Android|iPhone|iPad|iPod/i.test(navigator.userAgent))return true;e.preventDefault();window.open('https://mail.google.com/mail/?view=cm&fs=1&to=infonavatractor@gmail.com&su='+encodeURIComponent('Consulta desde navatractor.es'),'_blank','noopener');return false}
 const miles=n=>String(n).replace(/\B(?=(\d{3})+(?!\d))/g,'.');
 function tarjeta(t){
-  return `<article class="card tilt" onclick="if(!event.target.closest('.bts'))ficha('${t.m}')">
+  return `<article class="card tilt${t.vendido?' vend':''}" onclick="if(!event.target.closest('.bts'))ficha('${t.m}')">
     <div class="ph">${t.img?`<img src="${t.img}" alt="${nombre(t)}" loading="lazy">`:`<div class="sin"><div><img src="img/logo-navatractor.jpg" alt="">Foto próximamente</div></div>`}
-      <div class="tag"><span class="ok">● En nave</span>${t.dest?'<span class="st">Muy vendido</span>':''}</div></div>
+      <div class="tag">${t.vendido?'<span class="sst">Sin stock en estos momentos</span><span class="vnd">Vendido</span>':`<span class="ok">● En nave</span>${t.dest?'<span class="st">Muy vendido</span>':''}`}</div></div>
     <div class="cu">
       <div class="l1"><h3>${t.m}</h3>${t.cv?`<span class="cv">${t.cv} CV</span>`:''}</div>
-      <p class="sub">${t.s==='tel'?'Manipuladora telescópica':t.marca?(t.anos?t.marca+' · '+t.anos:t.extra):'John Deere · '+t.anos}</p>
-      ${t.precio?`<div class="precio"><b>${miles(t.precio)}&nbsp;€</b><span>${miles(t.horas)} h de trabajo · garantía incluida</span></div>`:''}
+      <p class="sub">${t.s==='tel'?'Manipuladora telescópica':t.marca?(t.anos?t.marca+' · '+t.anos:t.extra):'John Deere'+(t.anos?' · '+t.anos:'')}</p>
+      ${precioCard(t)}
       ${t.mot?`<dl><div><dt>Motor</dt><dd>${t.mot}</dd></div></dl>`:''}
-      <div class="bts"><button class="btn lin" onclick="abrir('${t.m}')">Me interesa</button><a class="btn wa" href="${waTxt(t)}" target="_blank" rel="noopener" aria-label="WhatsApp"><svg><use href="#i-wa"/></svg></a></div>
+      <div class="bts">${t.vendido?`<button class="btn lin" onclick="abrir('','Busco uno parecido al ${t.m} (vendido)')">Pregúntanos por uno parecido</button>`:`<button class="btn lin" onclick="abrir('${t.m}')">Me interesa</button>`}<a class="btn wa" href="${waTxt(t)}" target="_blank" rel="noopener" aria-label="WhatsApp"><svg><use href="#i-wa"/></svg></a></div>
     </div></article>`;
 }
 function pintar(){
   const l=ordenar(lista());
-  $('#cuenta').innerHTML=l.length?`<b>${l.length} modelos</b> en la nave`:'No hay ninguno así ahora mismo. Agenda una llamada y te avisamos cuando entre.';
+  const nv=l.filter(t=>t.vendido).length;$('#cuenta').innerHTML=l.length?`<b>${l.length-nv} modelos</b> en la nave${nv?` · ${nv} ${nv===1?'vendido':'vendidos'}`:''}`:'No hay ninguno así ahora mismo. Agenda una llamada y te avisamos cuando entre.';
   $('#grid').innerHTML=GAMAS.map(g=>{const m=l.filter(t=>t.g===g[0]);return m.length?`<div class="grp" id="g-${g[0]}"><h3>${g[1]}</h3><span>${g[2]} · ${m.length} ${m.length===1?'modelo':'modelos'}</span></div>`+m.map(tarjeta).join(''):''}).join('');
   inclinar();
 }
@@ -941,10 +977,10 @@ function op(){const f=new Intl.DateTimeFormat('es-ES',{weekday:'short'});
 // la agenda vive en Cloudflare Workers (dirección propia, aparte de la web en GitHub Pages)
 const API=location.hostname.endsWith('workers.dev')?'':'https://navatractor.scratch-2026-10-17-f205fc.workers.dev';
 const INAPP=/musical_ly|Bytedance|TikTok|Instagram|FBAN|FBAV|FB_IAB|FBIOS/i.test(navigator.userAgent);
-let citaM='',HUECOS=null,selF='',selH='';
+let citaM='',citaN='',HUECOS=null,selF='',selH='';
 const waCita=()=>`https://wa.me/${WA}?text=${encodeURIComponent('Hola Javier, quiero que me llames'+(citaM?' por el '+citaM:'')+'. ¿Cuándo te viene bien?')}`;
 const btnWA=t=>`<a class="btn wa ag-btn" href="${waCita()}" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg>${t||'Escríbele por WhatsApp'}</a>`;
-async function abrir(m,nota){if($('#fic'))$('#fic').classList.remove('open');citaM=m||'';selF='';selH='';
+async function abrir(m,nota){if($('#fic'))$('#fic').classList.remove('open');citaM=m||'';citaN=nota||'';selF='';selH='';
   $('#fw').innerHTML=`<div class="agenda"><p class="fc-i">Cargando los huecos libres de Javier…</p></div>`;$('#modal').classList.add('open');
   try{const r=await fetch(API+'/api/huecos');HUECOS=await r.json();if(!HUECOS.ok||!HUECOS.dias.length)throw 0}
   catch(e){$('#fw').innerHTML=`<div class="agenda"><p>Elige día y hora en la agenda de Javier y te llamará él.</p><a class="btn pri ag-btn" href="https://calendar.app.google/K83xkyJisikwjqW49" target="_blank" rel="noopener"><svg><use href="#i-cal"/></svg>Elegir día y hora</a>${btnWA()}</div>`;return}
@@ -959,14 +995,14 @@ function pasoHora(){const d=HUECOS.dias.find(x=>x.fecha===selF);
   const fila=(t,l)=>l.length?`<p class="fc-sub">${t}</p><div class="fc-horas">${l.map(h=>`<button type="button" onclick="selH='${h}';pasoDatos()">${h}</button>`).join('')}</div>`:'';
   $('#fw').innerHTML=`<div class="fc">${cabCita(2)}<p class="fc-t">${d.nombre[0].toUpperCase()+d.nombre.slice(1)}: ¿a qué hora?</p>${fila('Mañana',man)}${fila('Tarde',tar)}
     <button type="button" class="ag-alt" onclick="pasoDia()">← Cambiar de día</button></div>`}
-function pasoDatos(){const d=HUECOS.dias.find(x=>x.fecha===selF),mods=STOCK.filter(t=>t.s==='oc'||t.s==='tel').map(t=>nombre(t));
+function pasoDatos(){const d=HUECOS.dias.find(x=>x.fecha===selF),mods=STOCK.filter(t=>(t.s==='oc'||t.s==='tel')&&!t.vendido);
   $('#fw').innerHTML=`<form class="fc" onsubmit="enviarCita(event)">${cabCita(3)}
     <p class="fc-sel">📅 ${d.nombre}, a las <b>${selH}</b> <button type="button" class="ag-alt" style="display:inline;width:auto;margin:0 0 0 8px" onclick="pasoHora()">cambiar</button></p>
     <label>Tu nombre</label><input name="nombre" required minlength="2" autocomplete="name" placeholder="Nombre y apellido">
     <label>Tu teléfono</label><input name="telefono" required type="tel" inputmode="tel" autocomplete="tel" placeholder="600 000 000">
     <label>Tu correo <small>(te mandamos la confirmación)</small></label><input name="email" required type="email" inputmode="email" autocomplete="email" placeholder="tucorreo@gmail.com">
-    <label>¿Qué tractor te interesa?</label><select name="tractor"><option value="">Aún no lo sé</option>${mods.map(n=>`<option ${citaM&&n.endsWith(citaM)?'selected':''}>${n}</option>`).join('')}</select>
-    <label>Comentario <small>(opcional)</small></label><textarea name="nota" rows="2" placeholder="Ej.: busco uno con pala, 100 CV…"></textarea>
+    <label>¿Qué tractor te interesa?</label><select name="tractor"><option value="">Aún no lo sé</option>${mods.map(t=>`<option ${citaM&&t.m===citaM?'selected':''}>${nombre(t)}</option>`).join('')}</select>
+    <label>Comentario <small>(opcional)</small></label><textarea name="nota" rows="2" placeholder="Ej.: busco uno con pala, 100 CV…">${citaN}</textarea>
     <input name="web" tabindex="-1" autocomplete="off" class="fc-trampa" aria-hidden="true">
     <button class="btn pri ag-btn" type="submit"><svg><use href="#i-cal"/></svg>Confirmar llamada</button>
     <p class="fc-err" id="fcErr" hidden></p></form>`}
@@ -993,7 +1029,7 @@ function preguntas(){
   const [a,b]=PQ[1].o[RS.uso][1],uso=RS.uso===0?'pala':'',g=PQ[2].o[RS.gen][1];
   let l=usados.filter(t=>t.cv>=a&&t.cv<=b);
   if(g==='r')l=l.filter(esR);if(g==='cl')l=l.filter(t=>!esR(t));
-  if(uso==='pala')l.sort((x,y)=>/pala/i.test(y.extra)-/pala/i.test(x.extra));
+  if(uso==='pala')l.sort((x,y)=>y.conPala-x.conPala);
   if(!l.length)l=usados.filter(t=>t.cv>=a&&t.cv<=b);
   l=l.filter(t=>t.img).slice(0,3);
   const nota=`Asesor: ${PQ[0].o[RS.ha][0]}, ${PQ[1].o[RS.uso][0].toLowerCase()}, ${PQ[2].o[RS.gen][0].toLowerCase()}.`;
@@ -1009,40 +1045,58 @@ function pintarCat(){
   $('#cpTabs').innerHTML=TABS.map(x=>`<button class="${tab===x[0]?'on':''}" onclick="tab='${x[0]}';pintarCat()">${x[1]}</button>`).join('');
   $('#cpTrac').hidden=tab!=='trac'; $('#cpAcc').hidden=tab!=='acc';
   if(tab==='trac'){pintar();return}
-  const FOTO={'Pala El León 410E':'img/acc/pala-elleon-410e.jpg','Pala El León':'img/acc/pala-elleon-nueva.jpg','Pala Metal-Technik':'img/acc/pala-metaltechnik.jpg','Cazos':'img/acc/cazos.jpg','Pantalla para alpacas':'img/acc/porta-palets.jpg','Atomizador':'img/acc/atomizador.jpg'};
-  ACCI=[];Object.entries(ACC).forEach(([k,v])=>v.forEach(a=>ACCI.push({m:a[0],s:'acc',marca:k,g:'acc-'+k,img:FOTO[a[0]]||'',fotos:FOTO[a[0]]?[FOTO[a[0]]]:[],cv:0})));
+  const FOTO={'Pala León 410E':'img/acc/pala-elleon-410e.jpg','Pala León 385E':'img/acc/pala-elleon-nueva.jpg','Remolque Griselda':GAL2.griselda[0],'Pala Metal-Technik':'img/acc/pala-metaltechnik.jpg','Cazos':'img/acc/cazos.jpg','Pantalla para alpacas':'img/acc/porta-palets.jpg','Atomizador':'img/acc/atomizador.jpg'};
+  ACCI=[];Object.entries(ACC).forEach(([k,v])=>v.forEach(a=>ACCI.push({m:a[0],s:'acc',marca:k,g:'acc-'+k,img:FOTO[a[0]]||'',fotos:a[0]==='Remolque Griselda'?GAL2.griselda:FOTO[a[0]]?[FOTO[a[0]]]:[],cv:0,precio:a[3]||0,horas:0,uds:1,u:[{horas:0,precio:a[3]||0,extras:a[4]?a[4].split(/,\s*/):[],vendido:false,fotos:[]}]})));
   $('#cpAcc').innerHTML=Object.entries(ACC).map(([k,v])=>`<div class="grp"><h3>${k}</h3><span>${v.length} ${v.length===1?'producto':'productos'}</span></div>`+v.map(a=>{const n=a[0].replace(/'/g,'');return `<article class="card acc-card" onclick="if(!event.target.closest('.bts'))ficha('${n}')">
     <div class="ph">${FOTO[a[0]]?`<img src="${FOTO[a[0]]}" alt="${a[0]}" loading="lazy">`:''}<div class="tag"><span class="ok">● En nave</span></div></div>
     <div class="cu"><div class="l1"><h3>${a[0]}</h3></div>
-    <div class="bts"><button class="btn lin" onclick="abrir('${n}')">Me interesa</button><a class="btn wa" href="https://wa.me/${WA}?text=${encodeURIComponent('Hola Javier, me interesa '+a[0]+' de la web. ¿Me pasas precio y fotos?')}" target="_blank" rel="noopener" aria-label="WhatsApp"><svg><use href="#i-wa"/></svg></a></div></div></article>`}).join('')).join('');
+    ${a[4]?`<p class="sub">${a[4]}</p>`:''}${a[3]?`<div class="precio"><b>${miles(a[3])}&nbsp;€</b></div>`:''}
+    <div class="bts"><button class="btn lin" onclick="abrir('${n}')">Me interesa</button><a class="btn wa" href="https://wa.me/${WA}?text=${encodeURIComponent('Hola Javier, me interesa '+a[0]+' de la web. ¿Me pasas fotos?')}" target="_blank" rel="noopener" aria-label="WhatsApp"><svg><use href="#i-wa"/></svg></a></div></div></article>`}).join('')).join('');
   $('#cpAcc').classList.add('grid');
 }
 /* ficha detallada */
 let fi=0,fT=null,ACCI=[];
+function ficPrecio(t){
+  if(t.vendido)return `<div class="fic-precio vend"><span class="fp-et">Sin stock en estos momentos</span><b>Vendido</b><span class="fp-h">Javier te busca uno parecido</span></div>`;
+  const varias=t.uds>1;
+  return `<div class="fic-precio"><span class="fp-et">${varias?'Precio desde':'Precio'}</span><b>${t.precio?miles(t.precio)+' €':'Consultar'}</b><span class="fp-h">${varias?t.uds+' unidades en la nave · mira cada una abajo':t.precio?(t.horas?fH(t.horas)+' de trabajo':''):'Te damos el precio en la llamada'}</span><span class="fp-g">Garantía incluida</span></div>`;
+}
+/* unidades: una sola → su equipamiento; varias → un bloque plegable por unidad */
+function ficUnidades(t){
+  const u=t.u||[];if(!u.length)return '';
+  const lst=x=>`<ul class="ud-ex">${x.extras.length?x.extras.map(e=>`<li>${e[0].toUpperCase()+e.slice(1)}</li>`).join(''):'<li class="no">Sin extras</li>'}</ul>`;
+  if(u.length===1)return u[0].vendido?'':`<div class="fic-eq"><h3>Equipamiento</h3>${lst(u[0])}</div>`;
+  const prim=u.findIndex(x=>!x.vendido);
+  return `<div class="fic-uds"><h3>${t.uds} ${t.uds===1?'unidad disponible':'unidades disponibles'}${u.length>t.uds?` <small>· ${u.length-t.uds} vendida</small>`:''}</h3>${u.map((x,i)=>{
+    const det=[fH(x.horas),x.precio?miles(x.precio)+' €':'Consultar'].filter(Boolean).join(' · ');
+    const nota=`Unidad ${i+1}${x.horas?' · '+fH(x.horas):''}${x.precio?' · '+miles(x.precio)+' €':''}`;
+    return `<details class="ud${x.vendido?' vend':''}"${i===prim?' open':''}><summary><b>Unidad ${i+1}</b><span>${x.vendido?'<em>Vendido</em>':det}</span></summary>${x.vendido?'<p class="ud-v">Esta unidad ya se ha vendido.</p>':lst(x)+(x.fotos.length?`<div class="ud-f">${x.fotos.map(f=>`<img src="${f}" alt="" loading="lazy">`).join('')}</div>`:'')+`<button class="btn lin" onclick="abrir('${t.m}','${nota}')"><svg><use href="#i-cal"/></svg>Agendar llamada por esta unidad</button>`}</details>`}).join('')}</div>`;
+}
 function ficha(m){
   fT=STOCK.find(t=>t.m===m)||ACCI.find(t=>t.m===m); if(!fT)return; fi=0;
-  const t=fT,f=t.fotos.length?t.fotos:[t.img];
+  const t=fT,f=t.fotos.length?t.fotos:t.img?[t.img]:[];
   const esAcc=t.s==='acc',grupo=esAcc?t.marca:(GAMAS.find(g=>g[0]===t.g)||['',''])[1];
-  const rel=esAcc?ACCI.filter(x=>x.m!==t.m&&x.img).slice(0,4):ordenar(STOCK.filter(x=>x.g===t.g&&x.m!==t.m)).slice(0,4);
+  const rel=esAcc?ACCI.filter(x=>x.m!==t.m&&x.img).slice(0,4):ordenar(STOCK.filter(x=>x.g===t.g&&x.m!==t.m&&x.img&&!x.vendido)).slice(0,4);
   $('#ficB').innerHTML=`
    <div class="fic-gal">
-     <div class="fic-main"><img id="ficImg" src="${f[0]}" alt="${nombre(t)}">
+     <div class="fic-main${t.vendido?' vend':''}">${f.length?`<img id="ficImg" src="${f[0]}" alt="${nombre(t)}">`:`<div class="fic-sin"><img src="img/logo-navatractor.jpg" alt="">Foto próximamente</div>`}
        ${f.length>1?`<button class="fic-n p" onclick="fotoF(-1)" aria-label="Foto anterior"><svg><use href="#i-izq"/></svg></button><button class="fic-n s" onclick="fotoF(1)" aria-label="Foto siguiente"><svg><use href="#i-der"/></svg></button><span class="fic-c" id="ficC">1 / ${f.length}</span>`:''}
-       <span class="fic-tag">● En nave</span></div>
+       ${t.vendido?'<span class="fic-tag sst">Sin stock en estos momentos</span><span class="fic-tag vnd">Vendido</span>':'<span class="fic-tag">● En nave</span>'}</div>
      ${f.length>1?`<div class="fic-th">${f.map((u,i)=>`<button onclick="fotoF(${i},1)" class="${i?'':'on'}"><img src="${u}" alt="" loading="lazy"></button>`).join('')}</div>`:''}
    </div>
    <div class="fic-dat">
      <p class="fic-k">${esAcc?'Palas, cazos y más · '+t.marca:t.s==='tel'?'Manipuladora telescópica':t.marca?t.marca:'John Deere · '+grupo}</p>
      <h2>${t.m}</h2>
      ${t.cv?`<p class="fic-cv">${t.cv} <small>CV${t.cvmax?' · '+t.cvmax+' CV máx.':''}</small></p>`:''}
-     ${t.precio?`<div class="fic-precio"><span class="fp-et">Precio</span><b>${miles(t.precio)} €</b><span class="fp-h">${miles(t.horas)} h de trabajo</span><span class="fp-g">Garantía incluida</span></div>`:''}
+     ${ficPrecio(t)}
      <dl>
        ${t.mot?`<div><dt>Motor</dt><dd>${t.mot}</dd></div>`:''}
        ${t.anos?`<div><dt>Fabricado</dt><dd>${t.anos}</dd></div>`:''}
-       ${t.precio?`<div><dt>Año</dt><dd>Te lo damos en la llamada</dd></div>`:`<div><dt>${esAcc?'Precio':'Año, horas y precio'}</dt><dd>Te lo damos en la llamada</dd></div>`}
+       ${esAcc?'':`<div><dt>Año</dt><dd>Te lo damos en la llamada</dd></div>`}
      </dl>
+     ${ficUnidades(t)}
      <div class="fic-bts">
-       <button class="btn pri" onclick="abrir('${t.m}')"><svg><use href="#i-cal"/></svg>Agendar llamada</button>
+       ${t.vendido?`<button class="btn pri" onclick="abrir('','Busco uno parecido al ${t.m} (vendido)')"><svg><use href="#i-cal"/></svg>Pregúntanos por uno parecido</button>`:`<button class="btn pri" onclick="abrir('${t.m}')"><svg><use href="#i-cal"/></svg>Agendar llamada</button>`}
        <a class="btn wa" href="${waTxt(t)}" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg>Preguntar a Javier</a>
      </div>
      <p class="fic-nota"><span class="gar"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M12 3l8 3v6c0 4.5-3.4 8.3-8 9-4.6-.7-8-4.5-8-9V6z"/><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M8.5 12l2.5 2.5 4.5-5"/></svg>Garantía incluida</span> Ven a verlo y probarlo a la nave de Pinarejo (Cuenca).</p>
@@ -1057,7 +1111,7 @@ let fx0=null;document.addEventListener('pointerdown',e=>{if(e.target.closest('.f
 document.addEventListener('pointerup',e=>{if(fx0!==null&&fT){const d=e.clientX-fx0;if(Math.abs(d)>40)fotoF(d<0?1:-1)}fx0=null});
 addEventListener('keydown',e=>{if(e.key!=='Escape')return;if($('#fic').classList.contains('open'))cerrarFicha();else cerrarCat()});
 {const _c=new URLSearchParams(location.search).get('cita');if(_c!==null)setTimeout(()=>abrir(/^(1|tiktok|)$/.test(_c)?'':_c),400)}
-const _h=decodeURIComponent(location.hash.slice(1)).replace(/-/g,' ');if(_h==='catalogo')setTimeout(()=>abrirCat(),300);else if(_h&&STOCK.some(t=>t.m===_h))setTimeout(()=>ficha(_h),300);
+const _h=decodeURIComponent(location.hash.slice(1)).replace(/-/g,' ');if(_h==='catalogo')setTimeout(()=>abrirCat(),300);else{const _t=_h&&STOCK.find(t=>t.m===_h||t.slug===_h);if(_t)setTimeout(()=>ficha(_t.m),300)}
 filtros();pintar();preguntas();
 </script>
 </body>

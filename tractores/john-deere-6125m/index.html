@@ -41,6 +41,8 @@ dd{text-align:right;font-weight:700}
 .precio{display:grid;gap:4px;margin:14px 0 4px;padding:14px 16px;background:rgba(255,212,0,.09);border-left:5px solid #ffd400}
 .precio span{font:600 .85rem/1.3 'Manrope',sans-serif;color:#c9cec3}
 .precio span:first-child{font:700 .72rem/1 'IBM Plex Mono',monospace;text-transform:uppercase;letter-spacing:.08em;color:#7c8377}
+.precio.vend{background:rgba(211,47,47,.12);border-left-color:#d32f2f}.precio.vend b{color:#ff6b6b}
+.uds{display:grid;gap:10px;margin-bottom:24px}.ud{border:1px solid #272b27;padding:12px 14px}.ud h3{display:flex;justify-content:space-between;gap:10px;margin:0 0 6px;font-size:1.05rem}.ud h3 span{color:#ffd400;white-space:nowrap}.ud h3 em{font-style:normal;background:#d32f2f;color:#fff;padding:2px 8px;font-size:.8rem}.ud p{margin:0 0 8px;color:#c9cec3}.ud a{color:#ffd400;font-weight:700}.ud.vend h3{color:#7c8377;margin:0}
 .precio b{font:900 3.2rem/1 'Big Shoulders Display',sans-serif;color:#ffd400}
 .cv small{font-size:1.1rem;color:#a2a99c}
 .btn{display:flex;align-items:center;justify-content:center;gap:10px;height:56px;padding:0 22px;font:800 1.2rem/1 'Big Shoulders Display',sans-serif;text-transform:uppercase;margin-top:10px}
@@ -55,7 +57,7 @@ h2{font:900 2rem/1 'Big Shoulders Display',sans-serif;text-transform:uppercase;m
 .rel span{display:block;padding:0 12px 12px;color:#a2a99c;font-size:.85rem}
 footer{border-top:1px solid #272b27;padding:28px 0 40px;color:#7c8377;font-size:.85rem}
 @media(max-width:800px){.ficha{grid-template-columns:1fr}.vol span{display:none}}</style>
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://navatractor.es/"}, {"@type": "ListItem", "position": 2, "name": "Catálogo", "item": "https://navatractor.es/tractores/"}, {"@type": "ListItem", "position": 3, "name": "John Deere 6125M", "item": "https://navatractor.es/tractores/john-deere-6125m/"}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://navatractor.es/"}, {"@type": "ListItem", "position": 2, "name": "Catálogo", "item": "https://navatractor.es/tractores/"}, {"@type": "ListItem", "position": 3, "name": "John Deere 6125M", "item": "https://navatractor.es/tractores/john-deere-6125m/"}]}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "Product", "name": "John Deere 6125M", "brand": {"@type": "Brand", "name": "John Deere"}, "image": ["https://navatractor.es/img/stock/6125m-pala.jpg"], "offers": {"@type": "Offer", "price": 56000, "priceCurrency": "EUR", "availability": "https://schema.org/InStock", "itemCondition": "https://schema.org/UsedCondition", "url": "https://navatractor.es/tractores/john-deere-6125m/"}}</script>
 </head>
 <body>
 <header><div class="wrap"><a class="logo" href="/"><img src="/img/logo-navatractor.jpg" alt="Logo de Navatractor">NAVATRACTOR</a><a class="vol" href="/tractores/">← <span>Todo el </span>catálogo</a></div></header>
@@ -66,15 +68,16 @@ footer{border-top:1px solid #272b27;padding:28px 0 40px;color:#7c8377;font-size:
 <div class="ficha">
 <div class="fotos"><img src="/img/stock/6125m-pala.jpg" alt="John Deere 6125M de ocasión en la nave de Navatractor" width="720" height="540"></div>
 <div>
-<p class="cv">125 <small>CV</small></p>
-<dl><div><dt>Potencia</dt><dd>125 CV</dd></div><div><dt>Motor</dt><dd>4 cil. 4,5 L</dd></div><div><dt>Transmisión</dt><dd>PowrQuad Plus / AutoQuad Plus</dd></div><div><dt>Fabricado</dt><dd>2013–2018</dd></div><div><dt>Equipamiento</dt><dd>Pala John Deere H340 (≈1,6 t a plena altura)</dd></div><div><dt>Año, horas y precio</dt><dd>Te lo damos en la llamada</dd></div></dl>
+<p class="cv">125 <small>CV</small></p><div class="precio"><span>Precio</span><b>56.000 €</b><span>6.100 h de trabajo</span><span style="color:#ffd400;font-weight:700">Garantía incluida</span></div>
+<dl><div><dt>Potencia</dt><dd>125 CV</dd></div><div><dt>Motor</dt><dd>4 cil. 4,5 L</dd></div><div><dt>Transmisión</dt><dd>PowrQuad Plus / AutoQuad Plus</dd></div><div><dt>Fabricado</dt><dd>2013–2018</dd></div><div><dt>Año</dt><dd>Te lo damos en la llamada</dd></div><div><dt>Equipamiento</dt><dd>Suspensión delantera, 2 neumáticos delanteros nuevos, pala John Deere</dd></div></dl>
 <a class="btn pri" href="/?cita=6125M">Agendar llamada con Javier</a>
-<a class="btn wa" href="https://wa.me/34689631687?text=Hola%20Javier%2C%20me%20interesa%20el%20John%20Deere%206125M%20de%20la%20web.%20%C2%BFMe%20pasas%20a%C3%B1o%2C%20horas%20y%20precio%3F" target="_blank" rel="noopener">Preguntar por WhatsApp</a>
+<a class="btn wa" href="https://wa.me/34689631687?text=Hola%20Javier%2C%20me%20interesa%20el%20John%20Deere%206125M%20de%20la%20web.%20%C2%BFMe%20pasas%20m%C3%A1s%20fotos%20y%20el%20a%C3%B1o%3F" target="_blank" rel="noopener">Preguntar por WhatsApp</a>
 <a class="btn sec" href="https://www.google.com/maps/search/?api=1&query=Calle+Cruces+16620+Pinarejo+Cuenca" target="_blank" rel="noopener">Cómo llegar a la nave</a>
-<p class="nota">Garantía incluida. Datos técnicos orientativos. Año, horas y precio de cada unidad te los da Javier en la llamada. Navatractor · C. Cruces, 16620 Pinarejo (Cuenca).</p>
+<p class="nota">Garantía incluida. Datos técnicos orientativos. El año de cada unidad te lo da Javier en la llamada. Navatractor · C. Cruces, 16620 Pinarejo (Cuenca).</p>
 </div>
 </div>
-<h2>Más de la Serie 6M y 6RC</h2><div class="rel"><a href="/tractores/john-deere-6115m/"><img src="/img/stock/6115m-pala.jpg" alt="John Deere 6115M" loading="lazy"><b>6115M</b><span>115 CV</span></a><a href="/tractores/john-deere-6110rc/"><img src="/img/g/6110rc-1.jpg" alt="John Deere 6110RC" loading="lazy"><b>6110RC</b><span>110 CV</span></a><a href="/tractores/john-deere-6920-s/"><img src="/img/stock/6920s.jpg" alt="John Deere 6920 S" loading="lazy"><b>6920 S</b><span>150 CV</span></a><a href="/tractores/john-deere-6250r/"><img src="/img/stock/6250r.jpg" alt="John Deere 6250R" loading="lazy"><b>6250R</b><span>250 CV</span></a><a href="/tractores/john-deere-6215r/"><img src="/img/stock/6215r-a.jpg" alt="John Deere 6215R" loading="lazy"><b>6215R</b><span>215 CV</span></a><a href="/tractores/john-deere-6195r/"><img src="/img/stock/6195r.jpg" alt="John Deere 6195R" loading="lazy"><b>6195R</b><span>195 CV</span></a></div>
+
+<h2>Más de la Serie 6M y 6RC</h2><div class="rel"><a href="/tractores/john-deere-6115m/"><img src="/img/stock/6115m-pala.jpg" alt="John Deere 6115M" loading="lazy"><b>6115M</b><span>115 CV</span></a><a href="/tractores/john-deere-6110rc/"><img src="/img/g/6110rc-1.jpg" alt="John Deere 6110RC" loading="lazy"><b>6110RC</b><span>110 CV</span></a></div>
 </main>
 <footer><div class="wrap">Agrícola Navatractor S.L. · C. Cruces, 16620 Pinarejo (Cuenca) · <a href="/">navatractor.es</a> · <a href="mailto:infonavatractor@gmail.com?subject=Consulta%20desde%20navatractor.es">infonavatractor@gmail.com</a><br>John Deere y los nombres de sus modelos son marcas de Deere &amp; Company; se citan para identificar las máquinas a la venta. · <a href="/privacidad/">Privacidad</a></div></footer>
 </body>

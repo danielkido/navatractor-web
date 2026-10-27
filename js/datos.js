@@ -122,3 +122,79 @@ STOCK.forEach(t=>{if(t.m==='5720'){t.img='img/g/5720-1.jpg';t.fotos=['img/g/5720
 var NAVE_FOTOS=["img/g/nave-1.jpg", "img/g/nave-2.jpg"];
 // Horas y precio confirmados por Javier (24-10-2026)
 STOCK.forEach(t=>{if(t.m==='5100R'){t.horas=3000;t.precio=38000}if(t.m==='6215R'){t.horas=5700;t.precio=75000}});
+
+// ===== Stock definitivo de Manuel y Javito (27-10-2026): unidades, horas, precios, extras y vendidos =====
+// Cada unidad: [horas, precio, 'extras', vendida]. Precio 0 = «Consultar». Las fotos no se tocan (llegan por unidad).
+var UNI={
+ '6250R':[[7200,117000,'Tripuntal, suspensión delantera, suspensión trasera, equipo de aire, 50 km/h, cambio CommandPRO, ISOBUS, monitor grande, 4 neumáticos nuevos']],
+ '6215R':[[5700,75000,'Tripuntal, suspensión delantera, suspensión en cabina, equipo de aire, 50 km/h, cambio AutoPowr, monitor grande, ISOBUS'],[5800,73000,'Tripuntal delantero, suspensión delantera, suspensión en cabina, 2 neumáticos traseros nuevos, cambio AutoPowr, equipo de aire, 50 km/h, ISOBUS']],
+ '6210R':[[5900,65000,'Suspensión delantera, suspensión en cabina, equipo de aire, 50 km/h']],
+ '6195R':[[7500,74000,'Tripuntal, suspensión delantera, suspensión en cabina, ISOBUS, equipo de aire, 50 km/h, cambio PowrQuad, 4 neumáticos nuevos'],[7600,73000,'Tripuntal delantero con TDF, suspensión delantera, suspensión en cabina, equipo de aire, 50 km/h, cambio PowrQuad']],
+ '6190R':[[8000,65000,'Tripuntal, suspensión delantera, suspensión trasera, 50 km/h, equipo de aire, cambio AutoPowr, 2 neumáticos delanteros nuevos']],
+ '6175R':[[7200,74000,'Tripuntal delantero, suspensión delantera, suspensión en cabina, 50 km/h, equipo de aire, cambio PowrQuad']],
+ '6170R':[[7700,64000,'Suspensión delantera, suspensión en cabina, 50 km/h, equipo de aire, cambio PowrQuad']],
+ '6155R':[[5200,75000,'Tripuntal delantero con TDF, suspensión delantera, suspensión trasera, 50 km/h, equipo de aire, cambio CommandPRO, monitor grande'],[5500,75000,'Tripuntal con TDF, suspensión delantera, suspensión trasera, equipo de aire, ISOBUS, 50 km/h, cambio CommandPRO, monitor grande'],[6100,73000,'Tripuntal delantero con TDF, suspensión delantera, suspensión en cabina, equipo de aire, 50 km/h, cambio AutoPowr'],[7400,70000,'Tripuntal delantero, suspensión delantera, suspensión en cabina, equipo de aire, 50 km/h, ISOBUS, cambio PowrQuad']],
+ '6135R':[[7000,56000,'Suspensión delantera, suspensión trasera, creeper, cambio PowrQuad'],[7000,56000,'Suspensión delantera, 2 neumáticos delanteros nuevos']],
+ '6110R':[[0,0,'',1]],
+ '7820':[[8900,60000,'Suspensión delantera, cambio PowrQuad, 4 neumáticos nuevos']],
+ '7530 Premium':[[7400,55000,'Suspensión delantera, suspensión trasera, 50 km/h, equipo de aire, cambio PowrQuad, 4 neumáticos nuevos'],[7700,55000,'Suspensión delantera, suspensión en cabina, cambio PowrQuad'],[7400,55000,'Suspensión delantera, suspensión en cabina, 4 neumáticos nuevos, 50 km/h, equipo de aire']],
+ '6920 S':[[8700,41000,'Tripuntal delantero con TDF, suspensión delantera, suspensión en cabina, equipo de aire, 50 km/h']],
+ '6930 Premium':[[8100,45000,'Suspensión delantera, suspensión en cabina, equipo de aire, 50 km/h']],
+ '6830 Premium':[[8100,45000,'Suspensión delantera, suspensión trasera, 50 km/h, equipo de aire, 4 neumáticos nuevos']],
+ '6630 Premium':[[7700,43000,'Suspensión delantera, equipo de aire, 50 km/h, 2 neumáticos delanteros nuevos']],
+ '6430 Premium':[[7400,43000,'Tripuntal delantero con TDF, suspensión delantera, suspensión en cabina, cambio AutoPowr, 2 neumáticos delanteros nuevos']],
+ '6330 Premium':[[7500,43000,'Pala Quicke, 4 neumáticos nuevos']],
+ '6820':[[8000,41000,'Tripuntal delantero con TDF, suspensión delantera, suspensión en cabina']],
+ '6220 Premium':[[8000,36000,''],[8000,38000,'Pala MX'],[8000,36000,'']],
+ '6220 SE':[[5200,29000,'']],
+ '6230 Premium':[[7500,43000,'Suspensión delantera, suspensión en cabina, pala MX, cambio AutoPowr']],
+ '6620':[[8000,41000,'Tripuntal delantero con TDF, suspensión delantera, suspensión en cabina, 4 neumáticos nuevos'],[8000,41000,'Tripuntal delantero con TDF, suspensión delantera'],[8000,37500,'Suspensión delantera']],
+ '6520':[[0,0,'',1],[8000,34500,'']],
+ '6320':[[0,0,'',1]],
+ '6150M':[[1600,56000,'Tripuntal delantero, suspensión delantera, 2 neumáticos delanteros nuevos']],
+ '6125M':[[6100,56000,'Suspensión delantera, 2 neumáticos delanteros nuevos, pala John Deere']],
+ '6115M':[[6000,56000,'Suspensión delantera, 2 neumáticos delanteros nuevos, pala John Deere'],[7000,53000,'Sin pala']],
+ '6110RC':[[6000,54000,'Suspensión delantera, suspensión en cabina']],
+ '5720':[[7100,38000,'Pala MX'],[7600,39000,'Pala John Deere, 4 neumáticos nuevos']],
+ '5125R':[[9000,41000,'Suspensión delantera, creeper, anclajes de pala John Deere']],
+ '5100R':[[3000,38000,''],[3000,39000,'Pala John Deere']],
+ '3350':[[0,0,'']],
+ '2450M':[[0,12000,'']],
+ 'New Holland TD5050':[[0,0,'']],
+ 'Massey Ferguson 4260':[[0,0,'']],
+ 'Renault Ares 640 RZ':[[0,30000,'Pala Tenias Evolution TE30 nueva']],
+ 'Merlo':[[0,26000,'']],
+ 'JCB':[[0,36000,''],[0,36000,''],[0,36000,'']]
+};
+// Nombres nuevos (se conserva la URL de siempre) y CV corregidos
+var RENOMBRA={'6930':'6930 Premium','6630':'6630 Premium','6330':'6330 Premium','6220':'6220 Premium'};
+var CVOK={'3350':110,'2450M':80,'Massey Ferguson 4260':110,'5720':80,'6920 S':160,'6930 Premium':160,'6630 Premium':140,'6430 Premium':130,'6330 Premium':120,'6820':140,'6220 Premium':100,'6620':130,'6520':120,'6320':110,'7530 Premium':180};
+STOCK=STOCK.filter(t=>t.m!=='7720'&&t.m!=='Remolque Griselda');
+STOCK.forEach(t=>{if(RENOMBRA[t.m]){t.slug=t.m;t.m=RENOMBRA[t.m]}});
+STOCK.push(...[
+ ['6210R',210],['6150M',150],['6220 SE',100],['6230 Premium',110],['Renault Ares 640 RZ',130,'Renault']
+].map(a=>({m:a[0],s:'oc',cv:a[1],cvmax:0,mot:'',tr:'',anos:'',extra:'',img:'',fotos:[],dest:false,st:'ok',used:true,marca:a[2]||'',nuevo:true})));
+STOCK.forEach(t=>{
+  if(CVOK[t.m])t.cv=CVOK[t.m];
+  t.u=(UNI[t.m]||[]).map(a=>({horas:a[0],precio:a[1],extras:a[2]?a[2].split(/,\s*/):[],vendido:!!a[3],fotos:[]}));
+  const disp=t.u.filter(x=>!x.vendido);
+  t.uds=disp.length; t.vendido=t.u.length>0&&!disp.length;
+  const bar=disp.filter(x=>x.precio).sort((a,b)=>a.precio-b.precio)[0];
+  t.precio=bar?bar.precio:0; t.horas=bar?bar.horas:0;
+  t.extra=t.u.map(x=>x.extras.join(', ')).filter(Boolean).join(' · ');
+  if(t.vendido)t.dest=false;
+});
+var UDS=STOCK.filter(t=>t.s==='oc').reduce((n,t)=>n+t.uds,0);
+// Palas y aperos: [nombre, descripción, compatibilidad, precio, extras]
+ACC={
+ 'Palas':[
+  ['Pala León 410E','Cargador frontal con enganche rápido','Serie 6 · 6M · 6030',9500,'Botella reforzada'],
+  ['Pala León 385E','Cargador frontal a estrenar','Según modelo',9500,'Botella reforzada'],
+  ['Pala Metal-Technik','Cargador frontal con brazos y soportes','Según modelo',9000,'Tercera función, monomando en cruz']
+ ],
+ 'Cazos':[['Cazos','Para tierra, grano y materiales ligeros','Para las palas',1200,'']],
+ 'Pantalla para alpacas':[['Pantalla para alpacas','Para mover alpacas con la pala','Para las palas',1200,'']],
+ 'Atomizador':[['Atomizador','Tratamientos en viña y frutal','Tractores con TDF',9000,'']],
+ 'Remolques':[['Remolque Griselda','Remolque basculante','Tractores con hidráulico',12000,'Eje tándem, ejes direccionables, compuerta hidráulica']]
+};
+STOCK.forEach(t=>{t.conPala=t.u.some(x=>!x.vendido&&x.extras.some(e=>/^pala /i.test(e)))});
