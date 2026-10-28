@@ -532,6 +532,7 @@ html,body{overflow-x:clip}
 .cp-tabs{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}
 .cp-tabs button{padding:12px 16px;font:800 1.15rem/1 var(--h);text-transform:uppercase;color:var(--mut);border-bottom:3px solid transparent;white-space:nowrap}
 .cp-tabs button.on{color:var(--amarillo);border-color:var(--amarillo)}
+@media(max-width:420px){.cp-tabs button{padding:12px 9px;font-size:clamp(.88rem,4.1vw,1.05rem)}}
 .cp-body{padding-top:22px}
 .catpage .filtros{margin-bottom:16px}
 .catpage .cuenta{margin:0 0 16px}
@@ -752,7 +753,7 @@ a.kick{cursor:pointer}
 </div></section>
 
 <section id="aperos"><div class="wrap">
-  <div class="sec-t rv"><div><span class="kick"><i></i>Palas y aperos</span><h2>Palas, cazos <span>y más</span></h2></div><p>Lo que tenemos ahora mismo en la nave. Pregúntanos por cualquiera.</p></div>
+  <div class="sec-t rv"><div><span class="kick"><i></i>Palas y aperos</span><h2>Palas, cazos, remolques <span>y más</span></h2></div><p>Lo que tenemos ahora mismo en la nave. Pregúntanos por cualquiera.</p></div>
   <div class="bento rv">
     <figure><img src="img/acc/pala-elleon-410e.jpg" alt="Pala León 410E" loading="lazy"><figcaption>Pala León 410E</figcaption></figure>
     <figure><img src="img/acc/pala-elleon-nueva.jpg" alt="Pala León 385E" loading="lazy"><figcaption>Pala León 385E</figcaption></figure>
@@ -1020,26 +1021,27 @@ function cerrar(){$('#modal').classList.remove('open')}
 addEventListener('keydown',e=>{if(e.key==='Escape')cerrar()});
 
 const PQ=[
- {k:'ha',t:'¿De cuántas horas lo buscas?',o:[['Menos de 5.000 h'],['De 5.000 a 8.000 h'],['Más de 8.000 h'],['Me da igual']]},
+ {k:'ha',t:'¿De cuántas horas lo buscas?',o:[['Menos de 5.000 h',[0,4999]],['De 5.000 a 8.000 h',[5000,8000]],['Más de 8.000 h',[8001,1e9]],['Me da igual',[0,1e9]]]},
  {k:'uso',t:'¿Para qué tipo de trabajo lo necesitas?',o:[['Ganadería, espacios estrechos y manipulación (con pala)',[90,135]],['Agricultura general y laboreo (cereal, siembra, arado)',[150,999]],['Cultivos especiales (leñosos o mixtos)',[90,130]],['Uso mixto o transporte',[130,215]]]},
- {k:'gen',t:'¿Qué buscas en tecnología y fiabilidad?',o:[['Mecánica tradicional y robusta','cl'],['Equilibrio entre confort y tecnología actual','todo'],['Tecnología avanzada y guiado automático','r'],['Me da igual: lo que mejor se adapte a mi presupuesto','todo']]}];
-const RS={};const esR=t=>/R|RC|M/.test(t.m.split(' ')[0]);
+ {k:'pre',t:'¿Cuánto quieres gastarte?',o:[['Hasta 40.000 €',[1,40000]],['De 40.000 a 50.000 €',[40001,50000]],['De 50.000 a 65.000 €',[50001,65000]],['Más de 65.000 €',[65001,1e9]]]}];
+const RS={};
 function preguntas(){
   $('#preg').innerHTML=PQ.map((p,i)=>`<div class="pq"><span class="n">PREGUNTA ${i+1}/3</span><h3>${p.t}</h3><div class="opts">${p.o.map((o,j)=>`<button class="ch ${RS[p.k]===j?'on':''}" onclick="RS['${p.k}']=${j};preguntas()">${o[0]}</button>`).join('')}</div></div>`).join('');
   if(Object.keys(RS).length<3){$('#resul').innerHTML='';return}
-  const [a,b]=PQ[1].o[RS.uso][1],uso=RS.uso===0?'pala':'',g=PQ[2].o[RS.gen][1];
-  let l=usados.filter(t=>t.cv>=a&&t.cv<=b);
-  if(g==='r')l=l.filter(esR);if(g==='cl')l=l.filter(t=>!esR(t));
-  if(uso==='pala')l.sort((x,y)=>y.conPala-x.conPala);
-  if(!l.length)l=usados.filter(t=>t.cv>=a&&t.cv<=b);
-  l=l.filter(t=>t.img).slice(0,3);
-  const nota=`Asesor: ${PQ[0].o[RS.ha][0]}, ${PQ[1].o[RS.uso][0].toLowerCase()}, ${PQ[2].o[RS.gen][0].toLowerCase()}.`;
+  const [a,b]=PQ[1].o[RS.uso][1],uso=RS.uso===0?'pala':'',[h0,h1]=PQ[0].o[RS.ha][1],[p0,p1]=PQ[2].o[RS.pre][1];
+  /* encaja si alguna unidad disponible cumple presupuesto (y horas, si se conocen); si no hay ninguno, se van soltando condiciones */
+  const enPre=x=>!x.vendido&&x.precio>=p0&&x.precio<=p1,enH=x=>!x.horas||(x.horas>=h0&&x.horas<=h1),enCV=t=>t.cv>=a&&t.cv<=b;
+  const prueba=[t=>enCV(t)&&t.u.some(x=>enPre(x)&&enH(x)),t=>enCV(t)&&t.u.some(enPre),t=>t.u.some(x=>enPre(x)&&enH(x)),t=>t.u.some(enPre),enCV];
+  let l=[];for(const f of prueba){l=usados.filter(t=>t.img&&f(t));if(l.length)break}
+  l.sort((x,y)=>(uso==='pala'?y.conPala-x.conPala:0)||x.precio-y.precio);
+  l=l.slice(0,3);
+  const nota=`Asesor: ${PQ[0].o[RS.ha][0]}, ${PQ[1].o[RS.uso][0].toLowerCase()}, presupuesto ${PQ[2].o[RS.pre][0].toLowerCase()}.`;
   $('#resul').innerHTML=`<div class="res-cab"><h3>Te encajan <span>${l.length?l.map(t=>t.m).join(' · '):'varios de la nave'}</span></h3><button class="btn pri" onclick="abrir(null,'${nota}')"><svg><use href="#i-cal"/></svg>Que me llamen con esto</button></div><div class="grid">${l.map(tarjeta).join('')}</div>`;
   inclinar();
 }
 /* catálogo (página propia con fichas visuales) */
 let tab='trac';
-const TABS=[['trac','Tractores'],['acc','Palas, cazos y más']];
+const TABS=[['trac','Tractores'],['acc','Palas, cazos, remolques y más']];
 function abrirCat(t){if(t)tab=t;const c=$('#catpage');c.classList.add('open');c.scrollTop=0;document.body.style.overflow='hidden';pintarCat();try{history.replaceState(null,'','#catalogo')}catch(e){}}
 function cerrarCat(){$('#catpage').classList.remove('open');document.body.style.overflow='';try{history.replaceState(null,'',location.pathname)}catch(e){}}
 function pintarCat(){
@@ -1089,7 +1091,7 @@ function ficha(m){
   $('#ficB').innerHTML=`
    ${galHTML(t,f,t.u&&t.u.length>1&&f.length&&t.galU>=0?'Fotos de la unidad '+(t.galU+1):'')}
    <div class="fic-dat">
-     <p class="fic-k">${esAcc?'Palas, cazos y más · '+t.marca:t.s==='tel'?'Manipuladora telescópica':t.marca?t.marca:'John Deere · '+grupo}</p>
+     <p class="fic-k">${esAcc?'Palas, cazos, remolques y más · '+t.marca:t.s==='tel'?'Manipuladora telescópica':t.marca?t.marca:'John Deere · '+grupo}</p>
      <h2>${t.m}</h2>
      ${t.cv?`<p class="fic-cv">${t.cv} <small>CV${t.cvmax?' · '+t.cvmax+' CV máx.':''}</small></p>`:''}
      ${ficPrecio(t)}
@@ -1104,7 +1106,7 @@ function ficha(m){
        <a class="btn wa" href="${waTxt(t)}" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg>Preguntar a Javier</a>
      </div>
      <p class="fic-nota"><span class="gar"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M12 3l8 3v6c0 4.5-3.4 8.3-8 9-4.6-.7-8-4.5-8-9V6z"/><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M8.5 12l2.5 2.5 4.5-5"/></svg>Garantía incluida</span> Ven a verlo y probarlo a la nave de Pinarejo (Cuenca).</p>
-     ${rel.length?`<h3 class="fic-r">${esAcc?'Más palas, cazos y aperos':'Más de la '+grupo}</h3><div class="fic-rel">${rel.map(x=>`<button onclick="ficha('${x.m}')"><img src="${x.img}" alt="" loading="lazy"><b>${x.m}</b>${x.cv?`<span>${x.cv} CV</span>`:''}</button>`).join('')}</div>`:''}
+     ${rel.length?`<h3 class="fic-r">${esAcc?'Más palas, cazos, remolques y aperos':'Más de la '+grupo}</h3><div class="fic-rel">${rel.map(x=>`<button onclick="ficha('${x.m}')"><img src="${x.img}" alt="" loading="lazy"><b>${x.m}</b>${x.cv?`<span>${x.cv} CV</span>`:''}</button>`).join('')}</div>`:''}
    </div>`;
   $('#fic').classList.add('open');document.body.style.overflow='hidden';$('#fic').scrollTop=0;
   try{history.replaceState(null,'','#'+t.m.replace(/\s+/g,'-'))}catch(e){}
