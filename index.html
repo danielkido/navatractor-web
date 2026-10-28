@@ -656,7 +656,8 @@ a.kick{cursor:pointer}
 .ud[open]{border-color:var(--amarillo)}
 .ud>ul,.ud>.ud-f,.ud>.btn,.ud>.ud-v{margin:0 14px 12px}
 .ud>.btn{width:calc(100% - 28px)}
-.ud-f{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}.ud-f img{width:100%;aspect-ratio:4/3;object-fit:cover}
+.ud-f{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;width:calc(100% - 28px);padding:0;background:none;border:0;cursor:pointer;text-align:left}.ud-f img{width:100%;aspect-ratio:4/3;object-fit:cover}.ud-f span{grid-column:1/-1;font:700 .9rem var(--t);color:var(--amarillo);text-decoration:underline}
+.fic-u{position:absolute;left:12px;bottom:12px;background:rgba(15,17,15,.8);color:#fff;font:600 .75rem/1 var(--mono);text-transform:uppercase;padding:6px 9px}
 .ud.vend summary b{color:var(--mut)}.ud.vend summary span em{font-style:normal;background:#d32f2f;color:#fff;padding:3px 8px;font-size:.8rem}
 .ud-v{color:var(--mut);font-size:.92rem}
 </style>
@@ -849,7 +850,7 @@ a.kick{cursor:pointer}
   </div>
 </div>
 
-<script src="js/datos.js?v=27"></script>
+<script src="js/datos.js?v=28"></script>
 <script>
 const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 const WA='34689631687', usados=STOCK.filter(t=>t.s==='oc'&&!t.vendido), conFoto=STOCK.filter(t=>t.img&&!t.vendido);
@@ -1055,7 +1056,15 @@ function pintarCat(){
   $('#cpAcc').classList.add('grid');
 }
 /* ficha detallada */
-let fi=0,fT=null,ACCI=[];
+let fi=0,fT=null,fG=[],ACCI=[];
+function galHTML(t,f,etq){return `<div class="fic-gal">
+     <div class="fic-main${t.vendido?' vend':''}">${f.length?`<img id="ficImg" src="${f[0]}" alt="${nombre(t)}">`:`<div class="fic-sin"><img src="img/logo-navatractor.jpg" alt="">Foto próximamente</div>`}
+       ${f.length>1?`<button class="fic-n p" onclick="fotoF(-1)" aria-label="Foto anterior"><svg><use href="#i-izq"/></svg></button><button class="fic-n s" onclick="fotoF(1)" aria-label="Foto siguiente"><svg><use href="#i-der"/></svg></button><span class="fic-c" id="ficC">1 / ${f.length}</span>`:''}
+       ${t.vendido?'<span class="fic-tag sst">Sin stock en estos momentos</span><span class="fic-tag vnd">Vendido</span>':'<span class="fic-tag">● En nave</span>'}${etq?`<span class="fic-u">${etq}</span>`:''}</div>
+     ${f.length>1?`<div class="fic-th">${f.map((u,i)=>`<button onclick="fotoF(${i},1)" class="${i?'':'on'}"><img src="${u}" alt="" loading="lazy"></button>`).join('')}</div>`:''}
+   </div>`}
+/* muestra arriba las fotos de una unidad concreta */
+function galU(i){const x=fT.u[i];if(!x||!x.fotos.length)return;fG=x.fotos;fi=0;$('.fic-gal').outerHTML=galHTML(fT,fG,'Fotos de la unidad '+(i+1));$('#fic').scrollTo({top:0,behavior:'smooth'})}
 function ficPrecio(t){
   if(t.vendido)return `<div class="fic-precio vend"><span class="fp-et">Sin stock en estos momentos</span><b>Vendido</b><span class="fp-h">Javier te busca uno parecido</span></div>`;
   const varias=t.uds>1;
@@ -1070,20 +1079,15 @@ function ficUnidades(t){
   return `<div class="fic-uds"><h3>${t.uds} ${t.uds===1?'unidad disponible':'unidades disponibles'}${u.length>t.uds?` <small>· ${u.length-t.uds} vendida</small>`:''}</h3>${u.map((x,i)=>{
     const det=[fH(x.horas),x.precio?miles(x.precio)+' €':'Consultar'].filter(Boolean).join(' · ');
     const nota=`Unidad ${i+1}${x.horas?' · '+fH(x.horas):''}${x.precio?' · '+miles(x.precio)+' €':''}`;
-    return `<details class="ud${x.vendido?' vend':''}"${i===prim?' open':''}><summary><b>Unidad ${i+1}</b><span>${x.vendido?'<em>Vendido</em>':det}</span></summary>${x.vendido?'<p class="ud-v">Esta unidad ya se ha vendido.</p>':lst(x)+(x.fotos.length?`<div class="ud-f">${x.fotos.map(f=>`<img src="${f}" alt="" loading="lazy">`).join('')}</div>`:'')+`<button class="btn lin" onclick="abrir('${t.m}','${nota}')"><svg><use href="#i-cal"/></svg>Agendar llamada por esta unidad</button>`}</details>`}).join('')}</div>`;
+    return `<details class="ud${x.vendido?' vend':''}"${i===prim?' open':''}><summary><b>Unidad ${i+1}</b><span>${x.vendido?'<em>Vendido</em>':det}</span></summary>${x.vendido?'<p class="ud-v">Esta unidad ya se ha vendido.</p>':lst(x)+(x.fotos.length?`<button type="button" class="ud-f" onclick="galU(${i})">${x.fotos.slice(0,3).map(f=>`<img src="${f}" alt="" loading="lazy">`).join('')}<span>Ver las ${x.fotos.length} fotos de esta unidad</span></button>`:'<p class="ud-v">Fotos de esta unidad: pídeselas a Javier.</p>')+`<button class="btn lin" onclick="abrir('${t.m}','${nota}')"><svg><use href="#i-cal"/></svg>Agendar llamada por esta unidad</button>`}</details>`}).join('')}</div>`;
 }
 function ficha(m){
   fT=STOCK.find(t=>t.m===m)||ACCI.find(t=>t.m===m); if(!fT)return; fi=0;
-  const t=fT,f=t.fotos.length?t.fotos:t.img?[t.img]:[];
+  const t=fT,f=t.fotos.length?t.fotos:t.img?[t.img]:[];fG=f;
   const esAcc=t.s==='acc',grupo=esAcc?t.marca:(GAMAS.find(g=>g[0]===t.g)||['',''])[1];
   const rel=esAcc?ACCI.filter(x=>x.m!==t.m&&x.img).slice(0,4):ordenar(STOCK.filter(x=>x.g===t.g&&x.m!==t.m&&x.img&&!x.vendido)).slice(0,4);
   $('#ficB').innerHTML=`
-   <div class="fic-gal">
-     <div class="fic-main${t.vendido?' vend':''}">${f.length?`<img id="ficImg" src="${f[0]}" alt="${nombre(t)}">`:`<div class="fic-sin"><img src="img/logo-navatractor.jpg" alt="">Foto próximamente</div>`}
-       ${f.length>1?`<button class="fic-n p" onclick="fotoF(-1)" aria-label="Foto anterior"><svg><use href="#i-izq"/></svg></button><button class="fic-n s" onclick="fotoF(1)" aria-label="Foto siguiente"><svg><use href="#i-der"/></svg></button><span class="fic-c" id="ficC">1 / ${f.length}</span>`:''}
-       ${t.vendido?'<span class="fic-tag sst">Sin stock en estos momentos</span><span class="fic-tag vnd">Vendido</span>':'<span class="fic-tag">● En nave</span>'}</div>
-     ${f.length>1?`<div class="fic-th">${f.map((u,i)=>`<button onclick="fotoF(${i},1)" class="${i?'':'on'}"><img src="${u}" alt="" loading="lazy"></button>`).join('')}</div>`:''}
-   </div>
+   ${galHTML(t,f,t.u&&t.u.length>1&&f.length&&t.galU>=0?'Fotos de la unidad '+(t.galU+1):'')}
    <div class="fic-dat">
      <p class="fic-k">${esAcc?'Palas, cazos y más · '+t.marca:t.s==='tel'?'Manipuladora telescópica':t.marca?t.marca:'John Deere · '+grupo}</p>
      <h2>${t.m}</h2>
@@ -1105,7 +1109,7 @@ function ficha(m){
   $('#fic').classList.add('open');document.body.style.overflow='hidden';$('#fic').scrollTop=0;
   try{history.replaceState(null,'','#'+t.m.replace(/\s+/g,'-'))}catch(e){}
 }
-function fotoF(d,abs){const f=fT.fotos.length?fT.fotos:[fT.img];fi=abs?d:(fi+d+f.length)%f.length;$('#ficImg').src=f[fi];if($('#ficC'))$('#ficC').textContent=(fi+1)+' / '+f.length;$$('.fic-th button').forEach((b,i)=>b.classList.toggle('on',i===fi))}
+function fotoF(d,abs){const f=fG;fi=abs?d:(fi+d+f.length)%f.length;$('#ficImg').src=f[fi];if($('#ficC'))$('#ficC').textContent=(fi+1)+' / '+f.length;$$('.fic-th button').forEach((b,i)=>b.classList.toggle('on',i===fi))}
 function cerrarFicha(){$('#fic').classList.remove('open');const enCat=$('#catpage').classList.contains('open');document.body.style.overflow=enCat?'hidden':'';try{history.replaceState(null,'',enCat?'#catalogo':location.pathname)}catch(e){}}
 let fx0=null;document.addEventListener('pointerdown',e=>{if(e.target.closest('.fic-main'))fx0=e.clientX});
 document.addEventListener('pointerup',e=>{if(fx0!==null&&fT){const d=e.clientX-fx0;if(Math.abs(d)>40)fotoF(d<0?1:-1)}fx0=null});

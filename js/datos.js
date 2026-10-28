@@ -198,3 +198,27 @@ ACC={
  'Remolques':[['Remolque Griselda','Remolque basculante','Tractores con hidráulico',12000,'Eje tándem, ejes direccionables, compuerta hidráulica']]
 };
 STOCK.forEach(t=>{t.conPala=t.u.some(x=>!x.vendido&&x.extras.some(e=>/^pala /i.test(e)))});
+
+// Fotos por unidad del paquete de Manuel (28-10-2026), en img/u/<carpeta>/NN.jpg (la 01 es la portada)
+var FU={"5100r":3,"5125r":10,"5720":7,"6110rc":16,"6125m":3,"6135r":13,"6155r":10,"6220":11,"6250r":9,"6430-premium":13,"6620":16,"7530-premium":16,"7820":12,"telescopica-merlo":6,"5100r-2":3,"5720-2":12,"6115m-2":8,"6135r-2":9,"6150m":8,"6155r-2":11,"6155r-3":12,"6195r-2":15,"6210r":14,"6215r-2":12,"6220-2":6,"6220-se":15,"6230-premium":13,"6520-2":6,"6620-2":10,"6620-3":10,"7530-premium-2":9,"renault-ares-640-rz":6,"telescopica-jcb-2":11,"telescopica-jcb-3":5};
+var FU_MAPA={'5100r':['5100R',0],'5100r-2':['5100R',1],'5125r':['5125R',0],'5720':['5720',0],'5720-2':['5720',1],'6110rc':['6110RC',0],'6125m':['6125M',0],'6115m-2':['6115M',1],
+ '6135r':['6135R',0],'6135r-2':['6135R',1],'6150m':['6150M',0],'6155r':['6155R',0],'6155r-2':['6155R',1],'6155r-3':['6155R',2],'6195r-2':['6195R',1],'6210r':['6210R',0],'6215r-2':['6215R',1],
+ '6220':['6220 Premium',0],'6220-2':['6220 Premium',1],'6220-se':['6220 SE',0],'6230-premium':['6230 Premium',0],'6250r':['6250R',0],'6430-premium':['6430 Premium',0],'6520-2':['6520',1],
+ '6620':['6620',0],'6620-2':['6620',1],'6620-3':['6620',2],'7530-premium':['7530 Premium',0],'7530-premium-2':['7530 Premium',1],'7820':['7820',0],
+ 'renault-ares-640-rz':['Renault Ares 640 RZ',0],'telescopica-merlo':['Merlo',0],'telescopica-jcb-2':['JCB',1],'telescopica-jcb-3':['JCB',2]};
+// portada del modelo cuando las fotos nuevas de la unidad 1 son solo de interior
+var FU_PORTADA={'5100R':'img/g/5100r-1.jpg','6125M':'img/stock/6125m-pala.jpg'};
+// la unidad 1 sin fotos nuevas conserva las fotos que ya tenía la web (salvo ilustraciones)
+STOCK.forEach(t=>{t.fotosWeb=(t.fotos||[]).filter(f=>!/ilus-/.test(f))});
+Object.entries(FU_MAPA).forEach(([c,[m,i]])=>{const t=STOCK.find(x=>x.m===m);if(t&&t.u[i])t.u[i].fotos=Array.from({length:FU[c]},(_,k)=>'img/u/'+c+'/'+String(k+1).padStart(2,'0')+'.jpg')});
+STOCK.forEach(t=>{
+  if(t.u[0]&&!t.u[0].vendido&&!t.u[0].fotos.length&&t.fotosWeb.length&&t.u.some(x=>x.fotos.length))t.u[0].fotos=t.fotosWeb.slice();
+  const nueva=x=>x.fotos.some(f=>f.startsWith('img/u/'));
+  const u=t.u.find(x=>!x.vendido&&nueva(x))||t.u.find(x=>!x.vendido&&x.fotos.length)||t.u.find(x=>x.fotos.length);
+  t.galU=t.u.indexOf(u);
+  if(!u)return;
+  // galería del modelo = fotos de la primera unidad disponible que tenga fotos nuevas
+  t.fotos=u.fotos.slice(); const p=FU_PORTADA[t.m];
+  if(p)t.fotos=[p].concat(t.fotos.filter(f=>f!==p));
+  t.img=t.fotos[0];
+});
