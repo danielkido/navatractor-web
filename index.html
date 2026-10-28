@@ -188,11 +188,11 @@ section{padding:110px 0}
 .bento{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:240px;gap:16px}
 .bento figure{position:relative;border-radius:var(--r);overflow:hidden;background:#000;border:1px solid var(--line)}
 .bento figure:nth-child(1){grid-column:span 2;grid-row:span 2}
-.bento figure:nth-child(6){grid-column:span 4}
+.bento figure{cursor:pointer}.bento figure:nth-child(6),.bento figure:nth-child(7){grid-column:span 2}
 .bento img{width:100%;height:100%;object-fit:cover;transition:transform .6s var(--ease)}
 .bento figure:hover img{transform:scale(1.05)}
 .bento figcaption{position:absolute;left:14px;bottom:14px;background:rgba(15,17,15,.8);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.12);border-radius:999px;padding:8px 14px;font-weight:700;font-size:.92rem}
-@media(max-width:800px){.bento{grid-template-columns:1fr 1fr;grid-auto-rows:170px;gap:10px}.bento figure:nth-child(6){grid-column:span 2}}
+@media(max-width:800px){.bento{grid-template-columns:1fr 1fr;grid-auto-rows:170px;gap:10px}.bento figure:nth-child(6),.bento figure:nth-child(7){grid-column:span 1}}
 .acc-l{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;margin-top:30px;align-items:start}
 .acc-l details{background:var(--bg2);border:1px solid var(--line);border-radius:14px}
 .acc-l summary{list-style:none;cursor:pointer;padding:16px 18px;font-weight:700;display:flex;justify-content:space-between}
@@ -679,7 +679,7 @@ a.kick{cursor:pointer}
 .ut-v{font:800 1.05rem/1 var(--h);text-transform:uppercase;color:var(--amarillo);margin-top:4px}
 .fic-sin small{display:block;font-size:.8rem;font-weight:500;margin-top:4px}
 </style>
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "¿Dónde está Navatractor?", "acceptedAnswer": {"@type": "Answer", "text": "En la C. Cruces, 16620 Pinarejo (Cuenca). Antes de venir, agenda una llamada o escríbenos por WhatsApp."}}, {"@type": "Question", "name": "¿Qué tractores tenéis?", "acceptedAnswer": {"@type": "Answer", "text": "Tractores John Deere de ocasión de la Serie R, las series 6020/6030 y 7020/7030, la Serie 6M, la Serie 5 y clásicos, además de algunos de otras marcas y telescópicas Merlo y JCB. En el catálogo ves los que hay ahora en la nave."}}, {"@type": "Question", "name": "¿Puedo ver y probar el tractor antes de comprarlo?", "acceptedAnswer": {"@type": "Answer", "text": "Sí. Ven a la nave de Pinarejo, lo ves y lo pruebas."}}, {"@type": "Question", "name": "¿Dais garantía?", "acceptedAnswer": {"@type": "Answer", "text": "Sí, nuestros tractores tienen garantía de 6 meses o 300 horas de trabajo, lo que ocurra primero."}}, {"@type": "Question", "name": "¿Cómo sé el precio, el año y las horas?", "acceptedAnswer": {"@type": "Answer", "text": "Te los da Javier en la llamada o por WhatsApp, unidad por unidad."}}, {"@type": "Question", "name": "¿Tenéis correo electrónico?", "acceptedAnswer": {"@type": "Answer", "text": "Sí: infonavatractor@gmail.com. Escríbenos con tus datos y el tractor que te interesa."}}, {"@type": "Question", "name": "¿Cómo pido una cita?", "acceptedAnswer": {"@type": "Answer", "text": "Pulsa «Agendar llamada», elige día y hora en la agenda de Javier y él te llama."}}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "¿Dónde está Navatractor?", "acceptedAnswer": {"@type": "Answer", "text": "En la C. Cruces, 16620 Pinarejo (Cuenca). Antes de venir, agenda una llamada o escríbenos por WhatsApp."}}, {"@type": "Question", "name": "¿Qué tractores tenéis?", "acceptedAnswer": {"@type": "Answer", "text": "Tractores John Deere de ocasión de la Serie R, las series 6020/6030 y 7020/7030, la Serie 6M, la Serie 5 y clásicos, además de algunos de otras marcas y telescópicas Merlo y JCB. En el catálogo ves los que hay ahora en la nave."}}, {"@type": "Question", "name": "¿Puedo ver y probar el tractor antes de comprarlo?", "acceptedAnswer": {"@type": "Answer", "text": "Sí. Ven a la nave de Pinarejo, lo ves y lo pruebas."}}, {"@type": "Question", "name": "¿Dais garantía?", "acceptedAnswer": {"@type": "Answer", "text": "Sí, nuestros tractores tienen garantía de 6 meses o 300 horas de trabajo, lo que ocurra primero."}}, {"@type": "Question", "name": "¿Tenéis correo electrónico?", "acceptedAnswer": {"@type": "Answer", "text": "Sí: infonavatractor@gmail.com. Escríbenos con tus datos y el tractor que te interesa."}}, {"@type": "Question", "name": "¿Cómo pido una cita?", "acceptedAnswer": {"@type": "Answer", "text": "Pulsa «Agendar llamada», elige día y hora en la agenda de Javier y él te llama."}}]}</script>
 </head>
 <body>
 
@@ -772,12 +772,13 @@ a.kick{cursor:pointer}
 <section id="aperos"><div class="wrap">
   <div class="sec-t rv"><div><span class="kick"><i></i>Palas y aperos</span><h2>Palas, cazos, remolques <span>y más</span></h2></div><p>Lo que tenemos ahora mismo en la nave. Pregúntanos por cualquiera.</p></div>
   <div class="bento rv">
-    <figure><img src="img/acc/pala-elleon-410e.jpg" alt="Pala León 410E" loading="lazy"><figcaption>Pala León 410E</figcaption></figure>
-    <figure><img src="img/acc/pala-elleon-nueva.jpg" alt="Pala León 385E" loading="lazy"><figcaption>Pala León 385E</figcaption></figure>
-    <figure><img src="img/acc/pala-metaltechnik.jpg" alt="Pala Metal-Technik" loading="lazy"><figcaption>Pala Metal-Technik</figcaption></figure>
-    <figure><img src="img/acc/cazos.jpg" alt="Cazos" loading="lazy"><figcaption>Cazos</figcaption></figure>
-    <figure><img src="img/acc/atomizador.jpg" alt="Atomizador" loading="lazy"><figcaption>Atomizador</figcaption></figure>
-    <figure><img src="img/acc/porta-palets.jpg" alt="Pantalla para alpacas" loading="lazy"><figcaption>Pantalla para alpacas</figcaption></figure>
+    <figure role="button" tabindex="0" onclick="ficha('Pala León 410E')" onkeydown="if(event.key==='Enter')ficha('Pala León 410E')"><img src="img/acc/pala-elleon-410e.jpg" alt="Pala León 410E" loading="lazy"><figcaption>Pala León 410E</figcaption></figure>
+    <figure role="button" tabindex="0" onclick="ficha('Pala León 385E')" onkeydown="if(event.key==='Enter')ficha('Pala León 385E')"><img src="img/acc/pala-elleon-nueva.jpg" alt="Pala León 385E" loading="lazy"><figcaption>Pala León 385E</figcaption></figure>
+    <figure role="button" tabindex="0" onclick="ficha('Pala Metal-Technik')" onkeydown="if(event.key==='Enter')ficha('Pala Metal-Technik')"><img src="img/acc/pala-metaltechnik.jpg" alt="Pala Metal-Technik" loading="lazy"><figcaption>Pala Metal-Technik</figcaption></figure>
+    <figure role="button" tabindex="0" onclick="ficha('Cazos')" onkeydown="if(event.key==='Enter')ficha('Cazos')"><img src="img/acc/cazos.jpg" alt="Cazos" loading="lazy"><figcaption>Cazos</figcaption></figure>
+    <figure role="button" tabindex="0" onclick="ficha('Atomizador')" onkeydown="if(event.key==='Enter')ficha('Atomizador')"><img src="img/acc/atomizador.jpg" alt="Atomizador" loading="lazy"><figcaption>Atomizador</figcaption></figure>
+    <figure role="button" tabindex="0" onclick="ficha('Pantalla para alpacas')" onkeydown="if(event.key==='Enter')ficha('Pantalla para alpacas')"><img src="img/acc/porta-palets.jpg" alt="Pantalla para alpacas" loading="lazy"><figcaption>Pantalla para alpacas</figcaption></figure>
+    <figure role="button" tabindex="0" onclick="ficha('Remolque Griselda')" onkeydown="if(event.key==='Enter')ficha('Remolque Griselda')"><img src="img/g/griselda-1.jpg" alt="Remolque Griselda" loading="lazy"><figcaption>Remolque Griselda</figcaption></figure>
   </div>
 </div></section>
 
@@ -793,7 +794,6 @@ a.kick{cursor:pointer}
       <details><summary>¿Dónde está Navatractor?</summary><p>En la C. Cruces, 16620 Pinarejo (Cuenca). Antes de venir, agenda una llamada o escríbenos por WhatsApp.</p></details>
       <details><summary>¿Qué tractores tenéis?</summary><p>Tractores John Deere de ocasión de la Serie R, las series 6020/6030 y 7020/7030, la Serie 6M, la Serie 5 y clásicos, además de algunos de otras marcas y telescópicas Merlo y JCB. En el catálogo ves los que hay ahora en la nave.</p></details>
       <details><summary>¿Puedo ver y probar el tractor antes de comprarlo?</summary><p>Sí. Ven a la nave de Pinarejo, lo ves y lo pruebas.</p></details>
-      <details><summary>¿Cómo sé el precio, el año y las horas?</summary><p>Te los da Javier en la llamada o por WhatsApp, unidad por unidad.</p></details>
       <details><summary>¿Dais garantía?</summary><p>Sí, nuestros tractores tienen <b>garantía de 6 meses o 300 horas de trabajo, lo que ocurra primero</b>.</p></details>
       <details><summary>¿Tenéis correo electrónico?</summary><p>Sí: infonavatractor@gmail.com. Escríbenos con tus datos y el tractor que te interesa.</p></details>
       <details><summary>¿Cómo pido una cita?</summary><p>Pulsa «Agendar llamada», elige día y hora en la agenda de Javier y él te llama.</p></details>
@@ -1064,8 +1064,7 @@ function pintarCat(){
   $('#cpTabs').innerHTML=TABS.map(x=>`<button class="${tab===x[0]?'on':''}" onclick="tab='${x[0]}';pintarCat()">${x[1]}</button>`).join('');
   $('#cpTrac').hidden=tab!=='trac'; $('#cpAcc').hidden=tab!=='acc';
   if(tab==='trac'){pintar();return}
-  const FOTO={'Pala León 410E':'img/acc/pala-elleon-410e.jpg','Pala León 385E':'img/acc/pala-elleon-nueva.jpg','Remolque Griselda':GAL2.griselda[0],'Pala Metal-Technik':'img/acc/pala-metaltechnik.jpg','Cazos':'img/acc/cazos.jpg','Pantalla para alpacas':'img/acc/porta-palets.jpg','Atomizador':'img/acc/atomizador.jpg'};
-  ACCI=[];Object.entries(ACC).forEach(([k,v])=>v.forEach(a=>ACCI.push({m:a[0],s:'acc',marca:k,g:'acc-'+k,img:FOTO[a[0]]||'',fotos:a[0]==='Remolque Griselda'?GAL2.griselda:FOTO[a[0]]?[FOTO[a[0]]]:[],cv:0,precio:a[3]||0,horas:0,uds:1,u:[{horas:0,precio:a[3]||0,extras:a[4]?a[4].split(/,\s*/):[],vendido:false,fotos:[]}]})));
+  hacerACCI();
   $('#cpAcc').innerHTML=Object.entries(ACC).map(([k,v])=>`<div class="grp"><h3>${k}</h3><span>${v.length} ${v.length===1?'producto':'productos'}</span></div>`+v.map(a=>{const n=a[0].replace(/'/g,'');return `<article class="card acc-card" onclick="if(!event.target.closest('.bts'))ficha('${n}')">
     <div class="ph">${FOTO[a[0]]?`<img src="${FOTO[a[0]]}" alt="${a[0]}" loading="lazy">`:''}<div class="tag"><span class="ok">● En nave</span></div></div>
     <div class="cu"><div class="l1"><h3>${a[0]}</h3></div>
@@ -1075,6 +1074,8 @@ function pintarCat(){
 }
 /* ficha detallada */
 let fi=0,fT=null,fG=[],ACCI=[];
+/* palas y aperos como fichas (también para las fotos de la portada) */
+let FOTO={};function hacerACCI(){FOTO={'Pala León 410E':'img/acc/pala-elleon-410e.jpg','Pala León 385E':'img/acc/pala-elleon-nueva.jpg','Remolque Griselda':GAL2.griselda[0],'Pala Metal-Technik':'img/acc/pala-metaltechnik.jpg','Cazos':'img/acc/cazos.jpg','Pantalla para alpacas':'img/acc/porta-palets.jpg','Atomizador':'img/acc/atomizador.jpg'};ACCI=[];Object.entries(ACC).forEach(([k,v])=>v.forEach(a=>ACCI.push({m:a[0],s:'acc',marca:k,g:'acc-'+k,img:FOTO[a[0]]||'',fotos:a[0]==='Remolque Griselda'?GAL2.griselda:FOTO[a[0]]?[FOTO[a[0]]]:[],cv:0,precio:a[3]||0,horas:0,uds:1,u:[{horas:0,precio:a[3]||0,extras:a[4]?a[4].split(/,\s*/):[],vendido:false,fotos:[]}]})));}
 const cap=e=>e[0].toUpperCase()+e.slice(1);
 const GAR=`<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M12 3l8 3v6c0 4.5-3.4 8.3-8 9-4.6-.7-8-4.5-8-9V6z"/><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M8.5 12l2.5 2.5 4.5-5"/></svg>`;
 function galHTML(t,f,vend){return `<div class="fic-gal">
@@ -1149,9 +1150,9 @@ let fx0=null;document.addEventListener('pointerdown',e=>{if(e.target.closest('.f
 document.addEventListener('pointerup',e=>{if(fx0!==null&&fT){const d=e.clientX-fx0;if(Math.abs(d)>40)fotoF(d<0?1:-1)}fx0=null});
 addEventListener('keydown',e=>{if(e.key!=='Escape')return;if($('#fic').classList.contains('open'))cerrarFicha();else cerrarCat()});
 {const _c=new URLSearchParams(location.search).get('cita');if(_c!==null)setTimeout(()=>abrir(/^(1|tiktok|)$/.test(_c)?'':_c),400)}
-const [_h,_u]=decodeURIComponent(location.hash.slice(1)).replace(/-/g,' ').split('/');if(_h==='catalogo')setTimeout(()=>abrirCat(),300);else{const _t=_h&&STOCK.find(t=>t.m===_h||t.slug===_h);if(_t)setTimeout(()=>ficha(_t.m,_u&&t_u(_t,_u)),300)}
+const [_h,_u]=decodeURIComponent(location.hash.slice(1)).replace(/-/g,' ').split('/');if(_h==='catalogo')setTimeout(()=>abrirCat(),300);else{setTimeout(()=>{const _t=_h&&(STOCK.find(t=>t.m===_h||t.slug===_h)||ACCI.find(t=>t.m===_h));if(_t)ficha(_t.m,_u&&t_u(_t,_u))},300)}
 function t_u(t,u){const k=+u-1;return t.u&&t.u[k]&&t.u.length>1?k:undefined}
-filtros();pintar();preguntas();
+hacerACCI();filtros();pintar();preguntas();
 </script>
 </body>
 </html>
