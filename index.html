@@ -648,6 +648,7 @@ a.kick{cursor:pointer}
 .ud-ex{list-style:none;display:flex;flex-wrap:wrap;gap:6px;margin:0;padding:0}
 .ud-ex li{background:var(--bg3);border:1px solid rgba(255,255,255,.1);padding:6px 10px;font-size:.88rem;line-height:1.25}
 .ud-ex li.no{color:var(--mut)}
+.fic-eq,.fic-uds{margin-bottom:16px}
 .ud{border:1px solid rgba(255,255,255,.12);margin-bottom:8px;background:rgba(255,255,255,.02)}
 .ud summary{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 14px;cursor:pointer;list-style:none;font-size:1rem}
 .ud summary::-webkit-details-marker{display:none}
@@ -938,7 +939,6 @@ function tarjeta(t){
       <div class="l1"><h3>${t.m}</h3>${t.cv?`<span class="cv">${t.cv} CV</span>`:''}</div>
       <p class="sub">${t.s==='tel'?'Manipuladora telescópica':t.marca?(t.anos?t.marca+' · '+t.anos:t.extra):'John Deere'+(t.anos?' · '+t.anos:'')}</p>
       ${precioCard(t)}
-      ${t.mot?`<dl><div><dt>Motor</dt><dd>${t.mot}</dd></div></dl>`:''}
       <div class="bts">${t.vendido?`<button class="btn lin" onclick="abrir('','Busco uno parecido al ${t.m} (vendido)')">Pregúntanos por uno parecido</button>`:`<button class="btn lin" onclick="abrir('${t.m}')">Me interesa</button>`}<a class="btn wa" href="${waTxt(t)}" target="_blank" rel="noopener" aria-label="WhatsApp"><svg><use href="#i-wa"/></svg></a></div>
     </div></article>`;
 }
@@ -1098,7 +1098,6 @@ function ficha(m){
      <dl>
        ${t.mot?`<div><dt>Motor</dt><dd>${t.mot}</dd></div>`:''}
        ${t.anos?`<div><dt>Fabricado</dt><dd>${t.anos}</dd></div>`:''}
-       ${esAcc?'':`<div><dt>Año</dt><dd>Te lo damos en la llamada</dd></div>`}
      </dl>
      ${ficUnidades(t)}
      <div class="fic-bts">
