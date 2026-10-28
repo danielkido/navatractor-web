@@ -876,7 +876,7 @@ const nombre=t=>t.s==='acc'?t.m:t.s==='tel'?t.m+' telescópica':t.marca?t.m:'Joh
 const waTxt=t=>`https://wa.me/${WA}?text=${encodeURIComponent(t.vendido?'Hola Javier, he visto en la web que el '+nombre(t)+' está vendido. ¿Tienes alguno parecido?':t.s==='acc'?'Hola Javier, me interesa '+t.m+' de la web. ¿Me pasas fotos?':'Hola Javier, me interesa el '+nombre(t)+' de la web. ¿Me pasas '+(t.precio?'más fotos y el año?':'año, horas y precio?'))}`;
 const fH=h=>h?miles(h)+' h':'';
 /* precio en tarjeta: una unidad, varias («desde») o «Consultar» */
-const precioCard=t=>t.vendido?'':t.precio?`<div class="precio">${t.uds>1?`<span class="pd">${t.uds} unidades · desde</span>`:''}<b>${miles(t.precio)}&nbsp;€</b><span>${t.uds>1||!t.horas?'':fH(t.horas)+' de trabajo · '}garantía incluida</span></div>`:`<div class="precio cons">${t.uds>1?`<span class="pd">${t.uds} unidades</span>`:''}<b>Consultar</b><span>Precio en la llamada · garantía incluida</span></div>`;
+const precioCard=t=>t.vendido?'':t.precio?`<div class="precio">${t.uds>1?`<span class="pd">${t.uds} disponibles · desde</span>`:''}<b>${miles(t.precio)}&nbsp;€</b><span>${t.uds>1||!t.horas?'':fH(t.horas)+' de trabajo · '}garantía incluida</span></div>`:`<div class="precio cons">${t.uds>1?`<span class="pd">${t.uds} disponibles</span>`:''}<b>Consultar</b><span>Precio en la llamada · garantía incluida</span></div>`;
 
 /* cabecera sólida al bajar */
 const cab=$('#cab');addEventListener('scroll',()=>cab.classList.toggle('solid',scrollY>40),{passive:true});
@@ -1105,7 +1105,7 @@ function ficha(m,i){
      <p class="fic-k">${kicker(t,esAcc,grupo)}</p>
      <h2>${t.m}</h2>
      ${t.cv?`<p class="fic-cv">${t.cv} <small>CV${t.cvmax?' · '+t.cvmax+' CV máx.':''}</small></p>`:''}
-     <p class="sel-l">${t.uds?`<b>${t.uds} ${t.uds===1?'tractor':'tractores'} en la nave</b>${t.precio?` · desde ${miles(t.precio)} €`:''}`:'<b>Vendido</b>'}. Toca el que quieras ver.</p>
+     <p class="sel-l">${t.uds?`<b>${t.uds} ${t.s==='tel'?(t.uds===1?'telescópica':'telescópicas'):(t.uds===1?'tractor':'tractores')} en la nave</b>${t.precio?` · desde ${miles(t.precio)} €`:''}`:'<b>Vendido</b>'}. Toca ${t.s==='tel'?'la':'el'} que quieras ver.</p>
      <div class="sel-g">${orden.map(([x,k])=>{const r=rasgos(t,x),f=x.fotos[0];
        return `<article class="ut${x.vendido?' vend':''}"${x.vendido?'':` onclick="ficha('${t.m}',${k})"`}>
         <div class="ut-ph">${f?`<img src="${f}" alt="${nombre(t)}" loading="lazy">`:`<div class="fic-sin"><img src="img/logo-navatractor.jpg" alt="">Foto próximamente</div>`}${x.vendido?'<span class="fic-tag sst">Sin stock en estos momentos</span><span class="fic-tag vnd">Vendido</span>':''}</div>
