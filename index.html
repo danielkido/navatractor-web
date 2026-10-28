@@ -1073,7 +1073,7 @@ function pintarCat(){
   $('#cpAcc').classList.add('grid');
 }
 /* ficha detallada */
-let fi=0,fT=null,fG=[],ACCI=[];
+let fi=0,fT=null,fG=[],fU=null,ACCI=[];
 /* palas y aperos como fichas (también para las fotos de la portada) */
 let FOTO={};function hacerACCI(){FOTO={'Pala León 410E':'img/acc/pala-elleon-410e.jpg','Pala León 385E':'img/acc/pala-elleon-nueva.jpg','Remolque Griselda':GAL2.griselda[0],'Pala Metal-Technik':'img/acc/pala-metaltechnik.jpg','Cazos':'img/acc/cazos.jpg','Pantalla para alpacas':'img/acc/porta-palets.jpg','Atomizador':'img/acc/atomizador.jpg'};ACCI=[];Object.entries(ACC).forEach(([k,v])=>v.forEach(a=>ACCI.push({m:a[0],s:'acc',marca:k,g:'acc-'+k,img:FOTO[a[0]]||'',fotos:a[0]==='Remolque Griselda'?GAL2.griselda:FOTO[a[0]]?[FOTO[a[0]]]:[],cv:0,precio:a[3]||0,horas:0,uds:1,u:[{horas:0,precio:a[3]||0,extras:a[4]?a[4].split(/,\s*/):[],vendido:false,fotos:[]}]})));}
 const cap=e=>e[0].toUpperCase()+e.slice(1);
@@ -1097,7 +1097,7 @@ const kicker=(t,esAcc,grupo)=>esAcc?'Palas, cazos, remolques y más · '+t.marca
 function abrirFic(hash){$('#fic').classList.add('open');document.body.style.overflow='hidden';$('#fic').scrollTop=0;try{history.replaceState(null,'','#'+hash)}catch(e){}}
 /* ficha(m): un solo tractor → su ficha; varios → selector con una tarjeta por tractor. ficha(m,i): ese tractor concreto */
 function ficha(m,i){
-  fT=STOCK.find(t=>t.m===m)||ACCI.find(t=>t.m===m); if(!fT)return; fi=0;
+  fT=STOCK.find(t=>t.m===m)||ACCI.find(t=>t.m===m); if(!fT)return; fi=0;fU=null;
   const t=fT,esAcc=t.s==='acc',grupo=esAcc?t.marca:(GAMAS.find(g=>g[0]===t.g)||['',''])[1],varios=(t.u||[]).length>1,h=t.m.replace(/\s+/g,'-');
   if(varios&&i==null){fG=[];
     const orden=t.u.map((x,k)=>[x,k]).sort((a,b)=>a[0].vendido-b[0].vendido);
@@ -1117,6 +1117,7 @@ function ficha(m,i){
    </div>`;
     return abrirFic(h);
   }
+  if(varios)fU=i;
   const x=varios?t.u[i]:null,vend=x?x.vendido:t.vendido,precio=x?x.precio:t.precio,horas=x?x.horas:t.horas;
   const f=x?x.fotos:(t.fotos.length?t.fotos:t.img?[t.img]:[]);fG=f;
   const ex=x?x.extras:(t.u&&t.u[0]&&!t.u[0].vendido?t.u[0].extras:null);
@@ -1125,7 +1126,6 @@ function ficha(m,i){
   $('#ficB').innerHTML=`
    ${galHTML(t,f,vend)}
    <div class="fic-dat">
-     ${varios?`<button class="fic-vol" onclick="ficha('${t.m}')">← Ver los ${t.u.length} ${t.m}</button>`:''}
      <p class="fic-k">${kicker(t,esAcc,grupo)}</p>
      <h2>${t.m}</h2>
      ${t.cv?`<p class="fic-cv">${t.cv} <small>CV${t.cvmax?' · '+t.cvmax+' CV máx.':''}</small></p>`:''}
@@ -1145,7 +1145,7 @@ function ficha(m,i){
   abrirFic(h+(x?'/'+(i+1):''));
 }
 function fotoF(d,abs){const f=fG;fi=abs?d:(fi+d+f.length)%f.length;$('#ficImg').src=f[fi];if($('#ficC'))$('#ficC').textContent=(fi+1)+' / '+f.length;$$('.fic-th button').forEach((b,i)=>b.classList.toggle('on',i===fi))}
-function cerrarFicha(){$('#fic').classList.remove('open');const enCat=$('#catpage').classList.contains('open');document.body.style.overflow=enCat?'hidden':'';try{history.replaceState(null,'',enCat?'#catalogo':location.pathname)}catch(e){}}
+function cerrarFicha(){if(fU!=null&&fT){ficha(fT.m);return}$('#fic').classList.remove('open');const enCat=$('#catpage').classList.contains('open');document.body.style.overflow=enCat?'hidden':'';try{history.replaceState(null,'',enCat?'#catalogo':location.pathname)}catch(e){}}
 let fx0=null;document.addEventListener('pointerdown',e=>{if(e.target.closest('.fic-main'))fx0=e.clientX});
 document.addEventListener('pointerup',e=>{if(fx0!==null&&fT){const d=e.clientX-fx0;if(Math.abs(d)>40)fotoF(d<0?1:-1)}fx0=null});
 addEventListener('keydown',e=>{if(e.key!=='Escape')return;if($('#fic').classList.contains('open'))cerrarFicha();else cerrarCat()});
