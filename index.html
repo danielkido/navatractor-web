@@ -1039,7 +1039,7 @@ addEventListener('keydown',e=>{if(e.key==='Escape')cerrar()});
 const PQ=[
  {k:'ha',t:'¿De cuántas horas lo buscas?',o:[['Menos de 5.000 h',[0,4999]],['De 5.000 a 8.000 h',[5000,8000]],['Más de 8.000 h',[8001,1e9]],['Me da igual',[0,1e9]]]},
  {k:'uso',t:'¿Para qué tipo de trabajo lo necesitas?',o:[['Ganadería, espacios estrechos y manipulación (con pala)',[90,135]],['Agricultura general y laboreo (cereal, siembra, arado)',[150,999]],['Cultivos especiales (leñosos o mixtos)',[90,130]],['Uso mixto o transporte',[130,215]]]},
- {k:'pre',t:'¿Cuánto quieres gastarte?',o:[['Hasta 40.000 €',[1,40000]],['De 40.000 a 50.000 €',[40001,50000]],['De 50.000 a 65.000 €',[50001,65000]],['Más de 65.000 €',[65001,1e9]]]}];
+ {k:'pre',t:'¿Cuál es tu presupuesto?',o:[['Hasta 40.000 €',[1,40000]],['De 40.000 a 50.000 €',[40001,50000]],['De 50.000 a 65.000 €',[50001,65000]],['Más de 65.000 €',[65001,1e9]]]}];
 const RS={};
 function preguntas(){
   $('#preg').innerHTML=PQ.map((p,i)=>`<div class="pq"><span class="n">PREGUNTA ${i+1}/3</span><h3>${p.t}</h3><div class="opts">${p.o.map((o,j)=>`<button class="ch ${RS[p.k]===j?'on':''}" onclick="RS['${p.k}']=${j};preguntas()">${o[0]}</button>`).join('')}</div></div>`).join('');
