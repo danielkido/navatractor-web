@@ -678,12 +678,6 @@ a.kick{cursor:pointer}
 .ut-h{margin:0;font-weight:700;color:var(--txt)}
 .ut-v{font:800 1.05rem/1 var(--h);text-transform:uppercase;color:var(--amarillo);margin-top:4px}
 .fic-sin small{display:block;font-size:.8rem;font-weight:500;margin-top:4px}
-#waT{position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.75);display:grid;place-items:center;padding:16px}
-.waT-c{position:relative;width:100%;max-width:420px;background:#151815;border:2px solid var(--amarillo);padding:22px 18px;display:grid;gap:10px}
-.waT-c h3{font:800 1.5rem/1.1 var(--h);text-transform:uppercase;color:var(--amarillo);margin:0;padding-right:30px}
-.waT-c p{margin:0;color:var(--txt);font-size:.95rem}.waT-c .btn{width:100%;margin:0;justify-content:center;text-align:center}
-.waT-p{margin:2px 0;padding-left:20px;color:var(--txt);font-size:1rem;line-height:1.4;display:grid;gap:6px}.waT-p b{color:var(--amarillo)}.waT-o{color:var(--mut)!important;margin-top:6px!important}
-.waT-x{position:absolute;top:8px;right:10px;background:none;border:0;color:#fff;font-size:1.8rem;line-height:1;cursor:pointer}
 </style>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "¿Dónde está Navatractor?", "acceptedAnswer": {"@type": "Answer", "text": "En la C. Cruces, 16620 Pinarejo (Cuenca). Antes de venir, agenda una llamada o escríbenos por WhatsApp."}}, {"@type": "Question", "name": "¿Qué tractores tenéis?", "acceptedAnswer": {"@type": "Answer", "text": "Tractores John Deere de ocasión de la Serie R, las series 6020/6030 y 7020/7030, la Serie 6M, la Serie 5 y clásicos, además de algunos de otras marcas y telescópicas Merlo y JCB. En el catálogo ves los que hay ahora en la nave."}}, {"@type": "Question", "name": "¿Puedo ver y probar el tractor antes de comprarlo?", "acceptedAnswer": {"@type": "Answer", "text": "Sí. Ven a la nave de Pinarejo, lo ves y lo pruebas."}}, {"@type": "Question", "name": "¿Dais garantía?", "acceptedAnswer": {"@type": "Answer", "text": "Sí, nuestros tractores tienen garantía de 6 meses o 300 horas de trabajo, lo que ocurra primero."}}, {"@type": "Question", "name": "¿Tenéis correo electrónico?", "acceptedAnswer": {"@type": "Answer", "text": "Sí: infonavatractor@gmail.com. Escríbenos con tus datos y el tractor que te interesa."}}, {"@type": "Question", "name": "¿Cómo pido una cita?", "acceptedAnswer": {"@type": "Answer", "text": "Pulsa «Agendar llamada», elige día y hora en la agenda de Javier y él te llama."}}]}</script>
 </head>
@@ -1006,8 +1000,6 @@ function op(){const f=new Intl.DateTimeFormat('es-ES',{weekday:'short'});
 const API=location.hostname.endsWith('workers.dev')?'':'https://navatractor.scratch-2026-10-17-f205fc.workers.dev';
 const INAPP=/musical_ly|Bytedance|TikTok|Instagram|FBAN|FBAV|FB_IAB|FBIOS/i.test(navigator.userAgent);
 let citaM='',citaN='',HUECOS=null,selF='',selH='';
-/* el navegador interno de TikTok no deja abrir otras apps: wa.me se queda colgado (ver abrirWAenTT) */
-const EN_TIKTOK=/musical_ly|Bytedance|TikTok/i.test(navigator.userAgent);
 const waCita=()=>{const t=citaM&&(STOCK.find(x=>x.m===citaM)||ACCI.find(x=>x.m===citaM));return waMsg(t?msgWA(t):'Hola Javier, he visto vuestra web. ¿Cuándo podríamos tener una llamada?')};
 const btnWA=t=>`<a class="btn wa ag-btn" href="${waCita()}" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg>${t||'Escríbele por WhatsApp'}</a>`;
 async function abrir(m,nota){if($('#fic'))$('#fic').classList.remove('open');citaM=m||'';citaN=nota||'';selF='';selH='';
@@ -1084,26 +1076,9 @@ function pintarCat(){
     <div class="bts"><button class="btn lin" onclick="abrir('${n}')">Me interesa</button><a class="btn wa" href="${waMsg(msgWA({s:'acc',m:a[0]}))}" target="_blank" rel="noopener" aria-label="WhatsApp"><svg><use href="#i-wa"/></svg></a></div></div></article>`}).join('')).join('');
   $('#cpAcc').classList.add('grid');
 }
-/* WhatsApp dentro de TikTok: cualquier salto a otra app dispara su pantalla de bloqueo, así que no se intenta.
-   Se deja lista la dirección (?wa=mensaje): al usar «Abrir en el navegador» de los 3 puntos se abre WhatsApp con el mensaje. */
-function abrirWAenTT(url){
-  const m=decodeURIComponent((url.split('text=')[1]||'').replace(/\+/g,' '))||'Hola Javier, he visto vuestra web. ¿Cuándo podríamos tener una llamada?';
-  window._waM=m;window._waV=location.href;
-  try{history.replaceState(null,'',location.pathname+'?wa='+encodeURIComponent(m))}catch(e){}
-  const d=document.createElement('div');d.id='waT';d.innerHTML=`<div class="waT-c"><button class="waT-x" aria-label="Cerrar" onclick="cerrarWA()">×</button>
-   <h3>Abrir WhatsApp</h3><p>TikTok no deja abrirlo desde aquí, pero es muy fácil:</p>
-   <ol class="waT-p"><li>Toca los <b>3 puntos ···</b> arriba a la derecha.</li><li>Elige <b>«Abrir en el navegador»</b>.</li><li>Se abrirá WhatsApp con tu mensaje ya escrito.</li></ol>
-   <p class="waT-o">O si lo prefieres:</p>
-   <button class="btn lin ag-btn" onclick="copiarWA(this)">Copiar el mensaje</button>
-   <p class="waT-n" id="waTn" hidden>Mensaje copiado. Abre WhatsApp, busca el <b>689 63 16 87</b> y pégalo.</p>
-   <a class="btn lin ag-btn" href="tel:+${WA}">Llamar a Javier · 689 63 16 87</a></div>`;
-  document.body.appendChild(d);
-}
-function cerrarWA(){$('#waT')?.remove();try{history.replaceState(null,'',window._waV)}catch(e){}}
-function copiarWA(b){const t=window._waM,ok=()=>{$('#waTn').hidden=false;b.textContent='Copiado ✓'};
-  const viejo=()=>{const a=document.createElement('textarea');a.value=t;a.style.position='fixed';a.style.opacity=0;document.body.appendChild(a);a.select();try{document.execCommand('copy')}catch(e){}a.remove();ok()};
-  if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(t).then(ok,viejo);else viejo()}
-document.addEventListener('click',e=>{const a=EN_TIKTOK&&e.target.closest&&e.target.closest('a[href*="wa.me/"]');if(a){e.preventDefault();e.stopPropagation();abrirWAenTT(a.href)}},true);
+/* en el móvil WhatsApp se abre en la misma ventana: el enlace en pestaña nueva se quedaba en la página intermedia de wa.me
+   en navegadores internos como el de TikTok. Se quita el target justo antes del toque para que siga siendo un toque real. */
+document.addEventListener('click',e=>{const a=e.target.closest&&e.target.closest('a[href*="wa.me/"]');if(a&&/Android|iPhone|iPad|iPod/i.test(navigator.userAgent))a.removeAttribute('target')},true);
 /* ficha detallada */
 let fi=0,fT=null,fG=[],fU=null,ACCI=[];
 /* palas y aperos como fichas (también para las fotos de la portada) */
@@ -1181,7 +1156,6 @@ function cerrarFicha(){if(fU!=null&&fT){ficha(fT.m);return}$('#fic').classList.r
 let fx0=null;document.addEventListener('pointerdown',e=>{if(e.target.closest('.fic-main'))fx0=e.clientX});
 document.addEventListener('pointerup',e=>{if(fx0!==null&&fT){const d=e.clientX-fx0;if(Math.abs(d)>40)fotoF(d<0?1:-1)}fx0=null});
 addEventListener('keydown',e=>{if(e.key!=='Escape')return;if($('#fic').classList.contains('open'))cerrarFicha();else cerrarCat()});
-{const _w=new URLSearchParams(location.search).get('wa');if(_w&&!EN_TIKTOK)location.replace(waMsg(_w))}
 {const _c=new URLSearchParams(location.search).get('cita')??(/^\/(tiktok|cita|agenda|llamada)(\.html)?$/.test(location.pathname)?'1':null);if(_c!==null)setTimeout(()=>abrir(/^(1|tiktok|)$/.test(_c)?'':_c),400)}
 const [_h,_u]=decodeURIComponent(location.hash.slice(1)).replace(/-/g,' ').split('/');if(_h==='catalogo')setTimeout(()=>abrirCat(),300);else{setTimeout(()=>{const _t=_h&&(STOCK.find(t=>t.m===_h||t.slug===_h)||ACCI.find(t=>t.m===_h));if(_t)ficha(_t.m,_u&&t_u(_t,_u))},300)}
 function t_u(t,u){const k=+u-1;return t.u&&t.u[k]&&t.u.length>1?k:undefined}
