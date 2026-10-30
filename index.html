@@ -682,6 +682,7 @@ a.kick{cursor:pointer}
 .waT-c{position:relative;width:100%;max-width:420px;background:#151815;border:2px solid var(--amarillo);padding:22px 18px;display:grid;gap:10px}
 .waT-c h3{font:800 1.5rem/1.1 var(--h);text-transform:uppercase;color:var(--amarillo);margin:0;padding-right:30px}
 .waT-c p{margin:0;color:var(--txt);font-size:.95rem}.waT-c .btn{width:100%;margin:0;justify-content:center;text-align:center}
+.waT-p{margin:2px 0;padding-left:20px;color:var(--txt);font-size:1rem;line-height:1.4;display:grid;gap:6px}.waT-p b{color:var(--amarillo)}.waT-o{color:var(--mut)!important;margin-top:6px!important}
 .waT-x{position:absolute;top:8px;right:10px;background:none;border:0;color:#fff;font-size:1.8rem;line-height:1;cursor:pointer}
 </style>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "¿Dónde está Navatractor?", "acceptedAnswer": {"@type": "Answer", "text": "En la C. Cruces, 16620 Pinarejo (Cuenca). Antes de venir, agenda una llamada o escríbenos por WhatsApp."}}, {"@type": "Question", "name": "¿Qué tractores tenéis?", "acceptedAnswer": {"@type": "Answer", "text": "Tractores John Deere de ocasión de la Serie R, las series 6020/6030 y 7020/7030, la Serie 6M, la Serie 5 y clásicos, además de algunos de otras marcas y telescópicas Merlo y JCB. En el catálogo ves los que hay ahora en la nave."}}, {"@type": "Question", "name": "¿Puedo ver y probar el tractor antes de comprarlo?", "acceptedAnswer": {"@type": "Answer", "text": "Sí. Ven a la nave de Pinarejo, lo ves y lo pruebas."}}, {"@type": "Question", "name": "¿Dais garantía?", "acceptedAnswer": {"@type": "Answer", "text": "Sí, nuestros tractores tienen garantía de 6 meses o 300 horas de trabajo, lo que ocurra primero."}}, {"@type": "Question", "name": "¿Tenéis correo electrónico?", "acceptedAnswer": {"@type": "Answer", "text": "Sí: infonavatractor@gmail.com. Escríbenos con tus datos y el tractor que te interesa."}}, {"@type": "Question", "name": "¿Cómo pido una cita?", "acceptedAnswer": {"@type": "Answer", "text": "Pulsa «Agendar llamada», elige día y hora en la agenda de Javier y él te llama."}}]}</script>
@@ -1083,28 +1084,23 @@ function pintarCat(){
     <div class="bts"><button class="btn lin" onclick="abrir('${n}')">Me interesa</button><a class="btn wa" href="${waMsg(msgWA({s:'acc',m:a[0]}))}" target="_blank" rel="noopener" aria-label="WhatsApp"><svg><use href="#i-wa"/></svg></a></div></div></article>`}).join('')).join('');
   $('#cpAcc').classList.add('grid');
 }
-/* WhatsApp dentro de TikTok: primero se intenta abrir la app; si TikTok lo bloquea, panel con alternativas */
-const EN_ANDROID=/Android/i.test(navigator.userAgent);
+/* WhatsApp dentro de TikTok: cualquier salto a otra app dispara su pantalla de bloqueo, así que no se intenta.
+   Se deja lista la dirección (?wa=mensaje): al usar «Abrir en el navegador» de los 3 puntos se abre WhatsApp con el mensaje. */
 function abrirWAenTT(url){
-  const m=decodeURIComponent((url.split('text=')[1]||'').replace(/\+/g,' '));let salio=false;const marca=()=>{salio=true};
-  document.addEventListener('visibilitychange',marca,{once:true});addEventListener('pagehide',marca,{once:true});addEventListener('blur',marca,{once:true});
-  const q='phone='+WA+(m?'&text='+encodeURIComponent(m):'');
-  location.href=EN_ANDROID?`intent://send?${q}#Intent;scheme=whatsapp;package=com.whatsapp;end`:`whatsapp://send?${q}`;
-  setTimeout(()=>{if(!salio&&document.visibilityState==='visible')panelWA(m)},1500);
-}
-function panelWA(m){
-  const dest='navatractor.es/?wa='+encodeURIComponent(m||'Hola Javier, he visto vuestra web. ¿Cuándo podríamos tener una llamada?');
-  const ext=EN_ANDROID?`intent://${dest}#Intent;scheme=https;package=com.android.chrome;end`:`x-safari-https://${dest}`;
-  window._waM=m||'';
-  const d=document.createElement('div');d.id='waT';d.innerHTML=`<div class="waT-c"><button class="waT-x" aria-label="Cerrar" onclick="this.closest('#waT').remove()">×</button>
-   <h3>TikTok no deja abrir WhatsApp</h3><p>Elige la opción que prefieras:</p>
-   <a class="btn wa ag-btn" href="${ext}">Abrir WhatsApp desde ${EN_ANDROID?'Chrome':'Safari'}</a>
+  const m=decodeURIComponent((url.split('text=')[1]||'').replace(/\+/g,' '))||'Hola Javier, he visto vuestra web. ¿Cuándo podríamos tener una llamada?';
+  window._waM=m;window._waV=location.href;
+  try{history.replaceState(null,'',location.pathname+'?wa='+encodeURIComponent(m))}catch(e){}
+  const d=document.createElement('div');d.id='waT';d.innerHTML=`<div class="waT-c"><button class="waT-x" aria-label="Cerrar" onclick="cerrarWA()">×</button>
+   <h3>Abrir WhatsApp</h3><p>TikTok no deja abrirlo desde aquí, pero es muy fácil:</p>
+   <ol class="waT-p"><li>Toca los <b>3 puntos ···</b> arriba a la derecha.</li><li>Elige <b>«Abrir en el navegador»</b>.</li><li>Se abrirá WhatsApp con tu mensaje ya escrito.</li></ol>
+   <p class="waT-o">O si lo prefieres:</p>
    <button class="btn lin ag-btn" onclick="copiarWA(this)">Copiar el mensaje</button>
    <p class="waT-n" id="waTn" hidden>Mensaje copiado. Abre WhatsApp, busca el <b>689 63 16 87</b> y pégalo.</p>
    <a class="btn lin ag-btn" href="tel:+${WA}">Llamar a Javier · 689 63 16 87</a></div>`;
   document.body.appendChild(d);
 }
-function copiarWA(b){const t=window._waM||'Hola Javier, he visto vuestra web. ¿Cuándo podríamos tener una llamada?',ok=()=>{$('#waTn').hidden=false;b.textContent='Copiado ✓'};
+function cerrarWA(){$('#waT')?.remove();try{history.replaceState(null,'',window._waV)}catch(e){}}
+function copiarWA(b){const t=window._waM,ok=()=>{$('#waTn').hidden=false;b.textContent='Copiado ✓'};
   const viejo=()=>{const a=document.createElement('textarea');a.value=t;a.style.position='fixed';a.style.opacity=0;document.body.appendChild(a);a.select();try{document.execCommand('copy')}catch(e){}a.remove();ok()};
   if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(t).then(ok,viejo);else viejo()}
 document.addEventListener('click',e=>{const a=EN_TIKTOK&&e.target.closest&&e.target.closest('a[href*="wa.me/"]');if(a){e.preventDefault();e.stopPropagation();abrirWAenTT(a.href)}},true);
