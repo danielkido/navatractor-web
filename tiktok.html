@@ -679,6 +679,9 @@ a.kick{cursor:pointer}
 .ut-h{margin:0;font-weight:700;color:var(--txt)}
 .ut-v{font:800 1.05rem/1 var(--h);text-transform:uppercase;color:var(--amarillo);margin-top:4px}
 .fic-sin small{display:block;font-size:.8rem;font-weight:500;margin-top:4px}
+.sin-wa a[href*="wa.me/"]{display:none!important}
+.sin-wa .card .bts,.sin-wa .card.vend .bts{grid-template-columns:1fr!important}
+.sin-wa .mbar{grid-template-columns:1fr!important}.sin-wa .mbar .v{width:100%}
 </style>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "¿Dónde está Navatractor?", "acceptedAnswer": {"@type": "Answer", "text": "En la C. Cruces, 16620 Pinarejo (Cuenca). Antes de venir, agenda una llamada o escríbenos por WhatsApp."}}, {"@type": "Question", "name": "¿Qué tractores tenéis?", "acceptedAnswer": {"@type": "Answer", "text": "Tractores John Deere de ocasión de la Serie R, las series 6020/6030 y 7020/7030, la Serie 6M, la Serie 5 y clásicos, además de algunos de otras marcas y telescópicas Merlo y JCB. En el catálogo ves los que hay ahora en la nave."}}, {"@type": "Question", "name": "¿Puedo ver y probar el tractor antes de comprarlo?", "acceptedAnswer": {"@type": "Answer", "text": "Sí. Ven a la nave de Pinarejo, lo ves y lo pruebas."}}, {"@type": "Question", "name": "¿Dais garantía?", "acceptedAnswer": {"@type": "Answer", "text": "Sí, nuestros tractores tienen garantía de 6 meses o 300 horas de trabajo, lo que ocurra primero."}}, {"@type": "Question", "name": "¿Tenéis correo electrónico?", "acceptedAnswer": {"@type": "Answer", "text": "Sí: infonavatractor@gmail.com. Escríbenos con tus datos y el tractor que te interesa."}}, {"@type": "Question", "name": "¿Cómo pido una cita?", "acceptedAnswer": {"@type": "Answer", "text": "Pulsa «Agendar llamada», elige día y hora en la agenda de Javier y él te llama."}}]}</script>
 </head>
@@ -1001,8 +1004,12 @@ function op(){const f=new Intl.DateTimeFormat('es-ES',{weekday:'short'});
 const API=location.hostname.endsWith('workers.dev')?'':'https://navatractor.scratch-2026-10-17-f205fc.workers.dev';
 const INAPP=/musical_ly|Bytedance|TikTok|Instagram|FBAN|FBAV|FB_IAB|FBIOS/i.test(navigator.userAgent);
 let citaM='',citaN='',HUECOS=null,selF='',selH='';
+/* TikTok bloquea cualquier salto desde su navegador interno, también a WhatsApp (probado el 30-10-2026 con todos los métodos):
+   al entrar desde TikTok solo se ofrece agendar la llamada. Fuera de TikTok, WhatsApp sigue igual. */
+const SIN_WA=/^\/tiktok(\.html)?$/.test(location.pathname)||/musical_ly|Bytedance|TikTok/i.test(navigator.userAgent);
+if(SIN_WA)document.documentElement.classList.add('sin-wa');
 const waCita=()=>{const t=citaM&&(STOCK.find(x=>x.m===citaM)||ACCI.find(x=>x.m===citaM));return waMsg(t?msgWA(t):'Hola Javier, he visto vuestra web. ¿Cuándo podríamos tener una llamada?')};
-const btnWA=t=>`<a class="btn wa ag-btn" href="${waCita()}" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg>${t||'Escríbele por WhatsApp'}</a>`;
+const btnWA=t=>SIN_WA?'':`<a class="btn wa ag-btn" href="${waCita()}" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg>${t||'Escríbele por WhatsApp'}</a>`;
 async function abrir(m,nota){if($('#fic'))$('#fic').classList.remove('open');citaM=m||'';citaN=nota||'';selF='';selH='';
   $('#fw').innerHTML=`<div class="agenda"><p class="fc-i">Cargando los huecos libres de Javier…</p></div>`;$('#modal').classList.add('open');
   try{const r=await fetch(API+'/api/huecos');HUECOS=await r.json();if(!HUECOS.ok||!HUECOS.dias.length)throw 0}
@@ -1035,9 +1042,9 @@ async function enviarCita(e){e.preventDefault();const f=e.target,b=f.querySelect
     if(!j.ok)throw new Error(j.error);
     $('#fw').innerHTML=`<div class="agenda fc-ok"><div class="fc-check">✓</div><p class="ag-que">¡Cita confirmada, <b>${d.nombre.split(' ')[0]}</b>!</p>
       <p>Javier te llamará el <b>${j.cuando}</b> al ${d.telefono}.</p>${j.email?`<p>Te hemos mandado la confirmación a <b>${d.email}</b> (mira también en spam).</p>`:''}
-      <p>Si te surge algo, escríbele por WhatsApp.</p>${btnWA('WhatsApp de Javier')}</div>`;
+      ${SIN_WA?'':'<p>Si te surge algo, escríbele por WhatsApp.</p>'}${btnWA('WhatsApp de Javier')}</div>`;
   }catch(x){b.disabled=false;b.innerHTML='<svg><use href="#i-cal"/></svg>Confirmar llamada';err.hidden=false;
-    err.innerHTML={datos:'Revisa el nombre y el teléfono (9 cifras).',email:'Revisa el correo.',ocupado:'Ese hueco se acaba de ocupar. <a href="#" onclick="abrir(citaM);return false">Elige otra hora</a>.'}[x.message]||'No se ha podido reservar. Escríbele por WhatsApp y te llama igualmente.'}}
+    err.innerHTML={datos:'Revisa el nombre y el teléfono (9 cifras).',email:'Revisa el correo.',ocupado:'Ese hueco se acaba de ocupar. <a href="#" onclick="abrir(citaM);return false">Elige otra hora</a>.'}[x.message]||(SIN_WA?'No se ha podido reservar. Inténtalo de nuevo en un momento.':'No se ha podido reservar. Escríbele por WhatsApp y te llama igualmente.')}}
 function cerrar(){$('#modal').classList.remove('open')}
 addEventListener('keydown',e=>{if(e.key==='Escape')cerrar()});
 
@@ -1077,9 +1084,6 @@ function pintarCat(){
     <div class="bts"><button class="btn lin" onclick="abrir('${n}')">Me interesa</button><a class="btn wa" href="${waMsg(msgWA({s:'acc',m:a[0]}))}" target="_blank" rel="noopener" aria-label="WhatsApp"><svg><use href="#i-wa"/></svg></a></div></div></article>`}).join('')).join('');
   $('#cpAcc').classList.add('grid');
 }
-/* en el móvil WhatsApp se abre en la misma ventana: el enlace en pestaña nueva se quedaba en la página intermedia de wa.me
-   en navegadores internos como el de TikTok. Se quita el target justo antes del toque para que siga siendo un toque real. */
-document.addEventListener('click',e=>{const a=e.target.closest&&e.target.closest('a[href*="wa.me/"]');if(a&&/Android|iPhone|iPad|iPod/i.test(navigator.userAgent))a.removeAttribute('target')},true);
 /* ficha detallada */
 let fi=0,fT=null,fG=[],fU=null,ACCI=[];
 /* palas y aperos como fichas (también para las fotos de la portada) */
@@ -1162,5 +1166,5 @@ const [_h,_u]=decodeURIComponent(location.hash.slice(1)).replace(/-/g,' ').split
 function t_u(t,u){const k=+u-1;return t.u&&t.u[k]&&t.u.length>1?k:undefined}
 hacerACCI();filtros();pintar();preguntas();
 </script>
-<style>#pw{position:fixed;inset:0;z-index:99999;background:#0f110f;padding:14px;overflow:auto;display:none;color:#fff;font:600 15px system-ui}#pw a,#pw button{display:block;width:100%;box-sizing:border-box;margin:0 0 10px;padding:13px;border:0;border-radius:6px;background:#25d366;color:#06240f;font:700 16px system-ui;text-align:center;text-decoration:none}#pw small{color:#9aa;word-break:break-all;font-size:11px}</style><button onclick="document.getElementById('pw').style.display='block'" style="position:fixed;top:8px;left:50%;transform:translateX(-50%);z-index:99998;background:#d32f2f;color:#fff;border:0;padding:10px 16px;font:700 14px system-ui;border-radius:6px">PRUEBA WA 2</button><div id="pw"><p>Toca cada uno. Si sale la pantalla de bloqueo, vuelve atrás y prueba el siguiente.</p><a href="whatsapp://send?phone=34689631687&text=Prueba%20D">D · abrir la app</a><a href="x-safari-https://wa.me/34689631687?text=Prueba%20E">E · pasar por Safari</a><a href="googlechromes://wa.me/34689631687?text=Prueba%20G">G · pasar por Chrome</a><a href="https://api.whatsapp.com/send?phone=34689631687&text=Prueba%20C">C · api.whatsapp.com</a><a href="https://wa.me/34689631687?text=Prueba%20A">A · wa.me</a><button onclick="window.open('https://wa.me/34689631687?text=Prueba%20F','_blank')">F · ventana nueva</button><a href="tel:+34689631687">T · llamar a Javier</a><button onclick="document.getElementById('pw').style.display='none'" style="background:#555;color:#fff">Cerrar prueba</button><small id="pwu"></small><script>document.getElementById("pwu").textContent=navigator.userAgent</script></div></body>
+</body>
 </html>
