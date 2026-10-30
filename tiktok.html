@@ -679,6 +679,11 @@ a.kick{cursor:pointer}
 .ut-h{margin:0;font-weight:700;color:var(--txt)}
 .ut-v{font:800 1.05rem/1 var(--h);text-transform:uppercase;color:var(--amarillo);margin-top:4px}
 .fic-sin small{display:block;font-size:.8rem;font-weight:500;margin-top:4px}
+#waT{position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.75);display:grid;place-items:center;padding:16px}
+.waT-c{position:relative;width:100%;max-width:420px;background:#151815;border:2px solid var(--amarillo);padding:22px 18px;display:grid;gap:10px}
+.waT-c h3{font:800 1.5rem/1.1 var(--h);text-transform:uppercase;color:var(--amarillo);margin:0;padding-right:30px}
+.waT-c p{margin:0;color:var(--txt);font-size:.95rem}.waT-c .btn{width:100%;margin:0;justify-content:center;text-align:center}
+.waT-x{position:absolute;top:8px;right:10px;background:none;border:0;color:#fff;font-size:1.8rem;line-height:1;cursor:pointer}
 </style>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "¿Dónde está Navatractor?", "acceptedAnswer": {"@type": "Answer", "text": "En la C. Cruces, 16620 Pinarejo (Cuenca). Antes de venir, agenda una llamada o escríbenos por WhatsApp."}}, {"@type": "Question", "name": "¿Qué tractores tenéis?", "acceptedAnswer": {"@type": "Answer", "text": "Tractores John Deere de ocasión de la Serie R, las series 6020/6030 y 7020/7030, la Serie 6M, la Serie 5 y clásicos, además de algunos de otras marcas y telescópicas Merlo y JCB. En el catálogo ves los que hay ahora en la nave."}}, {"@type": "Question", "name": "¿Puedo ver y probar el tractor antes de comprarlo?", "acceptedAnswer": {"@type": "Answer", "text": "Sí. Ven a la nave de Pinarejo, lo ves y lo pruebas."}}, {"@type": "Question", "name": "¿Dais garantía?", "acceptedAnswer": {"@type": "Answer", "text": "Sí, nuestros tractores tienen garantía de 6 meses o 300 horas de trabajo, lo que ocurra primero."}}, {"@type": "Question", "name": "¿Tenéis correo electrónico?", "acceptedAnswer": {"@type": "Answer", "text": "Sí: infonavatractor@gmail.com. Escríbenos con tus datos y el tractor que te interesa."}}, {"@type": "Question", "name": "¿Cómo pido una cita?", "acceptedAnswer": {"@type": "Answer", "text": "Pulsa «Agendar llamada», elige día y hora en la agenda de Javier y él te llama."}}]}</script>
 </head>
@@ -1001,10 +1006,10 @@ function op(){const f=new Intl.DateTimeFormat('es-ES',{weekday:'short'});
 const API=location.hostname.endsWith('workers.dev')?'':'https://navatractor.scratch-2026-10-17-f205fc.workers.dev';
 const INAPP=/musical_ly|Bytedance|TikTok|Instagram|FBAN|FBAV|FB_IAB|FBIOS/i.test(navigator.userAgent);
 let citaM='',citaN='',HUECOS=null,selF='',selH='';
-/* dentro de TikTok el enlace a WhatsApp de la agenda se queda colgado: ahí no se ofrece */
+/* el navegador interno de TikTok no deja abrir otras apps: wa.me se queda colgado (ver abrirWAenTT) */
 const EN_TIKTOK=/musical_ly|Bytedance|TikTok/i.test(navigator.userAgent);
 const waCita=()=>{const t=citaM&&(STOCK.find(x=>x.m===citaM)||ACCI.find(x=>x.m===citaM));return waMsg(t?msgWA(t):'Hola Javier, he visto vuestra web. ¿Cuándo podríamos tener una llamada?')};
-const btnWA=t=>EN_TIKTOK?'':`<a class="btn wa ag-btn" href="${waCita()}" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg>${t||'Escríbele por WhatsApp'}</a>`;
+const btnWA=t=>`<a class="btn wa ag-btn" href="${waCita()}" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg>${t||'Escríbele por WhatsApp'}</a>`;
 async function abrir(m,nota){if($('#fic'))$('#fic').classList.remove('open');citaM=m||'';citaN=nota||'';selF='';selH='';
   $('#fw').innerHTML=`<div class="agenda"><p class="fc-i">Cargando los huecos libres de Javier…</p></div>`;$('#modal').classList.add('open');
   try{const r=await fetch(API+'/api/huecos');HUECOS=await r.json();if(!HUECOS.ok||!HUECOS.dias.length)throw 0}
@@ -1037,7 +1042,7 @@ async function enviarCita(e){e.preventDefault();const f=e.target,b=f.querySelect
     if(!j.ok)throw new Error(j.error);
     $('#fw').innerHTML=`<div class="agenda fc-ok"><div class="fc-check">✓</div><p class="ag-que">¡Cita confirmada, <b>${d.nombre.split(' ')[0]}</b>!</p>
       <p>Javier te llamará el <b>${j.cuando}</b> al ${d.telefono}.</p>${j.email?`<p>Te hemos mandado la confirmación a <b>${d.email}</b> (mira también en spam).</p>`:''}
-      ${EN_TIKTOK?'':'<p>Si te surge algo, escríbele por WhatsApp.</p>'}${btnWA('WhatsApp de Javier')}</div>`;
+      <p>Si te surge algo, escríbele por WhatsApp.</p>${btnWA('WhatsApp de Javier')}</div>`;
   }catch(x){b.disabled=false;b.innerHTML='<svg><use href="#i-cal"/></svg>Confirmar llamada';err.hidden=false;
     err.innerHTML={datos:'Revisa el nombre y el teléfono (9 cifras).',email:'Revisa el correo.',ocupado:'Ese hueco se acaba de ocupar. <a href="#" onclick="abrir(citaM);return false">Elige otra hora</a>.'}[x.message]||'No se ha podido reservar. Escríbele por WhatsApp y te llama igualmente.'}}
 function cerrar(){$('#modal').classList.remove('open')}
@@ -1079,6 +1084,31 @@ function pintarCat(){
     <div class="bts"><button class="btn lin" onclick="abrir('${n}')">Me interesa</button><a class="btn wa" href="${waMsg(msgWA({s:'acc',m:a[0]}))}" target="_blank" rel="noopener" aria-label="WhatsApp"><svg><use href="#i-wa"/></svg></a></div></div></article>`}).join('')).join('');
   $('#cpAcc').classList.add('grid');
 }
+/* WhatsApp dentro de TikTok: primero se intenta abrir la app; si TikTok lo bloquea, panel con alternativas */
+const EN_ANDROID=/Android/i.test(navigator.userAgent);
+function abrirWAenTT(url){
+  const m=decodeURIComponent((url.split('text=')[1]||'').replace(/\+/g,' '));let salio=false;const marca=()=>{salio=true};
+  document.addEventListener('visibilitychange',marca,{once:true});addEventListener('pagehide',marca,{once:true});addEventListener('blur',marca,{once:true});
+  const q='phone='+WA+(m?'&text='+encodeURIComponent(m):'');
+  location.href=EN_ANDROID?`intent://send?${q}#Intent;scheme=whatsapp;package=com.whatsapp;end`:`whatsapp://send?${q}`;
+  setTimeout(()=>{if(!salio&&document.visibilityState==='visible')panelWA(m)},1500);
+}
+function panelWA(m){
+  const dest='navatractor.es/?wa='+encodeURIComponent(m||'Hola Javier, he visto vuestra web. ¿Cuándo podríamos tener una llamada?');
+  const ext=EN_ANDROID?`intent://${dest}#Intent;scheme=https;package=com.android.chrome;end`:`x-safari-https://${dest}`;
+  window._waM=m||'';
+  const d=document.createElement('div');d.id='waT';d.innerHTML=`<div class="waT-c"><button class="waT-x" aria-label="Cerrar" onclick="this.closest('#waT').remove()">×</button>
+   <h3>TikTok no deja abrir WhatsApp</h3><p>Elige la opción que prefieras:</p>
+   <a class="btn wa ag-btn" href="${ext}">Abrir WhatsApp desde ${EN_ANDROID?'Chrome':'Safari'}</a>
+   <button class="btn lin ag-btn" onclick="copiarWA(this)">Copiar el mensaje</button>
+   <p class="waT-n" id="waTn" hidden>Mensaje copiado. Abre WhatsApp, busca el <b>689 63 16 87</b> y pégalo.</p>
+   <a class="btn lin ag-btn" href="tel:+${WA}">Llamar a Javier · 689 63 16 87</a></div>`;
+  document.body.appendChild(d);
+}
+function copiarWA(b){const t=window._waM||'Hola Javier, he visto vuestra web. ¿Cuándo podríamos tener una llamada?',ok=()=>{$('#waTn').hidden=false;b.textContent='Copiado ✓'};
+  const viejo=()=>{const a=document.createElement('textarea');a.value=t;a.style.position='fixed';a.style.opacity=0;document.body.appendChild(a);a.select();try{document.execCommand('copy')}catch(e){}a.remove();ok()};
+  if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(t).then(ok,viejo);else viejo()}
+document.addEventListener('click',e=>{const a=EN_TIKTOK&&e.target.closest&&e.target.closest('a[href*="wa.me/"]');if(a){e.preventDefault();e.stopPropagation();abrirWAenTT(a.href)}},true);
 /* ficha detallada */
 let fi=0,fT=null,fG=[],fU=null,ACCI=[];
 /* palas y aperos como fichas (también para las fotos de la portada) */
@@ -1156,6 +1186,7 @@ function cerrarFicha(){if(fU!=null&&fT){ficha(fT.m);return}$('#fic').classList.r
 let fx0=null;document.addEventListener('pointerdown',e=>{if(e.target.closest('.fic-main'))fx0=e.clientX});
 document.addEventListener('pointerup',e=>{if(fx0!==null&&fT){const d=e.clientX-fx0;if(Math.abs(d)>40)fotoF(d<0?1:-1)}fx0=null});
 addEventListener('keydown',e=>{if(e.key!=='Escape')return;if($('#fic').classList.contains('open'))cerrarFicha();else cerrarCat()});
+{const _w=new URLSearchParams(location.search).get('wa');if(_w&&!EN_TIKTOK)location.replace(waMsg(_w))}
 {const _c=new URLSearchParams(location.search).get('cita')??(/^\/(tiktok|cita|agenda|llamada)(\.html)?$/.test(location.pathname)?'1':null);if(_c!==null)setTimeout(()=>abrir(/^(1|tiktok|)$/.test(_c)?'':_c),400)}
 const [_h,_u]=decodeURIComponent(location.hash.slice(1)).replace(/-/g,' ').split('/');if(_h==='catalogo')setTimeout(()=>abrirCat(),300);else{setTimeout(()=>{const _t=_h&&(STOCK.find(t=>t.m===_h||t.slug===_h)||ACCI.find(t=>t.m===_h));if(_t)ficha(_t.m,_u&&t_u(_t,_u))},300)}
 function t_u(t,u){const k=+u-1;return t.u&&t.u[k]&&t.u.length>1?k:undefined}
