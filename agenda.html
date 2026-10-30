@@ -874,7 +874,11 @@ a.kick{cursor:pointer}
 const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 const WA='34689631687', usados=STOCK.filter(t=>t.s==='oc'&&!t.vendido), conFoto=STOCK.filter(t=>t.img&&!t.vendido);
 const nombre=t=>t.s==='acc'?t.m:t.s==='tel'?t.m+' telescópica':t.marca?t.m:'John Deere '+t.m;
-const waTxt=t=>`https://wa.me/${WA}?text=${encodeURIComponent(t.vendido?'Hola Javier, he visto en la web que el '+nombre(t)+' está vendido. ¿Tienes alguno parecido?':t.s==='acc'?'Hola Javier, me interesa '+t.m+' de la web. ¿Me pasas fotos?':'Hola Javier, me interesa el '+nombre(t)+' de la web. ¿Me pasas '+(t.precio?'más fotos y el año?':'año, horas y precio?'))}`;
+/* mensaje único de WhatsApp: «Hola Javier, he visto el John Deere 6190R en la web. ¿Cuándo podríamos tener una llamada?» */
+const articulo=t=>t.s==='tel'?'la ':t.s==='acc'?(/^Cazos/.test(t.m)?'los ':/^(Pala|Pantalla)/.test(t.m)?'la ':'el '):'el ';
+const msgWA=(t,det='')=>`Hola Javier, he visto ${articulo(t)}${nombre(t)}${det} en la web. ¿Cuándo podríamos tener una llamada?`;
+const waMsg=m=>`https://wa.me/${WA}?text=${encodeURIComponent(m)}`;
+const waTxt=t=>waMsg(t.vendido?'Hola Javier, he visto en la web que el '+nombre(t)+' está vendido. ¿Tienes alguno parecido?':msgWA(t));
 const fH=h=>h?miles(h)+' h':'';
 /* precio en tarjeta: una unidad, varias («desde») o «Consultar» */
 const precioCard=t=>t.vendido?'':t.precio?`<div class="precio">${t.uds>1?`<span class="pd">${t.uds} disponibles · desde</span>`:''}<b>${miles(t.precio)}&nbsp;€</b><span>${t.uds>1||!t.horas?'':fH(t.horas)+' de trabajo · '}garantía incluida</span></div>`:`<div class="precio cons">${t.uds>1?`<span class="pd">${t.uds} disponibles</span>`:''}<b>Consultar</b><span>Precio en la llamada · garantía incluida</span></div>`;
@@ -997,8 +1001,10 @@ function op(){const f=new Intl.DateTimeFormat('es-ES',{weekday:'short'});
 const API=location.hostname.endsWith('workers.dev')?'':'https://navatractor.scratch-2026-10-17-f205fc.workers.dev';
 const INAPP=/musical_ly|Bytedance|TikTok|Instagram|FBAN|FBAV|FB_IAB|FBIOS/i.test(navigator.userAgent);
 let citaM='',citaN='',HUECOS=null,selF='',selH='';
-const waCita=()=>`https://wa.me/${WA}?text=${encodeURIComponent('Hola Javier, quiero que me llames'+(citaM?' por el '+citaM:'')+'. ¿Cuándo te viene bien?')}`;
-const btnWA=t=>`<a class="btn wa ag-btn" href="${waCita()}" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg>${t||'Escríbele por WhatsApp'}</a>`;
+/* dentro de TikTok el enlace a WhatsApp de la agenda se queda colgado: ahí no se ofrece */
+const EN_TIKTOK=/musical_ly|Bytedance|TikTok/i.test(navigator.userAgent);
+const waCita=()=>{const t=citaM&&(STOCK.find(x=>x.m===citaM)||ACCI.find(x=>x.m===citaM));return waMsg(t?msgWA(t):'Hola Javier, he visto vuestra web. ¿Cuándo podríamos tener una llamada?')};
+const btnWA=t=>EN_TIKTOK?'':`<a class="btn wa ag-btn" href="${waCita()}" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg>${t||'Escríbele por WhatsApp'}</a>`;
 async function abrir(m,nota){if($('#fic'))$('#fic').classList.remove('open');citaM=m||'';citaN=nota||'';selF='';selH='';
   $('#fw').innerHTML=`<div class="agenda"><p class="fc-i">Cargando los huecos libres de Javier…</p></div>`;$('#modal').classList.add('open');
   try{const r=await fetch(API+'/api/huecos');HUECOS=await r.json();if(!HUECOS.ok||!HUECOS.dias.length)throw 0}
@@ -1031,7 +1037,7 @@ async function enviarCita(e){e.preventDefault();const f=e.target,b=f.querySelect
     if(!j.ok)throw new Error(j.error);
     $('#fw').innerHTML=`<div class="agenda fc-ok"><div class="fc-check">✓</div><p class="ag-que">¡Cita confirmada, <b>${d.nombre.split(' ')[0]}</b>!</p>
       <p>Javier te llamará el <b>${j.cuando}</b> al ${d.telefono}.</p>${j.email?`<p>Te hemos mandado la confirmación a <b>${d.email}</b> (mira también en spam).</p>`:''}
-      <p>Si te surge algo, escríbele por WhatsApp.</p>${btnWA('WhatsApp de Javier')}</div>`;
+      ${EN_TIKTOK?'':'<p>Si te surge algo, escríbele por WhatsApp.</p>'}${btnWA('WhatsApp de Javier')}</div>`;
   }catch(x){b.disabled=false;b.innerHTML='<svg><use href="#i-cal"/></svg>Confirmar llamada';err.hidden=false;
     err.innerHTML={datos:'Revisa el nombre y el teléfono (9 cifras).',email:'Revisa el correo.',ocupado:'Ese hueco se acaba de ocupar. <a href="#" onclick="abrir(citaM);return false">Elige otra hora</a>.'}[x.message]||'No se ha podido reservar. Escríbele por WhatsApp y te llama igualmente.'}}
 function cerrar(){$('#modal').classList.remove('open')}
@@ -1070,7 +1076,7 @@ function pintarCat(){
     <div class="ph">${FOTO[a[0]]?`<img src="${FOTO[a[0]]}" alt="${a[0]}" loading="lazy">`:''}<div class="tag"><span class="ok">● En nave</span></div></div>
     <div class="cu"><div class="l1"><h3>${a[0]}</h3></div>
     ${a[4]?`<p class="sub">${a[4]}</p>`:''}${a[3]?`<div class="precio"><b>${miles(a[3])}&nbsp;€</b></div>`:''}
-    <div class="bts"><button class="btn lin" onclick="abrir('${n}')">Me interesa</button><a class="btn wa" href="https://wa.me/${WA}?text=${encodeURIComponent('Hola Javier, me interesa '+a[0]+' de la web. ¿Me pasas fotos?')}" target="_blank" rel="noopener" aria-label="WhatsApp"><svg><use href="#i-wa"/></svg></a></div></div></article>`}).join('')).join('');
+    <div class="bts"><button class="btn lin" onclick="abrir('${n}')">Me interesa</button><a class="btn wa" href="${waMsg(msgWA({s:'acc',m:a[0]}))}" target="_blank" rel="noopener" aria-label="WhatsApp"><svg><use href="#i-wa"/></svg></a></div></div></article>`}).join('')).join('');
   $('#cpAcc').classList.add('grid');
 }
 /* ficha detallada */
@@ -1123,7 +1129,7 @@ function ficha(m,i){
   const f=x?x.fotos:(t.fotos.length?t.fotos:t.img?[t.img]:[]);fG=f;
   const ex=x?x.extras:(t.u&&t.u[0]&&!t.u[0].vendido?t.u[0].extras:null);
   const nota=x?`${t.m} de ${fH(horas)||'?'}${precio?' · '+miles(precio)+' €':''}`:'';
-  const wa=x?`https://wa.me/${WA}?text=${encodeURIComponent('Hola Javier, me interesa el '+nombre(t)+(horas?' de '+fH(horas):'')+(precio?' ('+miles(precio)+' €)':'')+' de la web. ¿Me pasas más fotos y el año?')}`:waTxt(t);
+  const wa=x&&!vend?waMsg(msgWA(t,(horas?' de '+fH(horas):'')+(precio?' ('+miles(precio)+' €)':''))):waTxt(t);
   $('#ficB').innerHTML=`
    ${galHTML(t,f,vend)}
    <div class="fic-dat">
