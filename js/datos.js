@@ -222,3 +222,8 @@ STOCK.forEach(t=>{
   if(p)t.fotos=[p].concat(t.fotos.filter(f=>f!==p));
   t.img=t.fotos[0];
 });
+
+// ===== DÍA DE NAVE: el día que Javi está en la nave de Pinarejo =====
+// Para anunciar otro día, cambia la fecha (AAAA-MM-DD). Para quitar el aviso, pon activo:false.
+// El aviso se oculta solo al día siguiente de la fecha.
+var DIA_NAVE={activo:true,fecha:'2026-11-14'};

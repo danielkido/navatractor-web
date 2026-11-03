@@ -681,6 +681,11 @@ a.kick{cursor:pointer}
 .sin-wa a[href*="wa.me/"]{display:none!important}
 .sin-wa .card .bts,.sin-wa .card.vend .bts{grid-template-columns:1fr!important}
 .sin-wa .mbar{grid-template-columns:1fr!important}.sin-wa .mbar .v{width:100%}
+.nave-bar{position:fixed;top:0;left:0;right:0;z-index:55;height:44px;display:flex;align-items:center;justify-content:center;gap:12px;padding:0 12px;background:var(--amarillo);color:#111;font:700 .95rem/1.1 var(--t);text-align:center}
+.nave-bar b{font-weight:800}.nave-bar button{flex:0 0 auto;background:#111;color:var(--amarillo);border:0;padding:7px 12px;font:800 .9rem/1 var(--h);text-transform:uppercase;cursor:pointer}
+.nave-bar .nb-c{display:none}
+.con-nave .cab{top:44px}.con-nave body,body.con-nave{padding-top:44px}
+@media(max-width:700px){.nave-bar{font-size:.85rem;gap:8px}.nave-bar .nb-l{display:none}.nave-bar .nb-c{display:inline}}
 </style>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "¿Dónde está Navatractor?", "acceptedAnswer": {"@type": "Answer", "text": "En la C. Cruces, 16620 Pinarejo (Cuenca). Antes de venir, agenda una llamada o escríbenos por WhatsApp."}}, {"@type": "Question", "name": "¿Qué tractores tenéis?", "acceptedAnswer": {"@type": "Answer", "text": "Tractores John Deere de ocasión de la Serie R, las series 6020/6030 y 7020/7030, la Serie 6M, la Serie 5 y clásicos, además de algunos de otras marcas y telescópicas Merlo y JCB. En el catálogo ves los que hay ahora en la nave."}}, {"@type": "Question", "name": "¿Puedo ver y probar el tractor antes de comprarlo?", "acceptedAnswer": {"@type": "Answer", "text": "Sí. Ven a la nave de Pinarejo, lo ves y lo pruebas."}}, {"@type": "Question", "name": "¿Dais garantía?", "acceptedAnswer": {"@type": "Answer", "text": "Sí, nuestros tractores tienen garantía de 6 meses o 300 horas de trabajo, lo que ocurra primero."}}, {"@type": "Question", "name": "¿Tenéis correo electrónico?", "acceptedAnswer": {"@type": "Answer", "text": "Sí: infonavatractor@gmail.com. Escríbenos con tus datos y el tractor que te interesa."}}, {"@type": "Question", "name": "¿Cómo pido una cita?", "acceptedAnswer": {"@type": "Answer", "text": "Pulsa «Agendar llamada», elige día y hora en la agenda de Javier y él te llama."}}]}</script>
 </head>
@@ -700,6 +705,7 @@ a.kick{cursor:pointer}
   <symbol id="i-cal" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/></g></symbol>
 </svg>
 
+<div class="nave-bar" id="naveBar" hidden></div>
 <header class="cab" id="cab"><div class="wrap">
   <a href="#" class="logo"><img src="img/logo-navatractor.jpg" alt="Navatractor"><b>NAVATRACTOR</b></a>
   <nav class="pill"><a href="#" onclick="abrirCat();return false">Tractores</a><a href="#nave">La nave</a><a href="#aperos">Palas y aperos</a><a href="#contacto">Contacto</a></nav>
@@ -1002,19 +1008,19 @@ function op(){const f=new Intl.DateTimeFormat('es-ES',{weekday:'short'});
 // la agenda vive en Cloudflare Workers (dirección propia, aparte de la web en GitHub Pages)
 const API=location.hostname.endsWith('workers.dev')?'':'https://navatractor.scratch-2026-10-17-f205fc.workers.dev';
 const INAPP=/musical_ly|Bytedance|TikTok|Instagram|FBAN|FBAV|FB_IAB|FBIOS/i.test(navigator.userAgent);
-let citaM='',citaN='',HUECOS=null,selF='',selH='';
+let citaM='',citaN='',citaV='',HUECOS=null,selF='',selH='';
 /* TikTok bloquea cualquier salto desde su navegador interno, también a WhatsApp (probado el 30-10-2026 con todos los métodos):
    al entrar desde TikTok solo se ofrece agendar la llamada. Fuera de TikTok, WhatsApp sigue igual. */
 const SIN_WA=/^\/tiktok(\.html)?$/.test(location.pathname)||/musical_ly|Bytedance|TikTok/i.test(navigator.userAgent);
 if(SIN_WA)document.documentElement.classList.add('sin-wa');
 const waCita=()=>{const t=citaM&&(STOCK.find(x=>x.m===citaM)||ACCI.find(x=>x.m===citaM));return waMsg(t?msgWA(t):'Hola Javier, he visto vuestra web. ¿Cuándo podríamos tener una llamada?')};
 const btnWA=t=>SIN_WA?'':`<a class="btn wa ag-btn" href="${waCita()}" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg>${t||'Escríbele por WhatsApp'}</a>`;
-async function abrir(m,nota){if($('#fic'))$('#fic').classList.remove('open');citaM=m||'';citaN=nota||'';selF='';selH='';
+async function abrir(m,nota,visita){if($('#fic'))$('#fic').classList.remove('open');citaM=m||'';citaN=nota||'';citaV=visita||'';selF='';selH='';
   $('#fw').innerHTML=`<div class="agenda"><p class="fc-i">Cargando los huecos libres de Javier…</p></div>`;$('#modal').classList.add('open');
   try{const r=await fetch(API+'/api/huecos');HUECOS=await r.json();if(!HUECOS.ok||!HUECOS.dias.length)throw 0}
-  catch(e){$('#fw').innerHTML=`<div class="agenda"><p>Elige día y hora en la agenda de Javier y te llamará él.</p><a class="btn pri ag-btn" href="https://calendar.app.google/K83xkyJisikwjqW49" target="_blank" rel="noopener"><svg><use href="#i-cal"/></svg>Elegir día y hora</a>${btnWA()}</div>`;return}
+  catch(e){$('#fw').innerHTML=`<div class="agenda">${citaV?`<p class="ag-que">Visita a la nave: <b>${citaV}</b>.</p>`:''}<p>Elige día y hora en la agenda de Javier y te llamará él.</p><a class="btn pri ag-btn" href="https://calendar.app.google/K83xkyJisikwjqW49" target="_blank" rel="noopener"><svg><use href="#i-cal"/></svg>Elegir día y hora</a>${btnWA()}</div>`;return}
   pasoDia()}
-function cabCita(n){return `<p class="fc-paso"><b>${n}</b> de 3</p>${citaM?`<p class="ag-que">Te interesa: <b>${citaM}</b></p>`:''}`}
+function cabCita(n){return `<p class="fc-paso"><b>${n}</b> de 3</p>${citaV?`<p class="ag-que">Visita a la nave: <b>${citaV}</b>. Elige cuándo te llama Javi para confirmarla.</p>`:''}${citaM?`<p class="ag-que">Te interesa: <b>${citaM}</b></p>`:''}`}
 function pasoDia(){
   $('#fw').innerHTML=`<div class="fc">${cabCita(1)}<p class="fc-t">¿Qué día te llama Javier?</p>
     <div class="fc-dias">${HUECOS.dias.map(d=>`<button type="button" class="fc-d2" onclick="selF='${d.fecha}';pasoHora()"><small>${d.nombre.split(',')[0].slice(0,3)}</small>${d.d}<small>${d.horas.length} huecos</small></button>`).join('')}</div>
@@ -1160,6 +1166,13 @@ function cerrarFicha(){if(fU!=null&&fT){ficha(fT.m);return}$('#fic').classList.r
 let fx0=null;document.addEventListener('pointerdown',e=>{if(e.target.closest('.fic-main'))fx0=e.clientX});
 document.addEventListener('pointerup',e=>{if(fx0!==null&&fT){const d=e.clientX-fx0;if(Math.abs(d)>40)fotoF(d<0?1:-1)}fx0=null});
 addEventListener('keydown',e=>{if(e.key!=='Escape')return;if($('#fic').classList.contains('open'))cerrarFicha();else cerrarCat()});
+/* Día de nave: aviso arriba en todas las páginas hasta que pase la fecha (dato en js/datos.js) */
+const fechaNave=()=>{if(typeof DIA_NAVE==='undefined'||!DIA_NAVE.activo)return null;const hoy=new Date(),h=hoy.getFullYear()+'-'+String(hoy.getMonth()+1).padStart(2,'0')+'-'+String(hoy.getDate()).padStart(2,'0');if(DIA_NAVE.fecha<h)return null;
+  return new Date(DIA_NAVE.fecha+'T12:00:00').toLocaleDateString('es-ES',{weekday:'long',day:'numeric',month:'long'}).replace(',','')};
+function abrirVisita(){const f=fechaNave();abrir('',f?'Quiero visitar la nave el '+f:'',f||'')}
+{const f=fechaNave();if(f){const corta=new Date(DIA_NAVE.fecha+'T12:00:00').toLocaleDateString('es-ES',{weekday:'short',day:'numeric',month:'short'}).replace(',','').replace(/\./g,'');
+  const b=$('#naveBar');b.innerHTML=`<span class="nb-l">📍 Próximo día en la nave: <b>${f}</b> · Javi te atiende en persona</span><span class="nb-c">📍 <b>${corta}</b>: Javi en la nave</span><button onclick="abrirVisita()">Reserva tu visita</button>`;b.hidden=false;document.documentElement.classList.add('con-nave')}
+  if(f&&new URLSearchParams(location.search).get('visita')!==null)setTimeout(abrirVisita,400)}
 {const _c=new URLSearchParams(location.search).get('cita')??(/^\/(tiktok|cita|agenda|llamada)(\.html)?$/.test(location.pathname)?'1':null);if(_c!==null)setTimeout(()=>abrir(/^(1|tiktok|)$/.test(_c)?'':_c),400)}
 const [_h,_u]=decodeURIComponent(location.hash.slice(1)).replace(/-/g,' ').split('/');if(_h==='catalogo')setTimeout(()=>abrirCat(),300);else{setTimeout(()=>{const _t=_h&&(STOCK.find(t=>t.m===_h||t.slug===_h)||ACCI.find(t=>t.m===_h));if(_t)ficha(_t.m,_u&&t_u(_t,_u))},300)}
 function t_u(t,u){const k=+u-1;return t.u&&t.u[k]&&t.u.length>1?k:undefined}
