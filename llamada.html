@@ -682,11 +682,11 @@ a.kick{cursor:pointer}
 .sin-wa a[href*="wa.me/"]{display:none!important}
 .sin-wa .card .bts,.sin-wa .card.vend .bts{grid-template-columns:1fr!important}
 .sin-wa .mbar{grid-template-columns:1fr!important}.sin-wa .mbar .v{width:100%}
-.nave-bar{position:fixed;top:0;left:0;right:0;z-index:55;height:44px;display:flex;align-items:center;justify-content:center;gap:12px;padding:0 12px;background:var(--amarillo);color:#111;font:700 .95rem/1.1 var(--t);text-align:center}
-.nave-bar b{font-weight:800}.nave-bar button{flex:0 0 auto;background:#111;color:var(--amarillo);border:0;padding:7px 12px;font:800 .9rem/1 var(--h);text-transform:uppercase;cursor:pointer}
+.nave-bar{position:fixed;top:0;left:0;right:0;z-index:55;min-height:48px;display:flex;align-items:center;justify-content:center;gap:14px;padding:6px 12px;background:var(--amarillo);color:#111;font:700 1.08rem/1.25 var(--t);text-align:center}
+.nave-bar b{font-weight:800}.nave-bar button{flex:0 0 auto;background:#111;color:var(--amarillo);border:0;padding:9px 14px;font:800 1rem/1 var(--h);text-transform:uppercase;cursor:pointer}
 .nave-bar .nb-c{display:none}
-.con-nave .cab{top:44px}.con-nave body,body.con-nave{padding-top:44px}
-@media(max-width:700px){.nave-bar{font-size:.85rem;gap:8px}.nave-bar .nb-l{display:none}.nave-bar .nb-c{display:inline}}
+.con-nave .cab{top:var(--nb,48px)}.con-nave body{padding-top:var(--nb,48px)}
+@media(max-width:700px){.nave-bar{font-size:1rem;gap:10px;padding:7px 10px;text-align:left}.nave-bar .nb-l{display:none}.nave-bar .nb-c{display:inline}.nave-bar button{padding:7px 8px;font-size:.9rem;line-height:1.05;max-width:84px;white-space:normal}}
 </style>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "¿Dónde está Navatractor?", "acceptedAnswer": {"@type": "Answer", "text": "En la C. Cruces, 16620 Pinarejo (Cuenca). Antes de venir, agenda una llamada o escríbenos por WhatsApp."}}, {"@type": "Question", "name": "¿Qué tractores tenéis?", "acceptedAnswer": {"@type": "Answer", "text": "Tractores John Deere de ocasión de la Serie R, las series 6020/6030 y 7020/7030, la Serie 6M, la Serie 5 y clásicos, además de algunos de otras marcas y telescópicas Merlo y JCB. En el catálogo ves los que hay ahora en la nave."}}, {"@type": "Question", "name": "¿Puedo ver y probar el tractor antes de comprarlo?", "acceptedAnswer": {"@type": "Answer", "text": "Sí. Ven a la nave de Pinarejo, lo ves y lo pruebas."}}, {"@type": "Question", "name": "¿Dais garantía?", "acceptedAnswer": {"@type": "Answer", "text": "Sí, nuestros tractores tienen garantía de 6 meses o 300 horas de trabajo, lo que ocurra primero."}}, {"@type": "Question", "name": "¿Tenéis correo electrónico?", "acceptedAnswer": {"@type": "Answer", "text": "Sí: infonavatractor@gmail.com. Escríbenos con tus datos y el tractor que te interesa."}}, {"@type": "Question", "name": "¿Cómo pido una cita?", "acceptedAnswer": {"@type": "Answer", "text": "Pulsa «Agendar llamada», elige día y hora en la agenda de Javier y él te llama."}}]}</script>
 </head>
@@ -1172,7 +1172,8 @@ const fechaNave=()=>{if(typeof DIA_NAVE==='undefined'||!DIA_NAVE.activo)return n
   return new Date(DIA_NAVE.fecha+'T12:00:00').toLocaleDateString('es-ES',{weekday:'long',day:'numeric',month:'long'}).replace(',','')};
 function abrirVisita(){const f=fechaNave();abrir('',f?'Quiero visitar la nave el '+f:'',f||'')}
 {const f=fechaNave();if(f){const corta=new Date(DIA_NAVE.fecha+'T12:00:00').toLocaleDateString('es-ES',{weekday:'short',day:'numeric',month:'short'}).replace(',','').replace(/\./g,'');
-  const b=$('#naveBar');const F=f[0].toUpperCase()+f.slice(1),C=corta[0].toUpperCase()+corta.slice(1);b.innerHTML=`<span class="nb-l">📍 <b>${F}</b> · Javier te atiende · Ven a probar tu tractor</span><span class="nb-c">📍 <b>${C}</b> · Ven a probar tu tractor</span><button onclick="abrirVisita()">Reserva tu visita</button>`;b.hidden=false;document.documentElement.classList.add('con-nave')}
+  const b=$('#naveBar');const F=f[0].toUpperCase()+f.slice(1),C=corta[0].toUpperCase()+corta.slice(1);b.innerHTML=`<span class="nb-l">📍 <b>${F}</b> · Javier te atiende · Ven a probar tu tractor</span><span class="nb-c">📍 <b>${C}</b> · Javier te atiende · Ven a probar tu tractor</span><button onclick="abrirVisita()">Reserva tu visita</button>`;b.hidden=false;document.documentElement.classList.add('con-nave');
+  const alto=()=>document.documentElement.style.setProperty('--nb',b.offsetHeight+'px');alto();addEventListener('resize',alto)}
   if(f&&new URLSearchParams(location.search).get('visita')!==null)setTimeout(abrirVisita,400)}
 {const _c=new URLSearchParams(location.search).get('cita')??(/^\/(tiktok|cita|agenda|llamada)(\.html)?$/.test(location.pathname)?'1':null);if(_c!==null)setTimeout(()=>abrir(/^(1|tiktok|)$/.test(_c)?'':_c),400)}
 const [_h,_u]=decodeURIComponent(location.hash.slice(1)).replace(/-/g,' ').split('/');if(_h==='catalogo')setTimeout(()=>abrirCat(),300);else{setTimeout(()=>{const _t=_h&&(STOCK.find(t=>t.m===_h||t.slug===_h)||ACCI.find(t=>t.m===_h));if(_t)ficha(_t.m,_u&&t_u(_t,_u))},300)}
