@@ -127,7 +127,7 @@ STOCK.forEach(t=>{if(t.m==='5100R'){t.horas=3000;t.precio=38000}if(t.m==='6215R'
 // Cada unidad: [horas, precio, 'extras', vendida]. Precio 0 = «Consultar». Las fotos no se tocan (llegan por unidad).
 var UNI={
  '6250R':[[7200,117000,'Tripuntal, suspensión delantera, suspensión trasera, equipo de aire, 50 km/h, cambio CommandPRO, ISOBUS, monitor grande, 4 neumáticos nuevos']],
- '6215R':[[5700,75000,'Tripuntal, suspensión delantera, suspensión en cabina, equipo de aire, 50 km/h, cambio AutoPowr, monitor grande, ISOBUS'],[5800,73000,'Tripuntal delantero, suspensión delantera, suspensión en cabina, 2 neumáticos traseros nuevos, cambio AutoPowr, equipo de aire, 50 km/h, ISOBUS']],
+ '6215R':[[5700,75000,'Tripuntal, suspensión delantera, suspensión en cabina, equipo de aire, 50 km/h, cambio AutoPowr, monitor grande, ISOBUS'],[5800,73000,'Tripuntal delantero, suspensión delantera, suspensión en cabina, 2 neumáticos traseros nuevos, cambio AutoPowr, equipo de aire, 50 km/h, ISOBUS'],[5700,0,'Tripuntal delantero con TDF, suspensión delantera, suspensión en cabina, equipo de aire, 50 km/h, cambio CommandPRO, monitor grande']],
  '6210R':[[6000,65000,'Suspensión delantera, suspensión en cabina, equipo de aire, 50 km/h']],
  '6195R':[[7500,74000,'Tripuntal, suspensión delantera, suspensión en cabina, ISOBUS, equipo de aire, 50 km/h, cambio PowrQuad, 4 neumáticos nuevos'],[7600,73000,'Tripuntal delantero con TDF, suspensión delantera, suspensión en cabina, equipo de aire, 50 km/h, cambio PowrQuad']],
  '6190R':[[8000,65000,'Tripuntal, suspensión delantera, suspensión trasera, 50 km/h, equipo de aire, cambio AutoPowr, 2 neumáticos delanteros nuevos']],
@@ -200,9 +200,9 @@ ACC={
 STOCK.forEach(t=>{t.conPala=t.u.some(x=>!x.vendido&&x.extras.some(e=>/^pala /i.test(e)))});
 
 // Fotos por unidad del paquete de Manuel (28-10-2026), en img/u/<carpeta>/NN.jpg (la 01 es la portada)
-var FU={"5100r":3,"5125r":10,"5720":7,"6110rc":16,"6125m":3,"6135r":13,"6155r":10,"6220":11,"6250r":9,"6430-premium":13,"6620":16,"7530-premium":16,"7820":12,"telescopica-merlo":6,"5100r-2":3,"5720-2":12,"6115m-2":8,"6135r-2":9,"6150m":8,"6155r-2":11,"6155r-3":12,"6195r-2":15,"6210r":14,"6215r-2":12,"6220-2":6,"6220-se":15,"6230-premium":13,"6520-2":6,"6620-2":10,"6620-3":10,"7530-premium-2":9,"renault-ares-640-rz":6,"telescopica-jcb-2":11,"telescopica-jcb-3":5};
+var FU={"5100r":3,"5125r":10,"5720":7,"6110rc":16,"6125m":3,"6135r":13,"6155r":10,"6220":11,"6250r":9,"6430-premium":13,"6620":16,"7530-premium":16,"7820":12,"telescopica-merlo":6,"5100r-2":3,"5720-2":12,"6115m-2":8,"6135r-2":9,"6150m":8,"6155r-2":11,"6155r-3":12,"6195r-2":15,"6210r":14,"6215r-2":12,"6220-2":6,"6220-se":15,"6230-premium":13,"6520-2":6,"6620-2":10,"6620-3":10,"7530-premium-2":9,"renault-ares-640-rz":6,"telescopica-jcb-2":11,"telescopica-jcb-3":5,"6215r-3":10};
 var FU_MAPA={'5100r':['5100R',0],'5100r-2':['5100R',1],'5125r':['5125R',0],'5720':['5720',0],'5720-2':['5720',1],'6110rc':['6110RC',0],'6125m':['6125M',0],'6115m-2':['6115M',1],
- '6135r':['6135R',0],'6135r-2':['6135R',1],'6150m':['6150M',0],'6155r':['6155R',0],'6155r-2':['6155R',1],'6155r-3':['6155R',2],'6195r-2':['6195R',1],'6210r':['6210R',0],'6215r-2':['6215R',1],
+ '6135r':['6135R',0],'6135r-2':['6135R',1],'6150m':['6150M',0],'6155r':['6155R',0],'6155r-2':['6155R',1],'6155r-3':['6155R',2],'6195r-2':['6195R',1],'6210r':['6210R',0],'6215r-2':['6215R',1],'6215r-3':['6215R',2],
  '6220':['6220 Premium',0],'6220-2':['6220 Premium',1],'6220-se':['6220 SE',0],'6230-premium':['6230 Premium',0],'6250r':['6250R',0],'6430-premium':['6430 Premium',0],'6520-2':['6520',1],
  '6620':['6620',0],'6620-2':['6620',1],'6620-3':['6620',2],'7530-premium':['7530 Premium',0],'7530-premium-2':['7530 Premium',1],'7820':['7820',0],
  'renault-ares-640-rz':['Renault Ares 640 RZ',0],'telescopica-merlo':['Merlo',0],'telescopica-jcb-2':['JCB',1],'telescopica-jcb-3':['JCB',2]};
