@@ -144,7 +144,7 @@ var UNI={
  '6630 Premium':[[7700,43000,'Suspensión delantera, equipo de aire, 50 km/h, 2 neumáticos delanteros nuevos']],
  '6430 Premium':[[7400,43000,'Tripuntal delantero con TDF, suspensión delantera, suspensión en cabina, cambio AutoPowr, 2 neumáticos delanteros nuevos']],
  '6330 Premium':[[7500,43000,'Pala Quicke, 4 neumáticos nuevos']],
- '6820':[[8000,41000,'Tripuntal delantero con TDF, suspensión delantera, suspensión en cabina']],
+ '6820':[[8000,41500,'Tripuntal delantero con TDF, suspensión delantera, suspensión en cabina'],[8000,40500,'Tripuntal delantero, suspensión delantera, suspensión trasera'],[8000,37500,'']],
  '6220 Premium':[[8000,36000,''],[8000,38000,'Pala MX'],[8000,36000,'']],
  '6220 SE':[[5700,29000,'']],
  '6230 Premium':[[7500,43000,'Suspensión delantera, suspensión en cabina, pala MX, cambio AutoPowr']],
@@ -212,7 +212,7 @@ var FU_PORTADA={'5100R':'img/g/5100r-1.jpg','6125M':'img/stock/6125m-pala.jpg'};
 STOCK.forEach(t=>{t.fotosWeb=(t.fotos||[]).filter(f=>!/ilus-/.test(f))});
 Object.entries(FU_MAPA).forEach(([c,[m,i]])=>{const t=STOCK.find(x=>x.m===m);if(t&&t.u[i])t.u[i].fotos=Array.from({length:FU[c]},(_,k)=>'img/u/'+c+'/'+String(k+1).padStart(2,'0')+'.jpg')});
 STOCK.forEach(t=>{
-  if(t.u[0]&&!t.u[0].vendido&&!t.u[0].fotos.length&&t.fotosWeb.length&&t.u.some(x=>x.fotos.length))t.u[0].fotos=t.fotosWeb.slice();
+  if(t.u.length>1&&t.u[0]&&!t.u[0].vendido&&!t.u[0].fotos.length&&t.fotosWeb.length)t.u[0].fotos=t.fotosWeb.slice();
   const nueva=x=>x.fotos.some(f=>f.startsWith('img/u/'));
   const u=t.u.find(x=>!x.vendido&&nueva(x))||t.u.find(x=>!x.vendido&&x.fotos.length)||t.u.find(x=>x.fotos.length);
   t.galU=t.u.indexOf(u);
