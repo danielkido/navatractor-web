@@ -877,7 +877,7 @@ a.kick{cursor:pointer}
   </div>
 </div>
 
-<script src="js/datos.js?v=32"></script>
+<script src="js/datos.js?v=33"></script>
 <script>
 const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 const WA='34689631687', usados=STOCK.filter(t=>t.s==='oc'&&!t.vendido), conFoto=STOCK.filter(t=>t.img&&!t.vendido);
@@ -1019,8 +1019,11 @@ async function abrir(m,nota,visita){if($('#fic'))$('#fic').classList.remove('ope
   $('#fw').innerHTML=`<div class="agenda"><p class="fc-i">Cargando los huecos libres de Javier…</p></div>`;$('#modal').classList.add('open');
   try{const r=await fetch(API+'/api/huecos');HUECOS=await r.json();if(!HUECOS.ok||!HUECOS.dias.length)throw 0}
   catch(e){$('#fw').innerHTML=`<div class="agenda">${citaV?`<p class="ag-que">Visita a la nave: <b>${citaV}</b>.</p>`:''}<p>Elige día y hora en la agenda de Javier y te llamará él.</p><a class="btn pri ag-btn" href="https://calendar.app.google/K83xkyJisikwjqW49" target="_blank" rel="noopener"><svg><use href="#i-cal"/></svg>Elegir día y hora</a>${btnWA()}</div>`;return}
+  if(citaV){const d=HUECOS.dias.find(x=>x.fecha===DIA_NAVE.fecha);   /* visita: solo el día de nave */
+    if(!d||!d.horas.length){$('#fw').innerHTML=`<div class="agenda"><p class="ag-que">Visita a la nave: <b>${citaV}</b></p><p>Ya no quedan horas libres para ese día. Agenda una llamada y Javier te busca otro momento.</p><button class="btn pri ag-btn" onclick="abrir()"><svg><use href="#i-cal"/></svg>Agendar llamada</button></div>`;return}
+    selF=d.fecha;return pasoHora()}
   pasoDia()}
-function cabCita(n){return `<p class="fc-paso"><b>${n}</b> de 3</p>${citaV?`<p class="ag-que">Visita a la nave: <b>${citaV}</b>. Elige cuándo te llama Javi para confirmarla.</p>`:''}${citaM?`<p class="ag-que">Te interesa: <b>${citaM}</b></p>`:''}`}
+function cabCita(n){return `<p class="fc-paso"><b>${citaV?n-1:n}</b> de ${citaV?2:3}</p>${citaV?`<p class="ag-que">Visita a la nave: <b>${citaV}</b>. Elige a qué hora vienes y Javier te atiende en persona.</p>`:''}${citaM?`<p class="ag-que">Te interesa: <b>${citaM}</b></p>`:''}`}
 function pasoDia(){
   $('#fw').innerHTML=`<div class="fc">${cabCita(1)}<p class="fc-t">¿Qué día te llama Javier?</p>
     <div class="fc-dias">${HUECOS.dias.map(d=>`<button type="button" class="fc-d2" onclick="selF='${d.fecha}';pasoHora()"><small>${d.nombre.split(',')[0].slice(0,3)}</small>${d.d}<small>${d.horas.length} huecos</small></button>`).join('')}</div>
@@ -1029,7 +1032,7 @@ function pasoHora(){const d=HUECOS.dias.find(x=>x.fecha===selF);
   const man=d.horas.filter(h=>h<'15'),tar=d.horas.filter(h=>h>='15');
   const fila=(t,l)=>l.length?`<p class="fc-sub">${t}</p><div class="fc-horas">${l.map(h=>`<button type="button" onclick="selH='${h}';pasoDatos()">${h}</button>`).join('')}</div>`:'';
   $('#fw').innerHTML=`<div class="fc">${cabCita(2)}<p class="fc-t">${d.nombre[0].toUpperCase()+d.nombre.slice(1)}: ¿a qué hora?</p>${fila('Mañana',man)}${fila('Tarde',tar)}
-    <button type="button" class="ag-alt" onclick="pasoDia()">← Cambiar de día</button></div>`}
+    ${citaV?'':'<button type="button" class="ag-alt" onclick="pasoDia()">← Cambiar de día</button>'}</div>`}
 function pasoDatos(){const d=HUECOS.dias.find(x=>x.fecha===selF),mods=STOCK.filter(t=>(t.s==='oc'||t.s==='tel')&&!t.vendido);
   $('#fw').innerHTML=`<form class="fc" onsubmit="enviarCita(event)">${cabCita(3)}
     <p class="fc-sel">📅 ${d.nombre}, a las <b>${selH}</b> <button type="button" class="ag-alt" style="display:inline;width:auto;margin:0 0 0 8px" onclick="pasoHora()">cambiar</button></p>
@@ -1039,17 +1042,17 @@ function pasoDatos(){const d=HUECOS.dias.find(x=>x.fecha===selF),mods=STOCK.filt
     <label>¿Qué tractor te interesa?</label><select name="tractor"><option value="">Aún no lo sé</option>${mods.map(t=>`<option ${citaM&&t.m===citaM?'selected':''}>${nombre(t)}</option>`).join('')}</select>
     <label>Comentario <small>(opcional)</small></label><textarea name="nota" rows="2" placeholder="Ej.: busco uno con pala, 100 CV…">${citaN}</textarea>
     <input name="web" tabindex="-1" autocomplete="off" class="fc-trampa" aria-hidden="true">
-    <button class="btn pri ag-btn" type="submit"><svg><use href="#i-cal"/></svg>Confirmar llamada</button>
+    <button class="btn pri ag-btn" type="submit"><svg><use href="#i-cal"/></svg>${citaV?'Confirmar visita':'Confirmar llamada'}</button>
     <p class="fc-err" id="fcErr" hidden></p></form>`}
 async function enviarCita(e){e.preventDefault();const f=e.target,b=f.querySelector('button[type=submit]'),err=$('#fcErr');
-  const d=Object.fromEntries(new FormData(f));Object.assign(d,{fecha:selF,hora:selH,origen:INAPP?'red social':'web'});err.hidden=true;b.disabled=true;b.textContent='Reservando…';
+  const d=Object.fromEntries(new FormData(f));Object.assign(d,{fecha:selF,hora:selH,origen:INAPP?'red social':'web'},citaV?{tipo:'visita'}:{});err.hidden=true;b.disabled=true;b.textContent='Reservando…';
   try{const r=await fetch(API+'/api/cita',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(d)});const j=await r.json();
     if(!j.ok)throw new Error(j.error);
     $('#fw').innerHTML=`<div class="agenda fc-ok"><div class="fc-check">✓</div><p class="ag-que">¡Cita confirmada, <b>${d.nombre.split(' ')[0]}</b>!</p>
-      <p>Javier te llamará el <b>${j.cuando}</b> al ${d.telefono}.</p>${j.email?`<p>Te hemos mandado la confirmación a <b>${d.email}</b> (mira también en spam).</p>`:''}
+      ${citaV?`<p>Te esperamos en la nave de Pinarejo el <b>${j.cuando}</b>. Javier te atiende en persona.</p><p>Dirección: Calle las Cruces, 16620 Pinarejo (Cuenca).</p>`:`<p>Javier te llamará el <b>${j.cuando}</b> al ${d.telefono}.</p>`}${j.email?`<p>Te hemos mandado la confirmación a <b>${d.email}</b> (mira también en spam).</p>`:''}
       ${SIN_WA?'':'<p>Si te surge algo, escríbele por WhatsApp.</p>'}${btnWA('WhatsApp de Javier')}</div>`;
-  }catch(x){b.disabled=false;b.innerHTML='<svg><use href="#i-cal"/></svg>Confirmar llamada';err.hidden=false;
-    err.innerHTML={datos:'Revisa el nombre y el teléfono (9 cifras).',email:'Revisa el correo.',ocupado:'Ese hueco se acaba de ocupar. <a href="#" onclick="abrir(citaM);return false">Elige otra hora</a>.'}[x.message]||(SIN_WA?'No se ha podido reservar. Inténtalo de nuevo en un momento.':'No se ha podido reservar. Escríbele por WhatsApp y te llama igualmente.')}}
+  }catch(x){b.disabled=false;b.innerHTML='<svg><use href="#i-cal"/></svg>'+(citaV?'Confirmar visita':'Confirmar llamada');err.hidden=false;
+    err.innerHTML={datos:'Revisa el nombre y el teléfono (9 cifras).',email:'Revisa el correo.',ocupado:'Ese hueco se acaba de ocupar. <a href="#" onclick="'+(citaV?'abrirVisita()':'abrir(citaM)')+';return false">Elige otra hora</a>.'}[x.message]||(SIN_WA?'No se ha podido reservar. Inténtalo de nuevo en un momento.':'No se ha podido reservar. Escríbele por WhatsApp y te llama igualmente.')}}
 function cerrar(){$('#modal').classList.remove('open')}
 addEventListener('keydown',e=>{if(e.key==='Escape')cerrar()});
 
