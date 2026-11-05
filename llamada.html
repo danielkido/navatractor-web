@@ -866,7 +866,7 @@ a.kick{cursor:pointer}
 
 <div class="modal" id="modal" onclick="if(event.target===this)cerrar()">
   <div class="ven">
-    <header><h3>Agendar llamada</h3><button onclick="cerrar()" aria-label="Cerrar">×</button></header>
+    <header><h3 id="modalTit">Agendar llamada</h3><button onclick="cerrar()" aria-label="Cerrar">×</button></header>
     <div id="fw"><form onsubmit="enviar(event)">
       <label>¿Qué te interesa?</label><select id="fm"></select>
       <label>¿Para qué trabajo?</label><textarea id="fn" rows="2" placeholder="Ej.: 60 ha de cereal, quiero pala, cambio mi tractor…"></textarea>
@@ -1016,7 +1016,7 @@ const SIN_WA=/^\/tiktok(\.html)?$/.test(location.pathname)||/musical_ly|Bytedanc
 if(SIN_WA)document.documentElement.classList.add('sin-wa');
 const waCita=()=>{const t=citaM&&(STOCK.find(x=>x.m===citaM)||ACCI.find(x=>x.m===citaM));return waMsg(t?msgWA(t):'Hola Javier, he visto vuestra web. ¿Cuándo podríamos tener una llamada?')};
 const btnWA=t=>SIN_WA?'':`<a class="btn wa ag-btn" href="${waCita()}" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg>${t||'Escríbele por WhatsApp'}</a>`;
-async function abrir(m,nota,visita){if($('#fic'))$('#fic').classList.remove('open');citaM=m||'';citaN=nota||'';citaV=visita||'';selF='';selH='';
+async function abrir(m,nota,visita){if($('#fic'))$('#fic').classList.remove('open');citaM=m||'';citaN=nota||'';citaV=visita||'';$('#modalTit').textContent=citaV?'Reserva tu visita':'Agendar llamada';selF='';selH='';
   $('#fw').innerHTML=`<div class="agenda"><p class="fc-i">Cargando los huecos libres de Javier…</p></div>`;$('#modal').classList.add('open');
   try{const r=await fetch(API+'/api/huecos');HUECOS=await r.json();if(!HUECOS.ok||!HUECOS.dias.length)throw 0}
   catch(e){$('#fw').innerHTML=`<div class="agenda">${citaV?`<p class="ag-que">Visita a la nave: <b>${citaV}</b>.</p>`:''}<p>Elige día y hora en la agenda de Javier y te llamará él.</p><a class="btn pri ag-btn" href="https://calendar.app.google/K83xkyJisikwjqW49" target="_blank" rel="noopener"><svg><use href="#i-cal"/></svg>Elegir día y hora</a>${btnWA()}</div>`;return}
