@@ -608,6 +608,9 @@ a.kick{cursor:pointer}
 .fc-sub{font:600 .75rem/1 var(--mono);color:var(--mut);text-transform:uppercase;margin:10px 0 6px}
 .fc-d2{display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px 4px;border:1px solid var(--line);background:var(--bg3);font:800 1.4rem/1 var(--h);color:var(--txt)}
 .fc-d2 small{font:600 .66rem/1 var(--mono);color:var(--mut);text-transform:uppercase}
+.fc-dias.fc-5{grid-template-columns:repeat(5,1fr);margin-bottom:6px}.fc-sem{margin:12px 0 6px;font:700 .78rem/1 var(--mono);text-transform:uppercase;letter-spacing:.04em;color:var(--mut)}
+.fc-d2.fc-no{opacity:.28;cursor:default}.fc-d2.fc-no:hover{border-color:var(--line)}
+@media(max-width:420px){.fc-dias.fc-5{gap:4px}.fc-5 .fc-d2{padding:8px 2px;font-size:1.2rem}.fc-5 .fc-d2 small{font-size:.58rem}}
 .fc-d2:hover,.fc-horas button:hover{border-color:var(--amarillo)}
 .fc-horas{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
 .fc-horas button{padding:12px 0;border:1px solid var(--line);background:var(--bg3);font:800 1.15rem/1 var(--h);color:var(--txt)}
@@ -1027,9 +1030,19 @@ async function abrir(m,nota,visita){if($('#fic'))$('#fic').classList.remove('ope
     selF=d.fecha;return pasoHora()}
   pasoDia()}
 function cabCita(n){return `<p class="fc-paso"><b>${citaV?n-1:n}</b> de ${citaV?2:3}</p>${citaV?`<p class="ag-que">Visita a la nave: <b>${citaV}</b>. Elige a qué hora vienes y Javier te atiende en persona.</p>`:''}${citaM?`<p class="ag-que">Te interesa: <b>${citaM}</b></p>`:''}`}
+/* días de la agenda en filas por semana, de lunes a viernes: cada día siempre en su columna */
+function semanas(){
+  const F=f=>new Date(f+'T12:00:00'),lunes=f=>{const d=F(f);d.setDate(d.getDate()-((d.getDay()+6)%7));return d},iso=d=>d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+  const mes=d=>d.toLocaleDateString('es-ES',{month:'short'}).replace('.',''),grupos={};
+  HUECOS.dias.forEach(d=>{const k=iso(lunes(d.fecha));(grupos[k]=grupos[k]||{})[d.fecha]=d});
+  return Object.keys(grupos).sort().map(k=>{const l=F(k),v=new Date(l);v.setDate(l.getDate()+4);
+    const tit=l.getMonth()===v.getMonth()?`Semana del ${l.getDate()} al ${v.getDate()} de ${mes(v)}`:`Semana del ${l.getDate()} ${mes(l)} al ${v.getDate()} ${mes(v)}`;
+    const celdas=[0,1,2,3,4].map(i=>{const x=new Date(l);x.setDate(l.getDate()+i);const d=grupos[k][iso(x)],dn=['Lun','Mar','Mié','Jue','Vie'][i];
+      return d?`<button type="button" class="fc-d2" onclick="selF='${d.fecha}';pasoHora()"><small>${dn}</small>${d.d}<small>${d.horas.length} huecos</small></button>`:`<span class="fc-d2 fc-no"><small>${dn}</small>${x.getDate()}<small>—</small></span>`}).join('');
+    return `<p class="fc-sem">${tit}</p><div class="fc-dias fc-5">${celdas}</div>`}).join('')}
 function pasoDia(){
   $('#fw').innerHTML=`<div class="fc">${cabCita(1)}<p class="fc-t">¿Qué día te llama Javier?</p>
-    <div class="fc-dias">${HUECOS.dias.map(d=>`<button type="button" class="fc-d2" onclick="selF='${d.fecha}';pasoHora()"><small>${d.nombre.split(',')[0].slice(0,3)}</small>${d.d}<small>${d.horas.length} huecos</small></button>`).join('')}</div>
+    ${semanas()}
     ${btnWA('Prefiero WhatsApp')}</div>`}
 function pasoHora(){const d=HUECOS.dias.find(x=>x.fecha===selF);
   const man=d.horas.filter(h=>h<'15'),tar=d.horas.filter(h=>h>='15');
