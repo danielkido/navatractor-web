@@ -1018,7 +1018,10 @@ const waCita=()=>{const t=citaM&&(STOCK.find(x=>x.m===citaM)||ACCI.find(x=>x.m==
 const btnWA=t=>SIN_WA?'':`<a class="btn wa ag-btn" href="${waCita()}" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg>${t||'Escríbele por WhatsApp'}</a>`;
 async function abrir(m,nota,visita){if($('#fic'))$('#fic').classList.remove('open');citaM=m||'';citaN=nota||'';citaV=visita||'';$('#modalTit').textContent=citaV?'Reserva tu visita':'Agendar llamada';selF='';selH='';
   $('#fw').innerHTML=`<div class="agenda"><p class="fc-i">Cargando los huecos libres de Javier…</p></div>`;$('#modal').classList.add('open');
-  try{const r=await fetch(API+'/api/huecos');HUECOS=await r.json();if(!HUECOS.ok||!HUECOS.dias.length)throw 0}
+  try{const r=await fetch(API+'/api/huecos');HUECOS=await r.json();if(!HUECOS.ok)throw 0;
+    /* llamadas: solo de lunes a viernes; los sábados son para las visitas a la nave */
+    if(!citaV)HUECOS.dias=HUECOS.dias.filter(x=>{const w=new Date(x.fecha+'T12:00:00').getDay();return w>=1&&w<=5});
+    if(!HUECOS.dias.length)throw 0}
   catch(e){$('#fw').innerHTML=`<div class="agenda">${citaV?`<p class="ag-que">Visita a la nave: <b>${citaV}</b>.</p>`:''}<p>Elige día y hora en la agenda de Javier y te llamará él.</p><a class="btn pri ag-btn" href="https://calendar.app.google/K83xkyJisikwjqW49" target="_blank" rel="noopener"><svg><use href="#i-cal"/></svg>Elegir día y hora</a>${btnWA()}</div>`;return}
   if(citaV){const d=HUECOS.dias.find(x=>x.fecha===DIA_NAVE.fecha);   /* visita: solo el día de nave */
     if(!d||!d.horas.length){$('#fw').innerHTML=`<div class="agenda"><p class="ag-que">Visita a la nave: <b>${citaV}</b></p><p>Ya no quedan horas libres para ese día. Agenda una llamada y Javier te busca otro momento.</p><button class="btn pri ag-btn" onclick="abrir()"><svg><use href="#i-cal"/></svg>Agendar llamada</button></div>`;return}
