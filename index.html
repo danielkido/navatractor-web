@@ -17,7 +17,7 @@
 <meta property="og:url" content="https://navatractor.es/">
 <meta property="og:image" content="https://navatractor.es/img/nave/nave-codex.jpg">
 <meta name="twitter:card" content="summary_large_image">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Store", "@id": "https://navatractor.es/#negocio", "name": "Navatractor", "alternateName": ["Maquinaria Navatractor", "Nava Tractor"], "legalName": "Agrícola Navatractor S.L.", "description": "Venta de tractores John Deere de ocasión, palas, cazos y aperos en Pinarejo (Cuenca).", "url": "https://navatractor.es/", "logo": "https://navatractor.es/img/logo-navatractor.jpg", "image": ["https://navatractor.es/img/nave/nave-codex.jpg", "https://navatractor.es/img/logo-navatractor.jpg"], "address": {"@type": "PostalAddress", "streetAddress": "Calle Cruces", "postalCode": "16620", "addressLocality": "Pinarejo", "addressRegion": "Cuenca", "addressCountry": "ES"}, "areaServed": "ES", "knowsAbout": ["Tractores John Deere de ocasión", "Palas para tractor", "Cazos", "Aperos agrícolas"], "hasMap": "https://www.google.com/maps/search/?api=1&query=Calle+Cruces+16620+Pinarejo+Cuenca", "sameAs": ["https://www.facebook.com/profile.php?id=100077509732805", "https://www.instagram.com/nava_tractor/", "https://www.tiktok.com/@navatractor"], "email": "infonavatractor@gmail.com"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Store", "@id": "https://navatractor.es/#negocio", "name": "Navatractor", "alternateName": ["Maquinaria Navatractor", "Nava Tractor"], "legalName": "Agrícola Navatractor S.L.", "description": "Venta de tractores John Deere de ocasión, palas, cazos y aperos en Pinarejo (Cuenca).", "url": "https://navatractor.es/", "logo": "https://navatractor.es/img/logo-navatractor.jpg", "image": ["https://navatractor.es/img/nave/nave-codex.jpg", "https://navatractor.es/img/logo-navatractor.jpg"], "address": {"@type": "PostalAddress", "streetAddress": "Calle Cruces", "postalCode": "16620", "addressLocality": "Pinarejo", "addressRegion": "Cuenca", "addressCountry": "ES"}, "areaServed": "ES", "knowsAbout": ["Tractores John Deere de ocasión", "Palas para tractor", "Cazos", "Aperos agrícolas"], "hasMap": "https://www.google.com/maps/search/?api=1&query=Calle+las+Cruces+16620+Pinarejo+Cuenca", "sameAs": ["https://www.facebook.com/profile.php?id=100077509732805", "https://www.instagram.com/nava_tractor/", "https://www.tiktok.com/@navatractor"], "email": "infonavatractor@gmail.com"}</script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebSite", "name": "Navatractor", "alternateName": "Maquinaria Navatractor", "url": "https://navatractor.es/", "inLanguage": "es-ES", "publisher": {"@id": "https://navatractor.es/#negocio"}}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800;900&family=IBM+Plex+Mono:wght@500;600&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -147,6 +147,11 @@ section{padding:110px 0}
 .busca svg{position:absolute;left:16px;top:13px;width:20px;height:20px;color:var(--mut2)}
 @media(max-width:700px){.filtros{flex-wrap:nowrap;overflow-x:auto;margin:0 -18px 22px;padding:0 18px;scrollbar-width:none}.filtros::-webkit-scrollbar{display:none}.ch{flex:none}.busca{order:-1;flex:none;margin:0}.busca input{width:200px}}
 .cuenta{color:var(--mut);font-weight:600;margin:-8px 0 20px}
+.filtros2{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:-12px 0 24px}
+.filtros2 select{height:44px;border-radius:999px;border:1px solid var(--line);background:var(--bg2) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%23c9cec2' stroke-width='2'/%3E%3C/svg%3E") no-repeat right 14px center;color:#c9cec2;font:700 .95rem var(--t);padding:0 36px 0 16px;-webkit-appearance:none;appearance:none;cursor:pointer}
+.filtros2 select.on{border-color:var(--amarillo);color:var(--amarillo)}
+.filtros2 .lim{background:none;border:0;color:var(--mut);font-weight:700;text-decoration:underline;cursor:pointer;padding:0 6px}
+@media(max-width:700px){.filtros2{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:-8px 0 20px}.filtros2 select{width:100%;font-size:.85rem;padding:0 26px 0 12px;background-position:right 10px center}.filtros2 .lim{grid-column:1/-1;justify-self:start}}
 .cuenta b{color:var(--txt)}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px}
 .card{background:var(--bg2);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;display:flex;flex-direction:column;transform-style:preserve-3d;transition:transform .2s var(--ease),border-color .3s,box-shadow .3s;will-change:transform}
@@ -571,6 +576,7 @@ a.kick{cursor:pointer}
 .sobre p{color:var(--mut);margin-bottom:14px;font-size:1.05rem}
 .sobre p b{color:var(--txt)}
 .sobre-l a{color:var(--amarillo);font-weight:700}
+.fic-vent{color:var(--mut);font-size:.92rem;margin:14px 0 0;padding-top:12px;border-top:1px dashed var(--line)}
 .faq details{border-top:1px solid var(--line);padding:16px 0}
 .faq details:last-child{border-bottom:1px solid var(--line)}
 .faq summary{cursor:pointer;font-weight:700;list-style:none;display:flex;justify-content:space-between;gap:12px}
@@ -690,7 +696,7 @@ a.kick{cursor:pointer}
 .con-nave .cab{top:var(--nb,48px)}.con-nave body{padding-top:var(--nb,48px)}
 @media(max-width:700px){.nave-bar{font-size:clamp(.82rem,4.3vw,1rem);gap:10px;padding:7px 10px}.nave-bar .nb-l{display:none}.nave-bar .nb-c{display:flex;flex-direction:column;align-items:center;flex:1;text-align:center}.nave-bar .nb-c>span{white-space:nowrap}.nave-bar button{padding:7px 8px;font-size:.9rem;line-height:1.05;max-width:84px;white-space:normal}}
 </style>
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "¿Dónde está Navatractor?", "acceptedAnswer": {"@type": "Answer", "text": "En la C. Cruces, 16620 Pinarejo (Cuenca). Antes de venir, agenda una llamada o escríbenos por WhatsApp."}}, {"@type": "Question", "name": "¿Qué tractores tenéis?", "acceptedAnswer": {"@type": "Answer", "text": "Tractores John Deere de ocasión de la Serie R, las series 6020/6030 y 7020/7030, la Serie 6M, la Serie 5 y clásicos, además de algunos de otras marcas y telescópicas Merlo y JCB. En el catálogo ves los que hay ahora en la nave."}}, {"@type": "Question", "name": "¿Puedo ver y probar el tractor antes de comprarlo?", "acceptedAnswer": {"@type": "Answer", "text": "Sí. Ven a la nave de Pinarejo, lo ves y lo pruebas."}}, {"@type": "Question", "name": "¿Dais garantía?", "acceptedAnswer": {"@type": "Answer", "text": "Sí, nuestros tractores tienen garantía de 6 meses o 300 horas de trabajo, lo que ocurra primero."}}, {"@type": "Question", "name": "¿Tenéis correo electrónico?", "acceptedAnswer": {"@type": "Answer", "text": "Sí: infonavatractor@gmail.com. Escríbenos con tus datos y el tractor que te interesa."}}, {"@type": "Question", "name": "¿Cómo pido una cita?", "acceptedAnswer": {"@type": "Answer", "text": "Pulsa «Agendar llamada», elige día y hora en la agenda de Javier y él te llama."}}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "¿Dónde está Navatractor? ¿Puedo ver y probar el tractor?", "acceptedAnswer": {"@type": "Answer", "text": "En la Calle las Cruces, 16620 Pinarejo (Cuenca). Sí: ven a la nave, lo ves y lo pruebas. Antes de venir, reserva tu visita o escríbenos por WhatsApp."}}, {"@type": "Question", "name": "¿Qué tenéis en la nave?", "acceptedAnswer": {"@type": "Answer", "text": "Tractores John Deere de ocasión (Serie R, 6020/6030, 7020/7030, 6M, Serie 5 y clásicos), algunos de otras marcas, telescópicas Merlo y JCB, palas, cazos y aperos. En el catálogo ves lo que hay ahora, con precio, horas y extras."}}, {"@type": "Question", "name": "¿Dais garantía?", "acceptedAnswer": {"@type": "Answer", "text": "Sí, nuestros tractores tienen garantía de 6 meses o 300 horas de trabajo, lo que ocurra primero."}}, {"@type": "Question", "name": "¿Financiáis?", "acceptedAnswer": {"@type": "Answer", "text": "No ofrecemos financiación directa, pero te hacemos una factura proforma del tractor para que la presentes en tu banco o caja y pidas la financiación con ellos."}}, {"@type": "Question", "name": "¿Puedo reservar un tractor?", "acceptedAnswer": {"@type": "Answer", "text": "Sí, se puede reservar. Escríbenos y te explicamos cómo."}}, {"@type": "Question", "name": "¿Aceptáis mi tractor como parte del pago?", "acceptedAnswer": {"@type": "Answer", "text": "Si es un John Deere, lo valoramos como parte del pago."}}, {"@type": "Question", "name": "¿Hacéis transporte?", "acceptedAnswer": {"@type": "Answer", "text": "Sí, hacemos transporte nacional e internacional. Pregúntanos por tu caso."}}, {"@type": "Question", "name": "¿Cómo os contacto?", "acceptedAnswer": {"@type": "Answer", "text": "Pulsa «Agendar llamada», elige día y hora y Javier te llama. También por WhatsApp o en infonavatractor@gmail.com."}}]}</script>
 </head>
 <body>
 
@@ -731,7 +737,7 @@ a.kick{cursor:pointer}
         <button class="btn sec" onclick="abrirCat()">Ver tractores</button>
       </div>
       <div class="datos-h">
-        <div><b>Nave</b>C. Cruces, Pinarejo (Cuenca)</div>
+        <div><b>Nave</b>Calle las Cruces, Pinarejo (Cuenca)</div>
         <div><b>Pregunta por</b>Javier</div>
         <div><b>Contacto</b>Llamada agendada o WhatsApp</div>
         <div><b>Garantía</b>Incluida</div>
@@ -761,14 +767,14 @@ a.kick{cursor:pointer}
   <div class="sec-t rv"><div><span class="kick"><i></i>Cómo funciona</span><h2>Del sofá <span>a la nave</span></h2></div></div>
   <div class="pasos3 rv">
     <div><b>01</b><h3>Eliges</h3><p>Mira los tractores de la nave o contesta tres preguntas y te enseñamos los que encajan contigo.</p></div>
-    <div><b>02</b><h3>Agendas la llamada</h3><p>Elige día y hora. Te llamamos y te contamos año, horas y precio del que te interesa.</p></div>
+    <div><b>02</b><h3>Lo tienes claro</h3><p>Mira precio, horas y extras en cada ficha. Cuando lo tengas claro, agenda una llamada con Javier o reserva tu visita.</p></div>
     <div><b>03</b><h3>Vienes a verlo</h3><p>Pasas por la nave de Pinarejo a verlo y probarlo. Todos nuestros tractores vienen con garantía incluida.</p></div>
   </div>
   <div style="text-align:center;margin-top:30px" class="rv"><button class="btn pri" onclick="abrir()"><svg><use href="#i-cal"/></svg>Agendar llamada</button></div>
 </div></section>
 
 <section id="asesor"><div class="wrap">
-  <div class="sec-t rv"><div><span class="kick"><i></i>Asesor</span><h2>¿Qué tractor <span>necesito?</span></h2></div><p>Tres preguntas y te enseñamos los tractores de la nave que te encajan. Año, horas y precio exactos te los damos en la llamada.</p></div>
+  <div class="sec-t rv"><div><span class="kick"><i></i>Asesor</span><h2>¿Qué tractor <span>necesito?</span></h2></div><p>Tres preguntas y te enseñamos los tractores de la nave que te encajan. Mira precio, horas y extras en cada ficha y, cuando lo tengas claro, agenda una llamada o ven a verlo a la nave.</p></div>
   <div class="preg rv" id="preg"></div>
   <div class="resul" id="resul"></div>
 </div></section>
@@ -803,12 +809,14 @@ a.kick{cursor:pointer}
       <p class="sobre-l"><a href="tractores/">Ver todas las fichas del catálogo →</a></p>
     </div>
     <div class="faq">
-      <details><summary>¿Dónde está Navatractor?</summary><p>En la C. Cruces, 16620 Pinarejo (Cuenca). Antes de venir, agenda una llamada o escríbenos por WhatsApp.</p></details>
-      <details><summary>¿Qué tractores tenéis?</summary><p>Tractores John Deere de ocasión de la Serie R, las series 6020/6030 y 7020/7030, la Serie 6M, la Serie 5 y clásicos, además de algunos de otras marcas y telescópicas Merlo y JCB. En el catálogo ves los que hay ahora en la nave.</p></details>
-      <details><summary>¿Puedo ver y probar el tractor antes de comprarlo?</summary><p>Sí. Ven a la nave de Pinarejo, lo ves y lo pruebas.</p></details>
+      <details><summary>¿Dónde está Navatractor? ¿Puedo ver y probar el tractor?</summary><p>En la Calle las Cruces, 16620 Pinarejo (Cuenca). Sí: ven a la nave, lo ves y lo pruebas. Antes de venir, reserva tu visita o escríbenos por WhatsApp.</p></details>
+      <details><summary>¿Qué tenéis en la nave?</summary><p>Tractores John Deere de ocasión (Serie R, 6020/6030, 7020/7030, 6M, Serie 5 y clásicos), algunos de otras marcas, telescópicas Merlo y JCB, palas, cazos y aperos. En el catálogo ves lo que hay ahora, con precio, horas y extras.</p></details>
       <details><summary>¿Dais garantía?</summary><p>Sí, nuestros tractores tienen <b>garantía de 6 meses o 300 horas de trabajo, lo que ocurra primero</b>.</p></details>
-      <details><summary>¿Tenéis correo electrónico?</summary><p>Sí: infonavatractor@gmail.com. Escríbenos con tus datos y el tractor que te interesa.</p></details>
-      <details><summary>¿Cómo pido una cita?</summary><p>Pulsa «Agendar llamada», elige día y hora en la agenda de Javier y él te llama.</p></details>
+      <details><summary>¿Financiáis?</summary><p>No ofrecemos financiación directa, pero te hacemos una factura proforma del tractor para que la presentes en tu banco o caja y pidas la financiación con ellos.</p></details>
+      <details><summary>¿Puedo reservar un tractor?</summary><p>Sí, se puede reservar. Escríbenos y te explicamos cómo.</p></details>
+      <details><summary>¿Aceptáis mi tractor como parte del pago?</summary><p>Si es un John Deere, lo valoramos como parte del pago.</p></details>
+      <details><summary>¿Hacéis transporte?</summary><p>Sí, hacemos transporte nacional e internacional. Pregúntanos por tu caso.</p></details>
+      <details><summary>¿Cómo os contacto?</summary><p>Pulsa «Agendar llamada», elige día y hora y Javier te llama. También por WhatsApp o en infonavatractor@gmail.com.</p></details>
     </div>
   </div>
 </div></section>
@@ -818,7 +826,7 @@ a.kick{cursor:pointer}
   <div class="contacto rv">
     <div class="caja">
       <h3>Navatractor</h3>
-      <address>C. Cruces, 16620 Pinarejo (Cuenca)</address>
+      <address>Calle las Cruces, 16620 Pinarejo (Cuenca)</address>
       <div class="javier"><span class="av">J</span><div><b>Pregunta por Javier</b>Te atiende él en persona, por llamada agendada o por WhatsApp.</div></div>
       <div class="tels">
         <button class="btn pri" onclick="abrir()"><svg><use href="#i-cal"/></svg>Agendar llamada</button>
@@ -826,12 +834,12 @@ a.kick{cursor:pointer}
       </div>
       <p class="correo">¿Alguna consulta? Escríbenos con tus datos a <a href="mailto:infonavatractor@gmail.com?subject=Consulta%20desde%20navatractor.es" onclick="return correo(event)">infonavatractor@gmail.com</a></p>
     </div>
-    <a class="mapa" href="https://www.google.com/maps/search/?api=1&query=Calle+Cruces+16620+Pinarejo+Cuenca" target="_blank" rel="noopener"><img src="img/nave/nave-codex.jpg" alt="Interior de la nave de Navatractor en Pinarejo" loading="lazy"><span class="sello"><img src="img/logo-navatractor.jpg" alt="Logo de Navatractor"><b>NAVATRACTOR</b><small>Pinarejo · Cuenca</small></span><span class="ir">Cómo llegar →</span></a>
+    <a class="mapa" href="https://www.google.com/maps/search/?api=1&query=Calle+las+Cruces+16620+Pinarejo+Cuenca" target="_blank" rel="noopener"><img src="img/nave/nave-codex.jpg" alt="Interior de la nave de Navatractor en Pinarejo" loading="lazy"><span class="sello"><img src="img/logo-navatractor.jpg" alt="Logo de Navatractor"><b>NAVATRACTOR</b><small>Pinarejo · Cuenca</small></span><span class="ir">Cómo llegar →</span></a>
   </div>
 </div></section>
 
 <footer><div class="wrap">
-  <div><b>NAVATRACTOR</b><p>Agrícola Navatractor S.L. · C. Cruces, 16620 Pinarejo (Cuenca)</p>
+  <div><b>NAVATRACTOR</b><p>Agrícola Navatractor S.L. · Calle las Cruces, 16620 Pinarejo (Cuenca)</p>
   <p style="margin-top:10px;font-size:.82rem">John Deere y los nombres de sus modelos son marcas de Deere &amp; Company; se citan para identificar las máquinas a la venta. Datos técnicos orientativos.</p></div>
   <div class="redes"><b>Síguenos</b>
     <a href="https://www.facebook.com/profile.php?id=100077509732805" target="_blank" rel="noopener"><svg><use href="#i-fb"/></svg>Facebook</a>
@@ -860,6 +868,7 @@ a.kick{cursor:pointer}
   <div class="wrap"><div class="cp-tabs" id="cpTabs"></div></div></div>
   <div class="wrap cp-body" id="cpTrac">
     <div class="filtros" id="filtros"></div>
+    <div class="filtros2" id="filtros2"></div>
     <p class="cuenta" id="cuenta"></p>
     <div class="grid" id="grid"></div>
   </div>
@@ -880,7 +889,7 @@ a.kick{cursor:pointer}
   </div>
 </div>
 
-<script src="js/datos.js?v=33"></script>
+<script src="js/datos.js?v=34"></script>
 <script>
 const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 const WA='34689631687', usados=STOCK.filter(t=>t.s==='oc'&&!t.vendido), conFoto=STOCK.filter(t=>t.img&&!t.vendido);
@@ -947,8 +956,16 @@ const GAMAS=[
 const gamaDe=t=>t.s==='tel'?'tel':t.marca?'otras':/^[23]\d{3}/.test(t.m)?'util':/^5\d{3}/.test(t.m)?'5':/^\d{4}R$/.test(t.m)?'6r':/RC$|M$/.test(t.m.split(' ')[0])?'6m':/^7/.test(t.m)?'7000':/^6\d[23]0/.test(t.m)?'6000':'util';
 STOCK.forEach(t=>t.g=gamaDe(t));
 const ordenar=l=>l.slice().sort((a,b)=>GAMAS.findIndex(g=>g[0]===a.g)-GAMAS.findIndex(g=>g[0]===b.g)||(a.vendido-b.vendido)||(b.dest-a.dest)||b.cv-a.cv);
-const F=[['todos','Todos'],...GAMAS.map(g=>[g[0],g[1]]),['pala','Con pala']];
+const F=[['todos','Todos'],...GAMAS.map(g=>[g[0],g[1]])];
 let f='todos';
+/* filtros que más piden: pala, potencia y precio (se combinan con la serie y la búsqueda) */
+const FX={pala:['Pala',[['con','Con pala'],['sin','Sin pala']]],cv:['Potencia',[['0-110','Hasta 110 CV'],['111-150','110–150 CV'],['151-200','150–200 CV'],['201-999','Más de 200 CV']]],pr:['Precio',[['0-40000','Hasta 40.000 €'],['40001-60000','40–60.000 €'],['60001-80000','60–80.000 €'],['80001-9999999','Más de 80.000 €']]]};
+let fx={pala:'',cv:'',pr:''};
+const enRango=(v,r)=>{const[a,b]=r.split('-').map(Number);return v>=a&&v<=b};
+const conPala=x=>x.extras.some(e=>/^pala /i.test(e));
+function filtros2(){
+  $('#filtros2').innerHTML=Object.entries(FX).map(([k,[n,o]])=>`<select class="${fx[k]?'on':''}" aria-label="${n}" onchange="fx.${k}=this.value;filtros2();pintar()"><option value="">${n}</option>${o.map(([v,t])=>`<option value="${v}"${fx[k]===v?' selected':''}>${t}</option>`).join('')}</select>`).join('')+(fx.pala||fx.cv||fx.pr?`<button class="lim" onclick="fx={pala:'',cv:'',pr:''};filtros2();pintar()">Quitar filtros</button>`:'');
+}
 function filtros(){
   $('#filtros').innerHTML=`<label class="busca"><svg><use href="#i-lupa"/></svg><input id="q" placeholder="Buscar modelo" oninput="pintar()"></label>`+F.map(x=>`<button class="ch ${f===x[0]?'on':''}" onclick="f='${x[0]}';filtros();pintar()">${x[1]}</button>`).join('');
 }
@@ -956,9 +973,10 @@ function lista(){
   const q=($('#q')?.value||'').toLowerCase().replace(/\s/g,'');
   return STOCK.filter(t=>{
     if(q&&!t.m.toLowerCase().replace(/\s/g,'').includes(q))return false;
-    if(f==='pala')return t.conPala;
-    if(f!=='todos')return t.g===f;
-    return true;
+    if(f!=='todos'&&t.g!==f)return false;
+    if(!fx.pala&&!fx.cv&&!fx.pr)return true;
+    if(t.vendido||(fx.cv&&!enRango(t.cv,fx.cv)))return false;
+    return t.u.some(x=>!x.vendido&&(!fx.pala||(fx.pala==='con')===conPala(x))&&(!fx.pr||(x.precio&&enRango(x.precio,fx.pr))));
   }).sort((a,b)=>0);
 }
 function correo(e){if(/Android|iPhone|iPad|iPod/i.test(navigator.userAgent))return true;e.preventDefault();window.open('https://mail.google.com/mail/?view=cm&fs=1&to=infonavatractor@gmail.com&su='+encodeURIComponent('Consulta desde navatractor.es'),'_blank','noopener');return false}
@@ -1134,9 +1152,13 @@ function abrirFic(hash){$('#fic').classList.add('open');document.body.style.over
 /* ficha(m): un solo tractor → su ficha; varios → selector con una tarjeta por tractor. ficha(m,i): ese tractor concreto */
 function ficha(m,i){
   fT=STOCK.find(t=>t.m===m)||ACCI.find(t=>t.m===m); if(!fT)return; fi=0;fU=null;
-  const t=fT,esAcc=t.s==='acc',grupo=esAcc?t.marca:(GAMAS.find(g=>g[0]===t.g)||['',''])[1],varios=(t.u||[]).length>1,h=t.m.replace(/\s+/g,'-');
+  const t=fT,esAcc=t.s==='acc',grupo=esAcc?t.marca:(GAMAS.find(g=>g[0]===t.g)||['',''])[1],h=t.m.replace(/\s+/g,'-');
+  /* arriba solo lo disponible; lo vendido pasa a una línea de «Últimas ventas» */
+  const dispI=(t.u||[]).map((x,k)=>x.vendido?-1:k).filter(k=>k>=0),nV=(t.u||[]).length-dispI.length,varios=dispI.length>1;
+  if(i==null&&dispI.length===1&&t.u.length>1)i=dispI[0];
+  const ventas=nV&&dispI.length?`<p class="fic-vent">Últimas ventas: ${nV===1?'también hemos vendido otro':'también hemos vendido '+nV} ${t.m} hace poco.</p>`:'';
   if(varios&&i==null){fG=[];
-    const orden=t.u.map((x,k)=>[x,k]).sort((a,b)=>a[0].vendido-b[0].vendido);
+    const orden=dispI.map(k=>[t.u[k],k]);
     $('#ficB').innerHTML=`<div class="fic-dat fic-sel">
      <p class="fic-k">${kicker(t,esAcc,grupo)}</p>
      <h2>${t.m}</h2>
@@ -1148,13 +1170,15 @@ function ficha(m,i){
         <div class="ut-c">${x.vendido?'<p class="ut-p">Vendido</p>':`<p class="ut-p">${x.precio?miles(x.precio)+'&nbsp;€':'Consultar'}</p><p class="ut-h">${x.horas?fH(x.horas)+' de trabajo':''}</p>
         <ul class="ud-ex">${r.length?r.slice(0,4).map(e=>`<li>${cap(e)}</li>`).join('')+(r.length>4?`<li class="no">+${r.length-4} más</li>`:''):'<li class="no">Sin extras</li>'}</ul>
         <span class="ut-v">Ver este tractor →</span>`}</div></article>`}).join('')}</div>
+     ${ventas}
      <p class="fic-nota"><span class="gar">${GAR}Garantía incluida</span> Ven a verlos y probarlos a la nave de Pinarejo (Cuenca).</p>
      ${relHTML(t,esAcc,grupo)}
    </div>`;
     return abrirFic(h);
   }
-  if(varios)fU=i;
-  const x=varios?t.u[i]:null,vend=x?x.vendido:t.vendido,precio=x?x.precio:t.precio,horas=x?x.horas:t.horas;
+  const x=i!=null&&t.u&&t.u[i]?t.u[i]:null;
+  if(varios&&x)fU=i;
+  const vend=x?x.vendido:t.vendido,precio=x?x.precio:t.precio,horas=x?x.horas:t.horas;
   const f=x?x.fotos:(t.fotos.length?t.fotos:t.img?[t.img]:[]);fG=f;
   const ex=x?x.extras:(t.u&&t.u[0]&&!t.u[0].vendido?t.u[0].extras:null);
   const nota=x?`${t.m} de ${fH(horas)||'?'}${precio?' · '+miles(precio)+' €':''}`:'';
@@ -1175,6 +1199,7 @@ function ficha(m,i){
        ${vend?`<button class="btn pri" onclick="abrir('','Busco uno parecido al ${t.m} (vendido)')"><svg><use href="#i-cal"/></svg>Pregúntanos por uno parecido</button>`:`<button class="btn pri" onclick="abrir('${t.m}','${nota}')"><svg><use href="#i-cal"/></svg>Agendar llamada</button>`}
        <a class="btn wa" href="${wa}" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg>Preguntar a Javier</a>
      </div>
+     ${vend?'':ventas}
      <p class="fic-nota"><span class="gar">${GAR}Garantía incluida</span> Ven a verlo y probarlo a la nave de Pinarejo (Cuenca).</p>
      ${relHTML(t,esAcc,grupo)}
    </div>`;
@@ -1196,7 +1221,7 @@ function abrirVisita(){const f=fechaNave();abrir('',f?'Quiero visitar la nave el
 {const _c=new URLSearchParams(location.search).get('cita')??(/^\/(tiktok|cita|agenda|llamada)(\.html)?$/.test(location.pathname)?'1':null);if(_c!==null)setTimeout(()=>abrir(/^(1|tiktok|)$/.test(_c)?'':_c),400)}
 const [_h,_u]=decodeURIComponent(location.hash.slice(1)).replace(/-/g,' ').split('/');if(_h==='catalogo')setTimeout(()=>abrirCat(),300);else{setTimeout(()=>{const _t=_h&&(STOCK.find(t=>t.m===_h||t.slug===_h)||ACCI.find(t=>t.m===_h));if(_t)ficha(_t.m,_u&&t_u(_t,_u))},300)}
 function t_u(t,u){const k=+u-1;return t.u&&t.u[k]&&t.u.length>1?k:undefined}
-hacerACCI();filtros();pintar();preguntas();
+hacerACCI();filtros();filtros2();pintar();preguntas();
 </script>
 </body>
 </html>

@@ -75,7 +75,7 @@ var STOCK=[
  ['6220','oc',2,90,0,'4 cil. 4,5 L','PowrQuad Plus / AutoQuad Plus','2002–2006','','6220'],
  ['7720','oc',1,165,0,'6 cil. 6,8 L','AutoPowr / PowrQuad Plus','2003–2007','','ilus-7720'],
  ['6620','oc',1,125,0,'6 cil. 6,8 L','PowrQuad Plus / AutoQuad','2002–2006','','ilus-6620'],
- ['6520','oc',1,115,0,'Consultar','PowrQuad Plus / AutoQuad','2002–2006','','ilus-6520'],
+ ['6520','oc',1,115,0,'','PowrQuad Plus / AutoQuad','2002–2006','','ilus-6520'],
  ['5720','oc',1,90,0,'4 cil. 4,5 L','PowrQuad / SyncShuttle','2003–2007','','ilus-5720'],
  ['3350','oc',1,100,0,'6 cil. 5,9 L','Synchron 16/8','1987–1994','Clásico','ilus-3350'],
  ['Merlo','tel',1,0,0,'','','','Horquillas','merlo'],
