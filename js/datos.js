@@ -127,21 +127,21 @@ STOCK.forEach(t=>{if(t.m==='5100R'){t.horas=3000;t.precio=38000}if(t.m==='6215R'
 // Cada unidad: [horas, precio, 'extras', vendida]. Precio 0 = «Consultar». Las fotos no se tocan (llegan por unidad).
 var UNI={
  '6250R':[[7200,117000,'Tripuntal, suspensión delantera, suspensión trasera, equipo de aire, 50 km/h, cambio CommandPRO, ISOBUS, monitor grande, 4 neumáticos nuevos']],
- '6215R':[[5700,73000,'Tripuntal, suspensión delantera, suspensión en cabina, equipo de aire, 50 km/h, cambio DirectDrive, monitor grande, ISOBUS'],[5800,75000,'Tripuntal delantero, suspensión delantera, suspensión en cabina, 2 neumáticos traseros nuevos, cambio AutoPowr, equipo de aire, 50 km/h, ISOBUS'],[5700,80000,'Tripuntal delantero con TDF, suspensión delantera, suspensión en cabina, equipo de aire, 50 km/h, cambio CommandPRO, monitor grande',1],[5400,75000,'Tripuntal delantero con TDF, equipo de aire, 50 km/h, cambio AutoPowr, monitor grande, ISOBUS, 4 neumáticos nuevos'],[6000,72000,'Tripuntal delantero con TDF, suspensión delantera, suspensión en cabina, equipo de aire, 50 km/h, cambio PowrQuad, 2 neumáticos delanteros nuevos']],
+ '6215R':[[5700,75000,'Tripuntal, suspensión delantera, suspensión en cabina, equipo de aire, 50 km/h, cambio DirectDrive, monitor grande, ISOBUS'],[5800,75000,'Tripuntal delantero, suspensión delantera, suspensión en cabina, 2 neumáticos traseros nuevos, cambio AutoPowr, equipo de aire, 50 km/h, ISOBUS'],[5700,80000,'Tripuntal delantero con TDF, suspensión delantera, suspensión en cabina, equipo de aire, 50 km/h, cambio CommandPRO, monitor grande',1],[5400,75000,'Tripuntal delantero con TDF, equipo de aire, 50 km/h, cambio AutoPowr, monitor grande, ISOBUS, 4 neumáticos nuevos'],[6000,72000,'Tripuntal delantero con TDF, suspensión delantera, suspensión en cabina, equipo de aire, 50 km/h, cambio PowrQuad, 2 neumáticos delanteros nuevos']],
  '6210R':[[6000,65000,'Suspensión delantera, suspensión en cabina, equipo de aire, 50 km/h',1],[8500,61000,'Tripuntal delantero con TDF, suspensión delantera, suspensión trasera, equipo de aire, cambio AutoPowr']],
  '6195R':[[6400,74000,'Tripuntal delantero, suspensión delantera, suspensión en cabina, ISOBUS, equipo de aire, 50 km/h, cambio PowrQuad, 4 neumáticos nuevos'],[7600,73000,'Tripuntal delantero con TDF, suspensión delantera, suspensión en cabina, equipo de aire, 50 km/h, cambio PowrQuad']],
- '6190R':[[8000,62000,'Tripuntal, suspensión delantera, suspensión trasera, 50 km/h, equipo de aire, cambio AutoPowr, 2 neumáticos delanteros nuevos']],
- '6175R':[[7200,70000,'Tripuntal delantero, suspensión delantera, suspensión en cabina, 50 km/h, equipo de aire, cambio PowrQuad']],
- '6170R':[[6700,58000,'Suspensión delantera, suspensión en cabina, 50 km/h, equipo de aire, cambio PowrQuad']],
- '6155R':[[5200,68000,'Tripuntal delantero con TDF, suspensión delantera, suspensión trasera, 50 km/h, equipo de aire, cambio PowrQuad, monitor grande'],[5500,75000,'Tripuntal con TDF, suspensión delantera, suspensión trasera, equipo de aire, ISOBUS, 50 km/h, cambio CommandPRO, monitor grande',1],[6100,72000,'Tripuntal delantero con TDF, suspensión delantera, suspensión en cabina, equipo de aire, 50 km/h, cambio AutoPowr'],[7400,68000,'Tripuntal delantero, suspensión delantera, suspensión en cabina, equipo de aire, 50 km/h, ISOBUS, cambio PowrQuad']],
- '6135R':[[7000,53000,'Suspensión delantera, suspensión trasera, creeper, cambio PowrQuad'],[7000,52000,'Suspensión delantera, 2 neumáticos delanteros nuevos']],
+ '6190R':[[8000,65000,'Tripuntal, suspensión delantera, suspensión trasera, 50 km/h, equipo de aire, cambio AutoPowr, 2 neumáticos delanteros nuevos']],
+ '6175R':[[7200,74000,'Tripuntal delantero, suspensión delantera, suspensión en cabina, 50 km/h, equipo de aire, cambio PowrQuad']],
+ '6170R':[[6700,64000,'Suspensión delantera, suspensión en cabina, 50 km/h, equipo de aire, cambio PowrQuad']],
+ '6155R':[[5200,75000,'Tripuntal delantero con TDF, suspensión delantera, suspensión trasera, 50 km/h, equipo de aire, cambio PowrQuad, monitor grande'],[5500,75000,'Tripuntal con TDF, suspensión delantera, suspensión trasera, equipo de aire, ISOBUS, 50 km/h, cambio CommandPRO, monitor grande',1],[6100,73000,'Tripuntal delantero con TDF, suspensión delantera, suspensión en cabina, equipo de aire, 50 km/h, cambio AutoPowr'],[7400,70000,'Tripuntal delantero, suspensión delantera, suspensión en cabina, equipo de aire, 50 km/h, ISOBUS, cambio PowrQuad']],
+ '6135R':[[7000,56000,'Suspensión delantera, suspensión trasera, creeper, cambio PowrQuad'],[7000,56000,'Suspensión delantera, 2 neumáticos delanteros nuevos']],
  '6110R':[[0,0,'',1]],
  '6420 S':[[8000,36500,'Suspensión delantera, asiento del acompañante, asiento neumático'],[8000,36500,'Asiento del acompañante, asiento neumático']],
  '6110M':[[6000,54000,'Suspensión delantera']],
  '7920':[[11000,62000,'Tripuntal delantero con TDF, suspensión delantera, suspensión en cabina, cambio AutoPowr, preinstalación de GPS, 4 neumáticos nuevos Bridgestone'],[9900,60000,'Tripuntal delantero con TDF, suspensión delantera, suspensión en cabina, cambio AutoPowr']],
  '6105R':[[6000,56500,'Suspensión delantera, pala Quicke con tercera función y báscula, 2 neumáticos delanteros nuevos']],
- '7820':[[8900,54000,'Suspensión delantera, cambio PowrQuad, 4 neumáticos nuevos'],[8900,54000,'Suspensión delantera, cambio PowrQuad, 4 neumáticos nuevos'],[8900,54000,'Suspensión delantera, cambio PowrQuad, 4 neumáticos nuevos'],[8900,54000,'Suspensión delantera, cambio PowrQuad, 4 neumáticos nuevos']],
- '7530 Premium':[[7400,53000,'Suspensión delantera, suspensión trasera, 50 km/h, equipo de aire, cambio PowrQuad, 4 neumáticos nuevos'],[7700,53000,'Suspensión delantera, suspensión en cabina, cambio PowrQuad'],[7400,55000,'Suspensión delantera, suspensión en cabina, 4 neumáticos nuevos, 50 km/h, equipo de aire, cambio AutoPowr']],
+ '7820':[[8900,60000,'Suspensión delantera, cambio PowrQuad, 4 neumáticos nuevos'],[8900,54000,'Suspensión delantera, cambio PowrQuad, 4 neumáticos nuevos'],[8900,54000,'Suspensión delantera, cambio PowrQuad, 4 neumáticos nuevos'],[8900,54000,'Suspensión delantera, cambio PowrQuad, 4 neumáticos nuevos']],
+ '7530 Premium':[[7400,55000,'Suspensión delantera, suspensión trasera, 50 km/h, equipo de aire, cambio PowrQuad, 4 neumáticos nuevos'],[7700,55000,'Suspensión delantera, suspensión en cabina, cambio PowrQuad'],[7400,55000,'Suspensión delantera, suspensión en cabina, 4 neumáticos nuevos, 50 km/h, equipo de aire, cambio AutoPowr']],
  '6920 S':[[8700,41000,'Tripuntal delantero con TDF, suspensión delantera, suspensión en cabina, equipo de aire, 50 km/h']],
  '6930 Premium':[[8100,45000,'Suspensión delantera, suspensión en cabina, equipo de aire, 50 km/h']],
  '6830 Premium':[[8100,45000,'Suspensión delantera, suspensión trasera, 50 km/h, equipo de aire, 4 neumáticos nuevos']],
@@ -149,7 +149,7 @@ var UNI={
  '6430 Premium':[[7400,43000,'Tripuntal delantero con TDF, suspensión delantera, suspensión en cabina, cambio AutoPowr, 2 neumáticos delanteros nuevos']],
  '6330 Premium':[[7500,43000,'Pala Quicke, 4 neumáticos nuevos']],
  '6820':[[8000,41500,'Tripuntal delantero con TDF, suspensión delantera, suspensión en cabina'],[8000,40500,'Tripuntal delantero, suspensión delantera, suspensión trasera'],[8000,37500,'']],
- '6220 Premium':[[8000,36000,''],[8000,38000,'Pala MX'],[8000,36000,'']],
+ '6220 Premium':[[8000,36000,'',1],[8000,38000,'Pala MX'],[8000,36000,'']],
  '6220 SE':[[5700,29000,'']],
  '6230 Premium':[[7500,43000,'Suspensión delantera, suspensión en cabina, pala MX, cambio AutoPowr']],
  '6620':[[8000,41000,'Tripuntal delantero con TDF, suspensión delantera, suspensión en cabina, 4 neumáticos nuevos'],[8000,41000,'Tripuntal delantero con TDF, suspensión delantera'],[8000,37500,'Suspensión delantera']],
@@ -158,10 +158,10 @@ var UNI={
  '6150M':[[6600,56000,'Tripuntal delantero, suspensión delantera, 2 neumáticos delanteros nuevos',1]],
  '6125M':[[6100,56000,'Suspensión delantera, 2 neumáticos delanteros nuevos, pala John Deere'],[5900,53000,'']],
  '6115M':[[6000,56000,'Suspensión delantera, 2 neumáticos delanteros nuevos, pala John Deere'],[7000,53000,'Sin pala']],
- '6110RC':[[6000,54000,'Suspensión delantera, suspensión en cabina']],
+ '6110RC':[[6000,54000,'Suspensión delantera, suspensión en cabina',1]],
  '5720':[[7100,38000,'Pala MX'],[7600,39000,'Pala John Deere, 4 neumáticos nuevos']],
  '5125R':[[9000,41000,'Suspensión delantera, creeper, anclajes de pala John Deere']],
- '5100R':[[3000,38000,''],[3000,39000,'Pala John Deere']],
+ '5100R':[[3000,38000,'',1],[3000,39000,'Pala John Deere']],
  '3350':[[0,0,'']],
  '2450M':[[0,12000,'']],
  'New Holland TD5050':[[0,0,'']],
@@ -211,7 +211,7 @@ var FU_MAPA={'5100r':['5100R',0],'5100r-2':['5100R',1],'5125r':['5125R',0],'5720
  '6620':['6620',0],'6620-2':['6620',1],'6620-3':['6620',2],'7530-premium':['7530 Premium',0],'7530-premium-2':['7530 Premium',1],'7820':['7820',0],
  'renault-ares-640-rz':['Renault Ares 640 RZ',0],'telescopica-merlo':['Merlo',0],'telescopica-jcb-2':['JCB',1],'telescopica-jcb-3':['JCB',2]};
 // portada del modelo cuando las fotos nuevas de la unidad 1 son solo de interior
-var FU_PORTADA={'5100R':'img/g/5100r-1.jpg','6125M':'img/stock/6125m-pala.jpg'};
+var FU_PORTADA={'6125M':'img/stock/6125m-pala.jpg'};
 // la unidad 1 sin fotos nuevas conserva las fotos que ya tenía la web (salvo ilustraciones)
 STOCK.forEach(t=>{t.fotosWeb=(t.fotos||[]).filter(f=>!/ilus-/.test(f))});
 Object.entries(FU_MAPA).forEach(([c,[m,i]])=>{const t=STOCK.find(x=>x.m===m);if(t&&t.u[i])t.u[i].fotos=Array.from({length:FU[c]},(_,k)=>'img/u/'+c+'/'+String(k+1).padStart(2,'0')+'.jpg')});
@@ -234,4 +234,4 @@ STOCK.forEach(t=>{
 // ===== DÍA DE NAVE: el día que Javi está en la nave de Pinarejo =====
 // Para anunciar otro día, cambia la fecha (AAAA-MM-DD). Para quitar el aviso, pon activo:false.
 // El aviso se oculta solo al día siguiente de la fecha.
-var DIA_NAVE={activo:true,fecha:'2026-11-14'};
+var DIA_NAVE={activo:false,fecha:'2026-12-05'};  // 5-12 sin confirmar: activar cuando Manu lo diga
