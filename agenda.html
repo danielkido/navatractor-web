@@ -680,7 +680,7 @@ a.kick{cursor:pointer}
 @media(min-width:1100px){.sel-g{grid-template-columns:repeat(3,1fr)}}
 .ut{background:var(--bg2,#151815);border:1px solid rgba(255,255,255,.12);cursor:pointer;display:flex;flex-direction:column;transition:border-color .2s}
 .ut:hover{border-color:var(--amarillo)}
-.ut.vend{cursor:default;opacity:.75}.ut.vend img{filter:grayscale(1) brightness(.55)}
+.ut.vend{opacity:.8}.ut.vend img{filter:grayscale(1) brightness(.55)}
 .ut-ph{position:relative;aspect-ratio:4/3;background:#0b0d0b;overflow:hidden}.ut-ph>img{width:100%;height:100%;object-fit:cover}
 .ut-ph .fic-tag.vnd{left:auto;right:10px}
 .ut-c{padding:12px 14px 14px;display:grid;gap:8px}
@@ -1136,16 +1136,17 @@ let fi=0,fT=null,fG=[],fU=null,ACCI=[];
 let FOTO={};function hacerACCI(){FOTO={'Pala León 410E':'img/acc/pala-elleon-410e.jpg','Pala León 385E':'img/acc/pala-elleon-nueva.jpg','Remolque Griselda':GAL2.griselda[0],'Pala Metal-Technik':'img/acc/pala-metaltechnik.jpg','Cazos':'img/acc/cazos.jpg','Pantalla para alpacas':'img/acc/porta-palets.jpg','Atomizador':'img/acc/atomizador.jpg'};ACCI=[];Object.entries(ACC).forEach(([k,v])=>v.forEach(a=>ACCI.push({m:a[0],s:'acc',marca:k,g:'acc-'+k,img:FOTO[a[0]]||'',fotos:a[0]==='Remolque Griselda'?GAL2.griselda:FOTO[a[0]]?[FOTO[a[0]]]:[],cv:0,precio:a[3]||0,horas:0,uds:1,u:[{horas:0,precio:a[3]||0,extras:a[4]?a[4].split(/,\s*/):[],vendido:false,fotos:[]}]})));}
 const cap=e=>e[0].toUpperCase()+e.slice(1);
 const GAR=`<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M12 3l8 3v6c0 4.5-3.4 8.3-8 9-4.6-.7-8-4.5-8-9V6z"/><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M8.5 12l2.5 2.5 4.5-5"/></svg>`;
-function galHTML(t,f,vend){return `<div class="fic-gal">
+function galHTML(t,f,vend,quedan){return `<div class="fic-gal">
      <div class="fic-main${vend?' vend':''}">${f.length?`<img id="ficImg" src="${f[0]}" alt="${nombre(t)}">`:`<div class="fic-sin"><img src="img/logo-navatractor.jpg" alt="">Foto próximamente<small>Pídele fotos a Javier por WhatsApp</small></div>`}
        ${f.length>1?`<button class="fic-n p" onclick="fotoF(-1)" aria-label="Foto anterior"><svg><use href="#i-izq"/></svg></button><button class="fic-n s" onclick="fotoF(1)" aria-label="Foto siguiente"><svg><use href="#i-der"/></svg></button><span class="fic-c" id="ficC">1 / ${f.length}</span>`:''}
-       ${vend?'<span class="fic-tag sst">Sin stock en estos momentos</span><span class="fic-tag vnd">Vendido</span>':'<span class="fic-tag">● En nave</span>'}</div>
+       ${vend?(quedan?'':'<span class="fic-tag sst">Sin stock en estos momentos</span>')+'<span class="fic-tag vnd">Vendido</span>':'<span class="fic-tag">● En nave</span>'}</div>
      ${f.length>1?`<div class="fic-th">${f.map((u,i)=>`<button onclick="fotoF(${i},1)" class="${i?'':'on'}"><img src="${u}" alt="" loading="lazy"></button>`).join('')}</div>`:''}
    </div>`}
 /* lo que distingue a un tractor de los demás del mismo modelo va primero */
 function rasgos(t,x){const otros=t.u.filter(y=>y!==x&&!y.vendido),dif=x.extras.filter(e=>!otros.every(y=>y.extras.includes(e)));return dif.concat(x.extras.filter(e=>!dif.includes(e)))}
 const eqHTML=ex=>`<div class="fic-eq"><h3>Equipamiento</h3><ul class="ud-ex">${ex.length?ex.map(e=>`<li>${cap(e)}</li>`).join(''):'<li class="no">Sin extras</li>'}</ul></div>`;
-function ficPrecio(vend,precio,horas){
+function ficPrecio(vend,precio,horas,quedan){
+  if(vend&&quedan)return `<div class="fic-precio vend"><span class="fp-et">Vendido</span><b>${precio?miles(precio)+' €':'Vendido'}</b><span class="fp-h">${horas?fH(horas)+' de trabajo · ':''}${quedan===1?'queda 1 más':'quedan '+quedan+' más'} en la nave</span></div>`;
   if(vend)return `<div class="fic-precio vend"><span class="fp-et">Sin stock en estos momentos</span><b>Vendido</b><span class="fp-h">Javier te busca uno parecido</span></div>`;
   return `<div class="fic-precio"><span class="fp-et">Precio</span><b>${precio?miles(precio)+' €':'Consultar'}</b><span class="fp-h">${precio?(horas?fH(horas)+' de trabajo':''):'Te damos el precio en la llamada'}</span><span class="fp-g">Garantía incluida</span></div>`;
 }
@@ -1157,23 +1158,22 @@ function abrirFic(hash){$('#fic').classList.add('open');document.body.style.over
 function ficha(m,i){
   fT=STOCK.find(t=>t.m===m)||ACCI.find(t=>t.m===m); if(!fT)return; fi=0;fU=null;
   const t=fT,esAcc=t.s==='acc',grupo=esAcc?t.marca:(GAMAS.find(g=>g[0]===t.g)||['',''])[1],h=t.m.replace(/\s+/g,'-');
-  /* arriba solo lo disponible; lo vendido pasa a una línea de «Últimas ventas» */
-  const dispI=(t.u||[]).map((x,k)=>x.vendido?-1:k).filter(k=>k>=0),nV=(t.u||[]).length-dispI.length,varios=dispI.length>1;
-  if(i==null&&dispI.length===1&&t.u.length>1)i=dispI[0];
-  const ventas=nV&&dispI.length?`<p class="fic-vent">Últimas ventas: ${nV===1?'también hemos vendido otro':'también hemos vendido '+nV} ${t.m} hace poco.</p>`:'';
+  /* varios tractores: primero los disponibles y, al final, los vendidos con su anuncio igual y el cartel «Vendido» (Dani, 17-11-2026) */
+  const dispI=(t.u||[]).map((x,k)=>x.vendido?-1:k).filter(k=>k>=0),vendI=(t.u||[]).map((x,k)=>x.vendido?k:-1).filter(k=>k>=0),varios=dispI.length>0&&(t.u||[]).length>1;
+  const ventas='';
   if(varios&&i==null){fG=[];
-    const orden=dispI.map(k=>[t.u[k],k]);
+    const orden=dispI.concat(vendI).map(k=>[t.u[k],k]);
     $('#ficB').innerHTML=`<div class="fic-dat fic-sel">
      <p class="fic-k">${kicker(t,esAcc,grupo)}</p>
      <h2>${t.m}</h2>
      ${t.cv?`<p class="fic-cv">${t.cv} <small>CV${t.cvmax?' · '+t.cvmax+' CV máx.':''}</small></p>`:''}
      <p class="sel-l">${t.uds?`<b>${t.uds} ${t.s==='tel'?(t.uds===1?'telescópica':'telescópicas'):(t.uds===1?'tractor':'tractores')} en la nave</b>${t.precio?` · desde ${miles(t.precio)} €`:''}`:'<b>Vendido</b>'}. Toca ${t.s==='tel'?'la':'el'} que quieras ver.</p>
      <div class="sel-g">${orden.map(([x,k])=>{const r=rasgos(t,x),f=x.fotos[0];
-       return `<article class="ut${x.vendido?' vend':''}"${x.vendido?'':` onclick="ficha('${t.m}',${k})"`}>
-        <div class="ut-ph">${f?`<img src="${f}" alt="${nombre(t)}" loading="lazy">`:`<div class="fic-sin"><img src="img/logo-navatractor.jpg" alt="">Foto próximamente</div>`}${x.vendido?'<span class="fic-tag sst">Sin stock en estos momentos</span><span class="fic-tag vnd">Vendido</span>':''}</div>
-        <div class="ut-c">${x.vendido?'<p class="ut-p">Vendido</p>':`<p class="ut-p">${x.precio?miles(x.precio)+'&nbsp;€':'Consultar'}</p><p class="ut-h">${x.horas?fH(x.horas)+' de trabajo':''}</p>
+       return `<article class="ut${x.vendido?' vend':''}" onclick="ficha('${t.m}',${k})">
+        <div class="ut-ph">${f?`<img src="${f}" alt="${nombre(t)}" loading="lazy">`:`<div class="fic-sin"><img src="img/logo-navatractor.jpg" alt="">Foto próximamente</div>`}${x.vendido?'<span class="fic-tag vnd">Vendido</span>':''}</div>
+        <div class="ut-c">${`<p class="ut-p">${x.precio?miles(x.precio)+'&nbsp;€':'Consultar'}</p><p class="ut-h">${x.horas?fH(x.horas)+' de trabajo':''}</p>
         <ul class="ud-ex">${r.length?r.slice(0,4).map(e=>`<li>${cap(e)}</li>`).join('')+(r.length>4?`<li class="no">+${r.length-4} más</li>`:''):'<li class="no">Sin extras</li>'}</ul>
-        <span class="ut-v">Ver este tractor →</span>`}</div></article>`}).join('')}</div>
+        <span class="ut-v">${x.vendido?'Vendido · ver anuncio →':'Ver este tractor →'}</span>`}</div></article>`}).join('')}</div>
      ${ventas}
      <p class="fic-nota"><span class="gar">${GAR}Garantía incluida</span> Ven a verlos y probarlos a la nave de Pinarejo (Cuenca).</p>
      ${relHTML(t,esAcc,grupo)}
@@ -1182,25 +1182,25 @@ function ficha(m,i){
   }
   const x=i!=null&&t.u&&t.u[i]?t.u[i]:null;
   if(varios&&x)fU=i;
-  const vend=x?x.vendido:t.vendido,precio=x?x.precio:t.precio,horas=x?x.horas:t.horas;
+  const vend=x?x.vendido:t.vendido,precio=x?x.precio:t.precio,horas=x?x.horas:t.horas,quedan=vend&&x?t.uds:0;
   const f=x?x.fotos:(t.fotos.length?t.fotos:t.img?[t.img]:[]);fG=f;
   const ex=x?x.extras:(t.u&&t.u[0]&&!t.u[0].vendido?t.u[0].extras:null);
   const nota=x?`${t.m} de ${fH(horas)||'?'}${precio?' · '+miles(precio)+' €':''}`:'';
   const wa=x&&!vend?waMsg(msgWA(t,(horas?' de '+fH(horas):'')+(precio?' ('+miles(precio)+' €)':''))):waTxt(t);
   $('#ficB').innerHTML=`
-   ${galHTML(t,f,vend)}
+   ${galHTML(t,f,vend,quedan)}
    <div class="fic-dat">
      <p class="fic-k">${kicker(t,esAcc,grupo)}</p>
      <h2>${t.m}</h2>
      ${t.cv?`<p class="fic-cv">${t.cv} <small>CV${t.cvmax?' · '+t.cvmax+' CV máx.':''}</small></p>`:''}
-     ${ficPrecio(vend,precio,horas)}
-     ${ex&&!vend?eqHTML(ex):''}
+     ${ficPrecio(vend,precio,horas,quedan)}
+     ${ex&&(!vend||quedan)?eqHTML(ex):''}
      <dl>
        ${t.mot?`<div><dt>Motor</dt><dd>${t.mot}</dd></div>`:''}
        ${t.anos?`<div><dt>Fabricado</dt><dd>${t.anos}</dd></div>`:''}
      </dl>
      <div class="fic-bts">
-       ${vend?`<button class="btn pri" onclick="abrir('','Busco uno parecido al ${t.m} (vendido)')"><svg><use href="#i-cal"/></svg>Pregúntanos por uno parecido</button>`:`<button class="btn pri" onclick="abrir('${t.m}','${nota}')"><svg><use href="#i-cal"/></svg>Agendar llamada</button>`}
+       ${vend&&quedan?`<button class="btn pri" onclick="ficha('${t.m}')"><svg><use href="#i-cal"/></svg>Ver ${quedan===1?'el que queda':'los '+quedan+' que quedan'}</button>`:vend?`<button class="btn pri" onclick="abrir('','Busco uno parecido al ${t.m} (vendido)')"><svg><use href="#i-cal"/></svg>Pregúntanos por uno parecido</button>`:`<button class="btn pri" onclick="abrir('${t.m}','${nota}')"><svg><use href="#i-cal"/></svg>Agendar llamada</button>`}
        <a class="btn wa" href="${wa}" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg>Preguntar a Javier</a>
      </div>
      ${vend?'':ventas}
