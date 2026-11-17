@@ -965,12 +965,12 @@ const ordenar=l=>l.slice().sort((a,b)=>GAMAS.findIndex(g=>g[0]===a.g)-GAMAS.find
 const F=[['todos','Todos'],...GAMAS.map(g=>[g[0],g[1]])];
 let f='todos';
 /* filtros que más piden: pala, potencia y precio (se combinan con la serie y la búsqueda) */
-const FX={pala:['Pala',[['con','Con pala'],['sin','Sin pala']]],cv:['Potencia',[['0-110','Hasta 110 CV'],['111-150','110–150 CV'],['151-200','150–200 CV'],['201-999','Más de 200 CV']]],pr:['Precio',[['0-40000','Hasta 40.000 €'],['40001-60000','40–60.000 €'],['60001-80000','60–80.000 €'],['80001-9999999','Más de 80.000 €']]]};
+const FX={pr:['Precio',[['0-40000','Hasta 40.000 €'],['40001-60000','De 40.000 a 60.000 €'],['60001-80000','De 60.000 a 80.000 €'],['80001-9999999','Más de 80.000 €']]],cv:['Potencia',[['0-110','Hasta 110 CV'],['111-150','De 110 a 150 CV'],['151-200','De 150 a 200 CV'],['201-999','Más de 200 CV']]],pala:['Pala',[['con','Con pala'],['sin','Sin pala']]]};
 let fx={pala:'',cv:'',pr:''};
 const enRango=(v,r)=>{const[a,b]=r.split('-').map(Number);return v>=a&&v<=b};
 const conPala=x=>x.extras.some(e=>/^pala /i.test(e));
 function filtros2(){
-  $('#filtros2').innerHTML=Object.entries(FX).map(([k,[n,o]])=>`<select class="${fx[k]?'on':''}" aria-label="${n}" onchange="fx.${k}=this.value;filtros2();pintar()"><option value="">${n}</option>${o.map(([v,t])=>`<option value="${v}"${fx[k]===v?' selected':''}>${t}</option>`).join('')}</select>`).join('')+(fx.pala||fx.cv||fx.pr?`<button class="lim" onclick="fx={pala:'',cv:'',pr:''};filtros2();pintar()">Quitar filtros</button>`:'');
+  $('#filtros2').innerHTML=Object.entries(FX).map(([k,[n,o]])=>`<select class="${fx[k]?'on':''}" aria-label="${n}" onchange="fx.${k}=this.value;filtros2();pintar()"><option value="" disabled hidden${fx[k]?'':' selected'}>${n}</option><option value="">Sin filtro</option>${o.map(([v,t])=>`<option value="${v}"${fx[k]===v?' selected':''}>${t}</option>`).join('')}</select>`).join('')+(fx.pala||fx.cv||fx.pr?`<button class="lim" onclick="fx={pala:'',cv:'',pr:''};filtros2();pintar()">Quitar filtros</button>`:'');
 }
 function filtros(){
   $('#filtros').innerHTML=`<label class="busca"><svg><use href="#i-lupa"/></svg><input id="q" placeholder="Buscar modelo" oninput="pintar()"></label>`+F.map(x=>`<button class="ch ${f===x[0]?'on':''}" onclick="f='${x[0]}';filtros();pintar()">${x[1]}</button>`).join('');
