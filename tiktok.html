@@ -893,7 +893,7 @@ a.kick{cursor:pointer}
   </div>
 </div>
 
-<script src="js/datos.js?v=38"></script>
+<script src="js/datos.js?v=39"></script>
 <script>
 const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 const WA='34689631687', usados=STOCK.filter(t=>t.s==='oc'&&!t.vendido), conFoto=STOCK.filter(t=>t.img&&!t.vendido);
@@ -930,7 +930,7 @@ if(matchMedia('(hover:hover)').matches&&marco){
 /* carrusel 3D */
 /* «Recién llegados»: tractores concretos, de mejor a peor (orden de Manu, 16-11-2026); los vendidos o sin fotos no salen */
 const mil=n=>String(n).replace(/\B(?=(\d{3})+(?!\d))/g,'.');
-const RECIEN=[['6215R',3],['6215R',4],['7920',0],['6210R',1],['7920',1],['6105R',0],['7820',0],['6110M',0],['6125M',1],['6420 S',0]];
+const RECIEN=[['6930 Premium',1],['6420 S',2],['6215R',3],['6215R',4],['7920',0],['6210R',1],['7920',1],['6105R',0],['7820',0],['6110M',0],['6125M',1],['6420 S',0]];
 const dest=RECIEN.map(([m,i])=>{const t=STOCK.find(x=>x.m===m),x=t&&t.u[i];return x&&!x.vendido&&x.fotos.length?Object.assign(Object.create(t),{ui:i,img:x.fotos[0],uh:x.horas,up:x.precio}):null}).filter(Boolean);let cur=0;
 $('#esc').innerHTML=dest.map((t,i)=>`<div class="it" data-i="${i}"><img src="${t.img}" alt="${nombre(t)}" draggable="false"><div class="n">${t.m}<small>${t.cv} CV${t.uh?' · '+mil(t.uh)+' h':''}</small></div></div>`).join('');
 const its=$$('#esc .it');
