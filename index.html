@@ -696,6 +696,7 @@ a.kick{cursor:pointer}
 .nave-bar b{font-weight:800}.nave-bar button{flex:0 0 auto;background:#111;color:var(--amarillo);border:0;padding:9px 14px;font:800 1rem/1 var(--h);text-transform:uppercase;cursor:pointer}
 .nave-bar .nb-c{display:none}
 .nave-bar[hidden]{display:none!important}
+.nave-bar.bf{background:#0b0b0b;color:#fff;border-bottom:2px solid var(--amarillo);cursor:pointer}.nave-bar.bf b{color:var(--amarillo)}.nave-bar.bf button{background:var(--amarillo);color:#111}
 .con-nave .cab{top:var(--nb,48px)}.con-nave body{padding-top:var(--nb,48px)}
 @media(max-width:700px){.nave-bar{font-size:clamp(.82rem,4.3vw,1rem);gap:10px;padding:7px 10px}.nave-bar .nb-l{display:none}.nave-bar .nb-c{display:flex;flex-direction:column;align-items:center;flex:1;text-align:center}.nave-bar .nb-c>span{white-space:nowrap}.nave-bar button{padding:7px 8px;font-size:.9rem;line-height:1.05;max-width:84px;white-space:normal}}
 </style>
@@ -891,7 +892,7 @@ a.kick{cursor:pointer}
   </div>
 </div>
 
-<script src="js/datos.js?v=37"></script>
+<script src="js/datos.js?v=38"></script>
 <script>
 const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 const WA='34689631687', usados=STOCK.filter(t=>t.s==='oc'&&!t.vendido), conFoto=STOCK.filter(t=>t.img&&!t.vendido);
@@ -1223,6 +1224,11 @@ function abrirVisita(){const f=fechaNave();abrir('',f?'Quiero visitar la nave el
   const b=$('#naveBar');const F=f[0].toUpperCase()+f.slice(1),C=corta[0].toUpperCase()+corta.slice(1);const FL=F.split(' ')[0]+' '+C.split(' ').slice(1).join(' ');b.innerHTML=`<span class="nb-l">📍 <b>${FL}</b> · Puertas abiertas en nuestra nave · Ven a probar tu tractor con Javier</span><span class="nb-c"><span>📍 <b>${C}</b> · Puertas abiertas</span><span>Ven a probar tu tractor con Javier</span></span><button onclick="abrirVisita()">Reserva tu visita</button>`;b.hidden=false;document.documentElement.classList.add('con-nave');
   const alto=()=>document.documentElement.style.setProperty('--nb',b.offsetHeight+'px');alto();addEventListener('resize',alto)}
   if(f&&new URLSearchParams(location.search).get('visita')!==null)setTimeout(abrirVisita,400)}
+/* banner Black Friday (solo si no hay día de nave): toda la barra lleva al catálogo */
+{const B=typeof BLACK_FRIDAY!=='undefined'&&BLACK_FRIDAY,h=new Date(),hoy=h.getFullYear()+'-'+String(h.getMonth()+1).padStart(2,'0')+'-'+String(h.getDate()).padStart(2,'0');
+  if(B&&B.activo&&hoy<=B.hasta&&!fechaNave()){const b=$('#naveBar');b.classList.add('bf');b.setAttribute('role','link');b.onclick=()=>abrirCat();
+    b.innerHTML=`<span class="nb-l"><b>Próximamente</b> · Ofertas <b>Black Friday</b> en nuestros tractores</span><span class="nb-c"><span><b>Próximamente</b></span><span>Ofertas <b>Black Friday</b></span></span><button>Ver catálogo</button>`;
+    b.hidden=false;document.documentElement.classList.add('con-nave');const alto=()=>document.documentElement.style.setProperty('--nb',b.offsetHeight+'px');alto();addEventListener('resize',alto)}}
 {const _c=new URLSearchParams(location.search).get('cita')??(/^\/(tiktok|cita|agenda|llamada)(\.html)?$/.test(location.pathname)?'1':null);if(_c!==null)setTimeout(()=>abrir(/^(1|tiktok|)$/.test(_c)?'':_c),400)}
 const [_h,_u]=decodeURIComponent(location.hash.slice(1)).replace(/-/g,' ').split('/');if(_h==='catalogo')setTimeout(()=>abrirCat(),300);else{setTimeout(()=>{const _t=_h&&(STOCK.find(t=>t.m===_h||t.slug===_h)||ACCI.find(t=>t.m===_h));if(_t)ficha(_t.m,_u&&t_u(_t,_u))},300)}
 function t_u(t,u){const k=+u-1;return t.u&&t.u[k]&&t.u.length>1?k:undefined}

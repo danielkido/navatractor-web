@@ -235,3 +235,4 @@ STOCK.forEach(t=>{
 // Para anunciar otro día, cambia la fecha (AAAA-MM-DD). Para quitar el aviso, pon activo:false.
 // El aviso se oculta solo al día siguiente de la fecha.
 var DIA_NAVE={activo:false,fecha:'2026-12-05'};  // 5-12 sin confirmar: activar cuando Manu lo diga
+var BLACK_FRIDAY={activo:true,hasta:'2026-11-27'};  // banner «Próximamente · Ofertas Black Friday» (Manu, 19-11); se apaga solo después del 27-11
