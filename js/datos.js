@@ -173,6 +173,17 @@ var UNI={
 // Nombres nuevos (se conserva la URL de siempre) y CV corregidos
 var RENOMBRA={'6930':'6930 Premium','6630':'6630 Premium','6330':'6330 Premium','6220':'6220 Premium'};
 var CVOK={'3350':110,'2450M':80,'Massey Ferguson 4260':110,'5720':80,'6920 S':160,'6930 Premium':160,'6630 Premium':140,'6430 Premium':130,'6330 Premium':120,'6820':140,'6220 Premium':100,'6620':130,'6520':120,'6320':110,'7530 Premium':180,'7820':200};
+// ===== OFERTAS BLACK FRIDAY (lista de Manu, 19-11-2026) =====
+// [modelo, unidad (0 = la primera), precio de antes, precio de oferta]
+// OFERTAS_ON:false -> la web sigue con los precios de ahora. Ponerlo a true el día que Manu avise.
+// El precio de oferta se queda para siempre; el de antes sale tachado solo hasta TACHADO_HASTA (incluido).
+var OFERTAS_ON=false, TACHADO_HASTA='2026-11-29';
+var OFERTAS=[['6215R',0,75000,73000],['6190R',0,65000,62000],['6175R',0,74000,70000],['6170R',0,64000,58000],
+ ['6155R',0,75000,68000],['6155R',2,73000,72000],['6155R',3,70000,68000],['6135R',0,56000,53000],['6135R',1,56000,52000],
+ ['7820',0,60000,54000],['7820',1,60000,54000],['7820',2,60000,54000],['7820',3,60000,54000],
+ ['7530 Premium',0,55000,53000],['7530 Premium',1,55000,53000]];
+var HOY_ISO=(d=>d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'))(new Date());
+if(OFERTAS_ON)OFERTAS.forEach(([m,i,a,n])=>{const u=UNI[m]&&UNI[m][i];if(u&&(u[1]===a||u[1]===n)){u[1]=n;if(HOY_ISO<=TACHADO_HASTA)u.antes=a}});
 STOCK=STOCK.filter(t=>t.m!=='7720'&&t.m!=='Remolque Griselda');
 STOCK.forEach(t=>{if(RENOMBRA[t.m]){t.slug=t.m;t.m=RENOMBRA[t.m]}});
 STOCK.push(...[
@@ -180,11 +191,11 @@ STOCK.push(...[
 ].map(a=>({m:a[0],s:'oc',cv:a[1],cvmax:0,mot:'',tr:'',anos:'',extra:'',img:'',fotos:[],dest:false,st:'ok',used:true,marca:a[2]||'',nuevo:true})));
 STOCK.forEach(t=>{
   if(CVOK[t.m])t.cv=CVOK[t.m];
-  t.u=(UNI[t.m]||[]).map(a=>({horas:a[0],precio:a[1],extras:a[2]?a[2].split(/,\s*/):[],vendido:!!a[3],fotos:[]}));
+  t.u=(UNI[t.m]||[]).map(a=>({horas:a[0],precio:a[1],extras:a[2]?a[2].split(/,\s*/):[],vendido:!!a[3],antes:a.antes||0,fotos:[]}));
   const disp=t.u.filter(x=>!x.vendido);
   t.uds=disp.length; t.vendido=t.u.length>0&&!disp.length;
   const bar=disp.filter(x=>x.precio).sort((a,b)=>a.precio-b.precio)[0];
-  t.precio=bar?bar.precio:0; t.horas=bar?bar.horas:0;
+  t.precio=bar?bar.precio:0; t.antes=bar?bar.antes:0; t.horas=bar?bar.horas:0;
   t.extra=t.u.map(x=>x.extras.join(', ')).filter(Boolean).join(' · ');
   if(t.vendido)t.dest=false;
 });
@@ -235,4 +246,4 @@ STOCK.forEach(t=>{
 // Para anunciar otro día, cambia la fecha (AAAA-MM-DD). Para quitar el aviso, pon activo:false.
 // El aviso se oculta solo al día siguiente de la fecha.
 var DIA_NAVE={activo:false,fecha:'2026-12-05'};  // 5-12 sin confirmar: activar cuando Manu lo diga
-var BLACK_FRIDAY={activo:true,hasta:'2026-11-27'};  // banner «Próximamente · Ofertas Black Friday» (Manu, 19-11); se apaga solo después del 27-11
+var BLACK_FRIDAY={activo:true,hasta:'2026-11-29'};  // banner Black Friday (Manu, 19-11): «Próximamente» hasta que OFERTAS_ON=true; se quita solo el 30-11 (Manu: quitarlo el domingo 29 por la noche)

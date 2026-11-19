@@ -653,6 +653,7 @@ a.kick{cursor:pointer}
 .fic-main.vend img{filter:grayscale(1) brightness(.55)}
 .fic-sin{position:absolute;inset:0;display:grid;place-content:center;text-align:center;color:var(--mut2);font-weight:600;gap:10px}
 .fic-sin img{width:80px!important;height:80px!important;border-radius:50%;opacity:.25;margin:0 auto;filter:grayscale(1)}
+.antes{font:700 1rem/1 var(--t);color:var(--mut);text-decoration:line-through;text-decoration-color:#ff6b6b;text-decoration-thickness:2px}.fic-precio .antes{font-size:1.25rem}.ut-p .antes{font-size:.8em;margin-right:4px}.fic-precio.bfo .fp-et{color:var(--amarillo);font-weight:800}
 .fic-precio.vend{background:rgba(211,47,47,.12);border-left-color:#d32f2f}
 .fic-precio.vend b{color:#ff6b6b}
 .fic-eq h3,.fic-uds h3{font:800 1.05rem/1.2 var(--h);margin:18px 0 8px}
@@ -893,7 +894,7 @@ a.kick{cursor:pointer}
   </div>
 </div>
 
-<script src="js/datos.js?v=39"></script>
+<script src="js/datos.js?v=40"></script>
 <script>
 const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 const WA='34689631687', usados=STOCK.filter(t=>t.s==='oc'&&!t.vendido), conFoto=STOCK.filter(t=>t.img&&!t.vendido);
@@ -905,7 +906,7 @@ const waMsg=m=>`https://wa.me/${WA}?text=${encodeURIComponent(m)}`;
 const waTxt=t=>waMsg(t.vendido?'Hola Javier, he visto en la web que el '+nombre(t)+' está vendido. ¿Tienes alguno parecido?':msgWA(t));
 const fH=h=>h?miles(h)+' h':'';
 /* precio en tarjeta: una unidad, varias («desde») o «Consultar» */
-const precioCard=t=>t.vendido?'':t.precio?`<div class="precio">${t.uds>1?`<span class="pd">${t.uds} disponibles · desde</span>`:''}<b>${miles(t.precio)}&nbsp;€</b><span>${t.uds>1||!t.horas?'':fH(t.horas)+' de trabajo · '}garantía incluida</span></div>`:`<div class="precio cons">${t.uds>1?`<span class="pd">${t.uds} disponibles</span>`:''}<b>Consultar</b><span>Precio en la llamada · garantía incluida</span></div>`;
+const precioCard=t=>t.vendido?'':t.precio?`<div class="precio">${t.uds>1?`<span class="pd">${t.uds} disponibles · desde</span>`:''}${t.antes?`<s class="antes">${miles(t.antes)}&nbsp;€</s>`:''}<b>${miles(t.precio)}&nbsp;€</b><span>${t.uds>1||!t.horas?'':fH(t.horas)+' de trabajo · '}garantía incluida</span></div>`:`<div class="precio cons">${t.uds>1?`<span class="pd">${t.uds} disponibles</span>`:''}<b>Consultar</b><span>Precio en la llamada · garantía incluida</span></div>`;
 
 /* cabecera sólida al bajar */
 const cab=$('#cab');addEventListener('scroll',()=>cab.classList.toggle('solid',scrollY>40),{passive:true});
@@ -1148,10 +1149,10 @@ function galHTML(t,f,vend,quedan){return `<div class="fic-gal">
 /* lo que distingue a un tractor de los demás del mismo modelo va primero */
 function rasgos(t,x){const otros=t.u.filter(y=>y!==x&&!y.vendido),dif=x.extras.filter(e=>!otros.every(y=>y.extras.includes(e)));return dif.concat(x.extras.filter(e=>!dif.includes(e)))}
 const eqHTML=ex=>`<div class="fic-eq"><h3>Equipamiento</h3><ul class="ud-ex">${ex.length?ex.map(e=>`<li>${cap(e)}</li>`).join(''):'<li class="no">Sin extras</li>'}</ul></div>`;
-function ficPrecio(vend,precio,horas,quedan){
+function ficPrecio(vend,precio,horas,quedan,antes){
   if(vend&&quedan)return `<div class="fic-precio vend"><span class="fp-et">Vendido</span><b>${precio?miles(precio)+' €':'Vendido'}</b><span class="fp-h">${horas?fH(horas)+' de trabajo · ':''}${quedan===1?'queda 1 más':'quedan '+quedan+' más'} en la nave</span></div>`;
   if(vend)return `<div class="fic-precio vend"><span class="fp-et">Sin stock en estos momentos</span><b>Vendido</b><span class="fp-h">Javier te busca uno parecido</span></div>`;
-  return `<div class="fic-precio"><span class="fp-et">Precio</span><b>${precio?miles(precio)+' €':'Consultar'}</b><span class="fp-h">${precio?(horas?fH(horas)+' de trabajo':''):'Te damos el precio en la llamada'}</span><span class="fp-g">Garantía incluida</span></div>`;
+  return `<div class="fic-precio${antes?' bfo':''}"><span class="fp-et">${antes?'Oferta Black Friday':'Precio'}</span>${antes?`<s class="antes">${miles(antes)} €</s>`:''}<b>${precio?miles(precio)+' €':'Consultar'}</b><span class="fp-h">${precio?(horas?fH(horas)+' de trabajo':''):'Te damos el precio en la llamada'}</span><span class="fp-g">Garantía incluida</span></div>`;
 }
 function relHTML(t,esAcc,grupo){const rel=esAcc?ACCI.filter(x=>x.m!==t.m&&x.img).slice(0,4):ordenar(STOCK.filter(x=>x.g===t.g&&x.m!==t.m&&x.img&&!x.vendido)).slice(0,4);
   return rel.length?`<h3 class="fic-r">${esAcc?'Más palas, cazos, remolques y aperos':'Más de la '+grupo}</h3><div class="fic-rel">${rel.map(x=>`<button onclick="ficha('${x.m}')"><img src="${x.img}" alt="" loading="lazy"><b>${x.m}</b>${x.cv?`<span>${x.cv} CV</span>`:''}</button>`).join('')}</div>`:''}
@@ -1174,7 +1175,7 @@ function ficha(m,i){
      <div class="sel-g">${orden.map(([x,k])=>{const r=rasgos(t,x),f=x.fotos[0];
        return `<article class="ut${x.vendido?' vend':''}" onclick="ficha('${t.m}',${k})">
         <div class="ut-ph">${f?`<img src="${f}" alt="${nombre(t)}" loading="lazy">`:`<div class="fic-sin"><img src="img/logo-navatractor.jpg" alt="">Foto próximamente</div>`}${x.vendido?'<span class="fic-tag vnd">Vendido</span>':''}</div>
-        <div class="ut-c">${`<p class="ut-p">${x.precio?miles(x.precio)+'&nbsp;€':'Consultar'}</p><p class="ut-h">${x.horas?fH(x.horas)+' de trabajo':''}</p>
+        <div class="ut-c">${`<p class="ut-p">${x.antes&&!x.vendido?`<s class="antes">${miles(x.antes)}&nbsp;€</s> `:''}${x.precio?miles(x.precio)+'&nbsp;€':'Consultar'}</p><p class="ut-h">${x.horas?fH(x.horas)+' de trabajo':''}</p>
         <ul class="ud-ex">${r.length?r.slice(0,4).map(e=>`<li>${cap(e)}</li>`).join('')+(r.length>4?`<li class="no">+${r.length-4} más</li>`:''):'<li class="no">Sin extras</li>'}</ul>
         <span class="ut-v">${x.vendido?'Vendido · ver anuncio →':'Ver este tractor →'}</span>`}</div></article>`}).join('')}</div>
      ${ventas}
@@ -1185,7 +1186,7 @@ function ficha(m,i){
   }
   const x=i!=null&&t.u&&t.u[i]?t.u[i]:null;
   if(varios&&x)fU=i;
-  const vend=x?x.vendido:t.vendido,precio=x?x.precio:t.precio,horas=x?x.horas:t.horas,quedan=vend&&x?t.uds:0;
+  const vend=x?x.vendido:t.vendido,antes=x?x.antes:t.antes,precio=x?x.precio:t.precio,horas=x?x.horas:t.horas,quedan=vend&&x?t.uds:0;
   const f=x?x.fotos:(t.fotos.length?t.fotos:t.img?[t.img]:[]);fG=f;
   const ex=x?x.extras:(t.u&&t.u[0]&&!t.u[0].vendido?t.u[0].extras:null);
   const nota=x?`${t.m} de ${fH(horas)||'?'}${precio?' · '+miles(precio)+' €':''}`:'';
@@ -1196,7 +1197,7 @@ function ficha(m,i){
      <p class="fic-k">${kicker(t,esAcc,grupo)}</p>
      <h2>${t.m}</h2>
      ${t.cv?`<p class="fic-cv">${t.cv} <small>CV${t.cvmax?' · '+t.cvmax+' CV máx.':''}</small></p>`:''}
-     ${ficPrecio(vend,precio,horas,quedan)}
+     ${ficPrecio(vend,precio,horas,quedan,antes)}
      ${ex&&(!vend||quedan)?eqHTML(ex):''}
      <dl>
        ${t.mot?`<div><dt>Motor</dt><dd>${t.mot}</dd></div>`:''}
@@ -1228,7 +1229,7 @@ function abrirVisita(){const f=fechaNave();abrir('',f?'Quiero visitar la nave el
 /* banner Black Friday (solo si no hay día de nave): toda la barra lleva al catálogo */
 {const B=typeof BLACK_FRIDAY!=='undefined'&&BLACK_FRIDAY,h=new Date(),hoy=h.getFullYear()+'-'+String(h.getMonth()+1).padStart(2,'0')+'-'+String(h.getDate()).padStart(2,'0');
   if(B&&B.activo&&hoy<=B.hasta&&!fechaNave()){const b=$('#naveBar');b.classList.add('bf');b.setAttribute('role','link');b.onclick=()=>abrirCat();
-    b.innerHTML=`<span class="nb-l"><b>Próximamente</b> · Ofertas <b>Black Friday</b> en nuestros tractores</span><span class="nb-c"><span><b>Próximamente</b></span><span>Ofertas <b>Black Friday</b></span></span><button>Ver catálogo</button>`;
+    b.innerHTML=typeof OFERTAS_ON!=='undefined'&&OFERTAS_ON?`<span class="nb-l"><b>Black Friday</b> · Ya puedes ver las ofertas en nuestros tractores</span><span class="nb-c"><span><b>Black Friday</b></span><span>Ofertas ya disponibles</span></span><button>Ver ofertas</button>`:`<span class="nb-l"><b>Próximamente</b> · Ofertas <b>Black Friday</b> en nuestros tractores</span><span class="nb-c"><span><b>Próximamente</b></span><span>Ofertas <b>Black Friday</b></span></span><button>Ver catálogo</button>`;
     b.hidden=false;document.documentElement.classList.add('con-nave');const alto=()=>document.documentElement.style.setProperty('--nb',b.offsetHeight+'px');alto();addEventListener('resize',alto)}}
 {const _c=new URLSearchParams(location.search).get('cita')??(/^\/(tiktok|cita|agenda|llamada)(\.html)?$/.test(location.pathname)?'1':null);if(_c!==null)setTimeout(()=>abrir(/^(1|tiktok|)$/.test(_c)?'':_c),400)}
 const [_h,_u]=decodeURIComponent(location.hash.slice(1)).replace(/-/g,' ').split('/');if(_h==='catalogo')setTimeout(()=>abrirCat(),300);else{setTimeout(()=>{const _t=_h&&(STOCK.find(t=>t.m===_h||t.slug===_h)||ACCI.find(t=>t.m===_h));if(_t)ficha(_t.m,_u&&t_u(_t,_u))},300)}
