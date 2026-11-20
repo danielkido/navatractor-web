@@ -68,7 +68,7 @@ var STOCK=[
  ['7530 Premium','oc',1,195,0,'6 cil. 6,8 L','AutoPowr','2006–2010','','7530'],
  ['6930','oc',2,155,0,'6 cil. 6,8 L','AutoPowr / AutoQuad','2006–2010','','6930'],
  ['6830 Premium','oc',1,150,0,'6 cil. 6,8 L','AutoPowr / PowrQuad Plus','2006–2011','Tripuntal delantero','6830'],
- ['6630','oc',3,130,0,'6 cil. 6,8 L','AutoQuad','2006–2011','','6630'],
+ ['6630','oc',3,130,0,'6 cil. 6,8 L','AutoPowr / AutoQuad','2006–2011','','6630'],
  ['6430 Premium','oc',1,115,0,'4 cil. 4,5 L','PowrQuad Plus / AutoQuad','2006–2012','Tripuntal delantero','6430'],
  ['6330','oc',2,105,0,'4 cil. 4,5 L','PowrQuad / AutoQuad','2006–2012','Pala Quicke','6330-pala'],
  ['6820','oc',2,135,0,'6 cil. 6,8 L','PowrQuad Plus / AutoQuad','2003–2006','Tripuntal delantero','6820'],
@@ -145,7 +145,8 @@ var UNI={
  '6920 S':[[8700,41000,'Tripuntal delantero con TDF, suspensión delantera, suspensión en cabina, equipo de aire, 50 km/h']],
  '6930 Premium':[[8100,45000,'Suspensión delantera, suspensión en cabina, equipo de aire, 50 km/h'],[8000,45000,'Suspensión delantera, suspensión en cabina, aire acondicionado, 50 km/h, cambio PowrQuad, 2 neumáticos delanteros nuevos']],
  '6830 Premium':[[8100,45000,'Suspensión delantera, suspensión trasera, 50 km/h, equipo de aire, 4 neumáticos nuevos']],
- '6630 Premium':[[7700,43000,'Suspensión delantera, equipo de aire, 50 km/h, 2 neumáticos delanteros nuevos']],
+ '6630 Premium':[[7700,43000,'Suspensión delantera, equipo de aire, 50 km/h, 2 neumáticos delanteros nuevos'],[8700,43000,'Tripuntal delantero, suspensión delantera, cambio AutoPowr']],
+ '6910 Premium':[[9000,31000,'4 neumáticos nuevos']],
  '6430 Premium':[[7400,43000,'Tripuntal delantero con TDF, suspensión delantera, suspensión en cabina, cambio AutoPowr, 2 neumáticos delanteros nuevos']],
  '6330 Premium':[[7500,43000,'Pala Quicke, 4 neumáticos nuevos']],
  '6820':[[8000,41500,'Tripuntal delantero con TDF, suspensión delantera, suspensión en cabina'],[8000,40500,'Tripuntal delantero, suspensión delantera, suspensión trasera'],[8000,37500,'']],
@@ -187,7 +188,7 @@ if(OFERTAS_ON)OFERTAS.forEach(([m,i,a,n])=>{const u=UNI[m]&&UNI[m][i];if(u&&(u[1
 STOCK=STOCK.filter(t=>t.m!=='7720'&&t.m!=='Remolque Griselda');
 STOCK.forEach(t=>{if(RENOMBRA[t.m]){t.slug=t.m;t.m=RENOMBRA[t.m]}});
 STOCK.push(...[
- ['6210R',210],['6105R',105],['7920',240],['6110M',110],['6420 S',130],['6150M',150],['6220 SE',100],['6230 Premium',110],['Renault Ares 640 RZ',130,'Renault']
+ ['6210R',210],['6105R',105],['7920',240],['6110M',110],['6420 S',130],['6150M',150],['6220 SE',100],['6230 Premium',110],['Renault Ares 640 RZ',130,'Renault'],['6910 Premium',140]
 ].map(a=>({m:a[0],s:'oc',cv:a[1],cvmax:0,mot:'',tr:'',anos:'',extra:'',img:'',fotos:[],dest:false,st:'ok',used:true,marca:a[2]||'',nuevo:true})));
 STOCK.forEach(t=>{
   if(CVOK[t.m])t.cv=CVOK[t.m];
@@ -215,8 +216,8 @@ ACC={
 STOCK.forEach(t=>{t.conPala=t.u.some(x=>!x.vendido&&x.extras.some(e=>/^pala /i.test(e)))});
 
 // Fotos por unidad del paquete de Manuel (28-10-2026), en img/u/<carpeta>/NN.jpg (la 01 es la portada)
-var FU={"6420s-3":9,"6930-2":13,"5100r":3,"5125r":10,"5720":7,"6110rc":14,"6125m":3,"6125m-2":6,"6135r":13,"6155r":8,"6220":11,"6250r":9,"6430-premium":13,"6620":13,"7530-premium":15,"7820":11,"telescopica-merlo":6,"5100r-2":3,"5720-2":11,"6115m-2":8,"6135r-2":9,"6150m":8,"6155r-2":11,"6155r-3":11,"6110m":5,"7920":6,"7920-2":6,"6105r":8,"6170r":6,"6175r":6,"6195r":6,"6195r-2":11,"6210r":14,"6210r-2":7,"6215r":5,"6215r-2":10,"6220-2":6,"6220-se":13,"6230-premium":12,"6520-2":6,"6620-2":10,"6620-3":8,"7530-premium-2":9,"renault-ares-640-rz":6,"telescopica-jcb-2":10,"telescopica-jcb-3":5,"6215r-3":10,"6215r-4":9,"6215r-5":8};
-var FU_MAPA={'6420s-3':['6420 S',2],'6930-2':['6930 Premium',1],'5100r':['5100R',0],'5100r-2':['5100R',1],'5125r':['5125R',0],'5720':['5720',0],'5720-2':['5720',1],'6110rc':['6110RC',0],'6125m':['6125M',0],'6125m-2':['6125M',1],'6115m-2':['6115M',1],
+var FU={"6630-2":11,"6910-premium":15,"6420s-3":9,"6930-2":13,"5100r":3,"5125r":10,"5720":7,"6110rc":14,"6125m":3,"6125m-2":6,"6135r":13,"6155r":8,"6220":11,"6250r":9,"6430-premium":13,"6620":13,"7530-premium":15,"7820":11,"telescopica-merlo":6,"5100r-2":3,"5720-2":11,"6115m-2":8,"6135r-2":9,"6150m":8,"6155r-2":11,"6155r-3":11,"6110m":5,"7920":6,"7920-2":6,"6105r":8,"6170r":6,"6175r":6,"6195r":6,"6195r-2":11,"6210r":14,"6210r-2":7,"6215r":5,"6215r-2":10,"6220-2":6,"6220-se":13,"6230-premium":12,"6520-2":6,"6620-2":10,"6620-3":8,"7530-premium-2":9,"renault-ares-640-rz":6,"telescopica-jcb-2":10,"telescopica-jcb-3":5,"6215r-3":10,"6215r-4":9,"6215r-5":8};
+var FU_MAPA={'6630-2':['6630 Premium',1],'6910-premium':['6910 Premium',0],'6420s-3':['6420 S',2],'6930-2':['6930 Premium',1],'5100r':['5100R',0],'5100r-2':['5100R',1],'5125r':['5125R',0],'5720':['5720',0],'5720-2':['5720',1],'6110rc':['6110RC',0],'6125m':['6125M',0],'6125m-2':['6125M',1],'6115m-2':['6115M',1],
  '6135r':['6135R',0],'6135r-2':['6135R',1],'6150m':['6150M',0],'6155r':['6155R',0],'6155r-2':['6155R',1],'6155r-3':['6155R',2],'6110m':['6110M',0],'7920':['7920',0],'7920-2':['7920',1],'6105r':['6105R',0],'6170r':['6170R',0],'6175r':['6175R',0],'6195r':['6195R',0],'6195r-2':['6195R',1],'6210r':['6210R',0],'6210r-2':['6210R',1],'6215r':['6215R',0],'6215r-2':['6215R',1],'6215r-3':['6215R',2],'6215r-4':['6215R',3],'6215r-5':['6215R',4],
  '6220':['6220 Premium',0],'6220-2':['6220 Premium',1],'6220-se':['6220 SE',0],'6230-premium':['6230 Premium',0],'6250r':['6250R',0],'6430-premium':['6430 Premium',0],'6520-2':['6520',1],
  '6620':['6620',0],'6620-2':['6620',1],'6620-3':['6620',2],'7530-premium':['7530 Premium',0],'7530-premium-2':['7530 Premium',1],'7820':['7820',0],
@@ -227,6 +228,8 @@ var FU_PORTADA={'6125M':'img/stock/6125m-pala.jpg'};
 STOCK.forEach(t=>{t.fotosWeb=(t.fotos||[]).filter(f=>!/ilus-/.test(f))});
 Object.entries(FU_MAPA).forEach(([c,[m,i]])=>{const t=STOCK.find(x=>x.m===m);if(t&&t.u[i])t.u[i].fotos=Array.from({length:FU[c]},(_,k)=>'img/u/'+c+'/'+String(k+1).padStart(2,'0')+'.jpg')});
 STOCK.forEach(t=>{if(t.m==='6110M')t.anos='2020'});
+// 6910 Premium (Manu, 20-11-2026): serie 6010; 140 CV según tractordata / OCDE (Manu había puesto 135)
+STOCK.forEach(t=>{if(t.m==='6910 Premium'){t.mot='6 cil. 6,8 L';t.tr='PowrQuad / AutoQuad';t.anos='1997–2002'}});
 STOCK.forEach(t=>{if(t.m==='7920'){t.mot='6 cil. 8,1 L';t.anos='2003–2006'}});
 // 7820: cuatro tractores iguales con las mismas fotos (Dani, 14-11-2026)
 STOCK.forEach(t=>{if(t.m==='7820')t.u.forEach(x=>{if(!x.fotos.length)x.fotos=t.u[0].fotos.slice()})});

@@ -894,7 +894,7 @@ a.kick{cursor:pointer}
   </div>
 </div>
 
-<script src="js/datos.js?v=40"></script>
+<script src="js/datos.js?v=41"></script>
 <script>
 const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 const WA='34689631687', usados=STOCK.filter(t=>t.s==='oc'&&!t.vendido), conFoto=STOCK.filter(t=>t.img&&!t.vendido);
@@ -956,12 +956,13 @@ const GAMAS=[
  ['6r','Serie R','2011–2021 · 110–250 CV'],
  ['7000','Serie 7020 / 7030','2003–2010 · 180–240 CV'],
  ['6000','Serie 6020 / 6030','2002–2012 · 100–160 CV'],
+ ['6010','Serie 6010','1997–2002 · 140 CV'],
  ['6m','Serie 6M y 6RC','110–150 CV'],
  ['5','Serie 5','5100R · 5125R · 5720'],
  ['util','Clásicos','3350 · 2450M'],
  ['otras','Otras marcas','New Holland · Massey Ferguson · Renault'],
  ['tel','Telescópicas','Merlo · JCB']];
-const gamaDe=t=>t.s==='tel'?'tel':t.marca?'otras':/^[23]\d{3}/.test(t.m)?'util':/^5\d{3}/.test(t.m)?'5':/^\d{4}R$/.test(t.m)?'6r':/RC$|M$/.test(t.m.split(' ')[0])?'6m':/^7/.test(t.m)?'7000':/^6\d[23]0/.test(t.m)?'6000':'util';
+const gamaDe=t=>t.s==='tel'?'tel':t.marca?'otras':/^[23]\d{3}/.test(t.m)?'util':/^5\d{3}/.test(t.m)?'5':/^\d{4}R$/.test(t.m)?'6r':/RC$|M$/.test(t.m.split(' ')[0])?'6m':/^7/.test(t.m)?'7000':/^6\d[23]0/.test(t.m)?'6000':/^6\d10\b/.test(t.m)?'6010':'util';
 STOCK.forEach(t=>t.g=gamaDe(t));
 const ordenar=l=>l.slice().sort((a,b)=>GAMAS.findIndex(g=>g[0]===a.g)-GAMAS.findIndex(g=>g[0]===b.g)||(a.vendido-b.vendido)||(b.dest-a.dest)||b.cv-a.cv);
 const F=[['todos','Todos'],...GAMAS.map(g=>[g[0],g[1]])];
