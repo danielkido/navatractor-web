@@ -697,6 +697,14 @@ a.kick{cursor:pointer}
 .nave-bar b{font-weight:800}.nave-bar button{flex:0 0 auto;background:#111;color:var(--amarillo);border:0;padding:9px 14px;font:800 1rem/1 var(--h);text-transform:uppercase;cursor:pointer}
 .nave-bar .nb-c{display:none}
 .nave-bar[hidden]{display:none!important}
+#destacados.bf-on{background:#0b0b0b}#destacados.bf-on h2,#destacados.bf-on .sec-t p{color:#fff}#destacados.bf-on h2 span{color:var(--amarillo)}
+.bf-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:16px;margin-top:22px}
+.bf-card{display:flex;flex-direction:column;text-align:left;background:#151515;border:2px solid var(--amarillo);border-radius:14px;overflow:hidden;padding:0;cursor:pointer;color:#fff;font:inherit;transition:transform .15s}
+.bf-card:hover{transform:translateY(-3px)}.bf-img{position:relative;display:block;height:0;padding-top:75%;background:#222;overflow:hidden}.bf-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.bf-img i{position:absolute;top:10px;left:10px;background:var(--amarillo);color:#111;font:800 .95rem/1 var(--h);font-style:normal;padding:7px 10px;border-radius:8px}
+.bf-tx{display:flex;flex-direction:column;gap:3px;padding:12px 14px 14px}.bf-tx b{font:800 1.15rem/1.15 var(--h);text-transform:uppercase}.bf-tx small{color:#bbb}
+.bf-tx s{color:#999;text-decoration-color:#ff6b6b;text-decoration-thickness:2px;margin-top:4px}.bf-tx em{font:800 1.6rem/1 var(--h);font-style:normal;color:var(--amarillo)}
+@media (max-width:560px){.bf-grid{grid-template-columns:1fr 1fr;gap:10px}.bf-tx{padding:9px 10px 11px}.bf-tx b{font-size:.95rem}.bf-tx small{font-size:.75rem}.bf-tx em{font-size:1.25rem}.bf-img i{font-size:.75rem;padding:5px 7px;top:7px;left:7px}}
 .nave-bar.bf{background:#0b0b0b;color:#fff;border-bottom:2px solid var(--amarillo);cursor:pointer}.nave-bar.bf b{color:var(--amarillo)}.nave-bar.bf button{background:var(--amarillo);color:#111}
 .con-nave .cab{top:var(--nb,48px)}.con-nave body{padding-top:var(--nb,48px)}
 @media(max-width:700px){.nave-bar{font-size:clamp(.82rem,4.3vw,1rem);gap:10px;padding:7px 10px}.nave-bar .nb-l{display:none}.nave-bar .nb-c{display:flex;flex-direction:column;align-items:center;flex:1;text-align:center}.nave-bar .nb-c>span{white-space:nowrap}.nave-bar button{padding:7px 8px;font-size:.9rem;line-height:1.05;max-width:84px;white-space:normal}}
@@ -893,7 +901,7 @@ a.kick{cursor:pointer}
   </div>
 </div>
 
-<script src="js/datos.js?v=43"></script>
+<script src="js/datos.js?v=44"></script>
 <script>
 const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 const WA='34689631687', usados=STOCK.filter(t=>t.s==='oc'&&!t.vendido), conFoto=STOCK.filter(t=>t.img&&!t.vendido);
@@ -948,6 +956,15 @@ its.forEach(el=>el.onclick=()=>{const i=+el.dataset.i;i===cur?ficha(dest[i].m,de
 let x0=null;$('#carr').addEventListener('pointerdown',e=>x0=e.clientX);
 $('#carr').addEventListener('pointerup',e=>{if(x0===null)return;const dx=e.clientX-x0;if(Math.abs(dx)>40)mover(cur+(dx<0?1:-1));x0=null});
 addEventListener('resize',colocar);colocar();
+/* Black Friday (Manu, 22-11-2026): mientras las ofertas estén activas, «Recién llegados» pasa a ser «Ofertas Black Friday» con todos los tractores en oferta */
+{const bfOn=typeof OFERTAS_ON!=='undefined'&&OFERTAS_ON&&HOY_ISO<=TACHADO_HASTA;
+ if(bfOn){const L=OFERTAS.map(([m,i])=>{const t=STOCK.find(x=>x.m===m),u=t&&t.u[i];return u&&!u.vendido&&u.antes?{t,i,u,img:(u.fotos[0]||t.img)}:null}).filter(x=>x&&x.img);
+  if(L.length){const sec=$('#destacados');sec.classList.add('bf-on');
+   sec.querySelector('.sec-t').innerHTML=`<div><span class="kick"><i></i>Hasta el 1 de diciembre</span><h2>Ofertas <span>Black Friday</span></h2></div><p>Precio rebajado en ${L.length} tractores de la nave. Toca uno para ver su ficha.</p>`;
+   ['#carr','.carr-ctl','#cinfo'].forEach(q=>{const e=sec.querySelector(q);if(e)e.style.display='none'});
+   const g=document.createElement('div');g.className='bf-grid';
+   g.innerHTML=L.map(({t,i,u,img})=>`<button class="bf-card" onclick="ficha('${t.m}',${i})"><span class="bf-img"><img src="${img}" alt="${nombre(t)}" loading="lazy"><i>-${mil(u.antes-u.precio)} €</i></span><span class="bf-tx"><b>${t.marca?'':'John Deere '}${t.m}</b><small>${t.cv} CV${u.horas?' · '+mil(u.horas)+' h':''}</small><s>${mil(u.antes)} €</s><em>${mil(u.precio)} €</em></span></button>`).join('');
+   sec.querySelector('.wrap').appendChild(g)}}}
 
 /* catálogo */
 /* clasificación por gama (orden de aparición) */

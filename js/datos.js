@@ -178,11 +178,13 @@ var CVOK={'3350':110,'2450M':80,'Massey Ferguson 4260':110,'5720':80,'6920 S':16
 // [modelo, unidad (0 = la primera), precio de antes, precio de oferta]
 // OFERTAS_ON:false -> la web sigue con los precios de ahora. Ponerlo a true el día que Manu avise.
 // El precio de oferta se queda para siempre; el de antes sale tachado solo hasta TACHADO_HASTA (incluido).
-var OFERTAS_ON=false, TACHADO_HASTA='2026-11-29';
+var OFERTAS_ON=false, TACHADO_HASTA='2026-12-01';
 var OFERTAS=[['6215R',0,75000,73000],['6190R',0,65000,62000],['6175R',0,74000,70000],['6170R',0,64000,58000],
  ['6155R',0,75000,68000],['6155R',2,73000,72000],['6155R',3,70000,68000],['6135R',0,56000,53000],['6135R',1,56000,52000],
  ['7820',0,60000,54000],['7820',1,60000,54000],['7820',2,60000,54000],['7820',3,60000,54000],
- ['7530 Premium',0,55000,53000],['7530 Premium',1,55000,53000]];
+ ['7530 Premium',0,55000,53000],['7530 Premium',1,55000,53000],
+ // tractores nuevos de estos días (Manu, 22-11): el precio de Javi es el de oferta; el de antes = +2.500 €
+ ['6820',3,40000,37500],['6630 Premium',1,45500,43000],['6910 Premium',0,33500,31000]];
 var HOY_ISO=(d=>d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'))(new Date());
 if(OFERTAS_ON)OFERTAS.forEach(([m,i,a,n])=>{const u=UNI[m]&&UNI[m][i];if(u&&(u[1]===a||u[1]===n)){u[1]=n;if(HOY_ISO<=TACHADO_HASTA)u.antes=a}});
 STOCK=STOCK.filter(t=>t.m!=='7720'&&t.m!=='Remolque Griselda');
@@ -216,8 +218,8 @@ ACC={
 STOCK.forEach(t=>{t.conPala=t.u.some(x=>!x.vendido&&x.extras.some(e=>/^pala /i.test(e)))});
 
 // Fotos por unidad del paquete de Manuel (28-10-2026), en img/u/<carpeta>/NN.jpg (la 01 es la portada)
-var FU={"6820-4":10,"6630-2":13,"6910-premium":15,"6420s-3":9,"6930-2":13,"5100r":3,"5125r":10,"5720":7,"6110rc":14,"6125m":3,"6125m-2":6,"6135r":13,"6155r":8,"6220":11,"6250r":9,"6430-premium":13,"6620":13,"7530-premium":15,"7820":11,"telescopica-merlo":6,"5100r-2":3,"5720-2":11,"6115m-2":8,"6135r-2":9,"6150m":8,"6155r-2":11,"6155r-3":11,"6110m":5,"7920":6,"7920-2":6,"6105r":8,"6170r":6,"6175r":6,"6195r":6,"6195r-2":11,"6210r":14,"6210r-2":7,"6215r":5,"6215r-2":10,"6220-2":6,"6220-se":13,"6230-premium":12,"6520-2":6,"6620-2":10,"6620-3":8,"7530-premium-2":9,"renault-ares-640-rz":6,"telescopica-jcb-2":10,"telescopica-jcb-3":5,"6215r-3":10,"6215r-4":9,"6215r-5":8};
-var FU_MAPA={'6820-4':['6820',3],'6630-2':['6630 Premium',1],'6910-premium':['6910 Premium',0],'6420s-3':['6420 S',2],'6930-2':['6930 Premium',1],'5100r':['5100R',0],'5100r-2':['5100R',1],'5125r':['5125R',0],'5720':['5720',0],'5720-2':['5720',1],'6110rc':['6110RC',0],'6125m':['6125M',0],'6125m-2':['6125M',1],'6115m-2':['6115M',1],
+var FU={"6330-premium":8,"6920s":9,"6820-4":10,"6630-2":13,"6910-premium":15,"6420s-3":9,"6930-2":13,"5100r":3,"5125r":10,"5720":7,"6110rc":14,"6125m":3,"6125m-2":6,"6135r":13,"6155r":8,"6220":11,"6250r":9,"6430-premium":13,"6620":13,"7530-premium":15,"7820":11,"telescopica-merlo":6,"5100r-2":3,"5720-2":11,"6115m-2":8,"6135r-2":9,"6150m":8,"6155r-2":11,"6155r-3":11,"6110m":5,"7920":6,"7920-2":6,"6105r":8,"6170r":6,"6175r":6,"6195r":6,"6195r-2":11,"6210r":14,"6210r-2":7,"6215r":5,"6215r-2":10,"6220-2":6,"6220-se":13,"6230-premium":12,"6520-2":6,"6620-2":10,"6620-3":8,"7530-premium-2":9,"renault-ares-640-rz":6,"telescopica-jcb-2":10,"telescopica-jcb-3":5,"6215r-3":10,"6215r-4":9,"6215r-5":8};
+var FU_MAPA={'6330-premium':['6330 Premium',0],'6920s':['6920 S',0],'6820-4':['6820',3],'6630-2':['6630 Premium',1],'6910-premium':['6910 Premium',0],'6420s-3':['6420 S',2],'6930-2':['6930 Premium',1],'5100r':['5100R',0],'5100r-2':['5100R',1],'5125r':['5125R',0],'5720':['5720',0],'5720-2':['5720',1],'6110rc':['6110RC',0],'6125m':['6125M',0],'6125m-2':['6125M',1],'6115m-2':['6115M',1],
  '6135r':['6135R',0],'6135r-2':['6135R',1],'6150m':['6150M',0],'6155r':['6155R',0],'6155r-2':['6155R',1],'6155r-3':['6155R',2],'6110m':['6110M',0],'7920':['7920',0],'7920-2':['7920',1],'6105r':['6105R',0],'6170r':['6170R',0],'6175r':['6175R',0],'6195r':['6195R',0],'6195r-2':['6195R',1],'6210r':['6210R',0],'6210r-2':['6210R',1],'6215r':['6215R',0],'6215r-2':['6215R',1],'6215r-3':['6215R',2],'6215r-4':['6215R',3],'6215r-5':['6215R',4],
  '6220':['6220 Premium',0],'6220-2':['6220 Premium',1],'6220-se':['6220 SE',0],'6230-premium':['6230 Premium',0],'6250r':['6250R',0],'6430-premium':['6430 Premium',0],'6520-2':['6520',1],
  '6620':['6620',0],'6620-2':['6620',1],'6620-3':['6620',2],'7530-premium':['7530 Premium',0],'7530-premium-2':['7530 Premium',1],'7820':['7820',0],
@@ -249,4 +251,4 @@ STOCK.forEach(t=>{
 // Para anunciar otro día, cambia la fecha (AAAA-MM-DD). Para quitar el aviso, pon activo:false.
 // El aviso se oculta solo al día siguiente de la fecha.
 var DIA_NAVE={activo:false,fecha:'2026-12-05'};  // 5-12 sin confirmar: activar cuando Manu lo diga
-var BLACK_FRIDAY={activo:true,hasta:'2026-11-29'};  // banner Black Friday (Manu, 19-11): «Próximamente» hasta que OFERTAS_ON=true; se quita solo el 30-11 (Manu: quitarlo el domingo 29 por la noche)
+var BLACK_FRIDAY={activo:true,hasta:'2026-12-01'};  // banner Black Friday: «Próximamente» hasta que OFERTAS_ON=true; se quita solo el 2-12 (Manu, 22-11: ofertas hasta el martes 1-12 incluido)
