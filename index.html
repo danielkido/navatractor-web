@@ -183,7 +183,9 @@ section{padding:110px 0}
 .reels{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;align-items:start}
 .reel{position:relative;border-radius:26px;overflow:hidden;aspect-ratio:9/16;background:#000;border:1px solid var(--line)}
 .reel:nth-child(2){margin-top:60px}
-.reels{grid-template-columns:repeat(2,minmax(0,360px));justify-content:center}
+.reels{grid-template-columns:repeat(3,minmax(0,340px));justify-content:center}
+.nave-fotos{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin-top:34px}.nave-fotos img{width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:16px;border:1px solid var(--line);display:block}
+@media(max-width:800px){.nave-fotos{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:10px;margin:22px -18px 0;padding:0 18px;scrollbar-width:none}.nave-fotos::-webkit-scrollbar{display:none}.nave-fotos img{flex:0 0 auto;width:44%!important;min-width:0;scroll-snap-align:start}}
 .reel video{width:100%;height:100%;object-fit:cover}
 .reel figcaption{position:absolute;left:0;right:0;bottom:0;padding:60px 20px 20px;background:linear-gradient(0deg,rgba(0,0,0,.75),transparent);font:600 1.1rem/1.2 var(--h)}
 .reel figcaption small{display:block;font:600 .9rem/1.3 var(--t);color:#c9cec2;margin-top:4px}
@@ -793,11 +795,13 @@ a.kick{cursor:pointer}
 </div></section>
 
 <section id="nave" style="background:var(--bg2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)"><div class="wrap">
-  <div class="sec-t rv"><div><span class="kick"><i></i>La nave</span><h2>Así es <span>por dentro</span></h2></div><p>Vídeos grabados en la nave de Pinarejo.</p></div>
+  <div class="sec-t rv"><div><span class="kick"><i></i>La nave</span><h2>Así es <span>por dentro</span></h2></div><p>Vídeos y fotos de la nave de Pinarejo. Desliza para ver más.</p></div>
   <div class="reels">
     <figure class="reel rv"><video data-src="video/nave-paseo.mp4" poster="video/nave-paseo.jpg" muted loop playsinline></video><figcaption>La nave<small>Pinarejo (Cuenca)</small></figcaption></figure>
     <figure class="reel rv"><video data-src="video/tractor-marcha.mp4" poster="video/tractor-marcha.jpg" muted loop playsinline></video><figcaption>En marcha<small>John Deere serie 6R</small></figcaption></figure>
+    <figure class="reel rv"><video data-src="video/nave-fila.mp4" poster="video/nave-fila.jpg" muted loop playsinline></video><figcaption>Toda la fila<small>Recorrido por dentro de la nave</small></figcaption></figure>
   </div>
+  <div class="nave-fotos rv"><img src="img/nave/nave-1.jpg" alt="La nave por dentro, con los tractores en fila" loading="lazy"><img src="img/nave/nave-2.jpg" alt="Fila de John Deere dentro de la nave" loading="lazy"><img src="img/nave/nave-3.jpg" alt="Tractores John Deere preparados en la nave" loading="lazy"><img src="img/nave/nave-4.jpg" alt="Serie 6R en la nave de Pinarejo" loading="lazy"><img src="img/nave/nave-5.jpg" alt="Tractores en la puerta de la nave" loading="lazy"><img src="img/nave/nave-6.jpg" alt="Tractores fuera de la nave, en Pinarejo" loading="lazy"></div>
 </div></section>
 
 <section id="aperos"><div class="wrap">
