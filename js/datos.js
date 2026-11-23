@@ -178,10 +178,10 @@ var CVOK={'3350':110,'2450M':80,'Massey Ferguson 4260':110,'5720':80,'6920 S':16
 // [modelo, unidad (0 = la primera), precio de antes, precio de oferta]
 // OFERTAS_ON:false -> la web sigue con los precios de ahora. Ponerlo a true el día que Manu avise.
 // El precio de oferta se queda para siempre; el de antes sale tachado solo hasta TACHADO_HASTA (incluido).
-var OFERTAS_ON=false, TACHADO_HASTA='2026-12-01';
+var OFERTAS_ON=true, TACHADO_HASTA='2026-12-01';
 var OFERTAS=[['6215R',0,75000,73000],['6190R',0,65000,62000],['6175R',0,74000,70000],['6170R',0,64000,58000],
  ['6155R',0,75000,68000],['6155R',2,73000,72000],['6155R',3,70000,68000],['6135R',0,56000,53000],['6135R',1,56000,52000],
- ['7820',0,60000,54000],['7820',1,60000,54000],['7820',2,60000,54000],['7820',3,60000,54000],
+ ['7820',0,60000,54000],  // Manu 23-11: solo el tractor 1 del 7820
  ['7530 Premium',0,55000,53000],['7530 Premium',1,55000,53000],
  // tractores nuevos de estos días (Manu, 22-11): el precio de Javi es el de oferta; el de antes = +2.500 €
  ['6820',3,40000,37500],['6630 Premium',1,45500,43000],['6910 Premium',0,33500,31000]];

@@ -902,7 +902,7 @@ a.kick{cursor:pointer}
   </div>
 </div>
 
-<script src="js/datos.js?v=44"></script>
+<script src="js/datos.js?v=45"></script>
 <script>
 const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 const WA='34689631687', usados=STOCK.filter(t=>t.s==='oc'&&!t.vendido), conFoto=STOCK.filter(t=>t.img&&!t.vendido);
@@ -1246,8 +1246,8 @@ function abrirVisita(){const f=fechaNave();abrir('',f?'Quiero visitar la nave el
   if(f&&new URLSearchParams(location.search).get('visita')!==null)setTimeout(abrirVisita,400)}
 /* banner Black Friday (solo si no hay día de nave): toda la barra lleva al catálogo */
 {const B=typeof BLACK_FRIDAY!=='undefined'&&BLACK_FRIDAY,h=new Date(),hoy=h.getFullYear()+'-'+String(h.getMonth()+1).padStart(2,'0')+'-'+String(h.getDate()).padStart(2,'0');
-  if(B&&B.activo&&hoy<=B.hasta&&!fechaNave()){const b=$('#naveBar');b.classList.add('bf');b.setAttribute('role','link');b.onclick=()=>abrirCat();
-    b.innerHTML=typeof OFERTAS_ON!=='undefined'&&OFERTAS_ON?`<span class="nb-l"><b>Black Friday</b> · Ya puedes ver las ofertas en nuestros tractores</span><span class="nb-c"><span><b>Black Friday</b></span><span>Ofertas ya disponibles</span></span><button>Ver ofertas</button>`:`<span class="nb-l"><b>Próximamente</b> · Ofertas <b>Black Friday</b> en nuestros tractores</span><span class="nb-c"><span><b>Próximamente</b></span><span>Ofertas <b>Black Friday</b></span></span><button>Ver catálogo</button>`;
+  if(B&&B.activo&&hoy<=B.hasta&&!fechaNave()){const b=$('#naveBar');b.classList.add('bf');b.setAttribute('role','link');b.onclick=()=>{if(typeof OFERTAS_ON!=='undefined'&&OFERTAS_ON&&$('#destacados.bf-on')){const d=$('#destacados');scrollTo({top:d.getBoundingClientRect().top+scrollY-(b.offsetHeight||0)-10,behavior:'smooth'})}else abrirCat()};
+    b.innerHTML=typeof OFERTAS_ON!=='undefined'&&OFERTAS_ON?`<span class="nb-l">Ofertas <b>Black Friday</b> · Hasta el 1 de diciembre</span><span class="nb-c"><span>Ofertas <b>Black Friday</b></span><span>Hasta el 1 de diciembre</span></span><button>Ver ofertas</button>`:`<span class="nb-l"><b>Próximamente</b> · Ofertas <b>Black Friday</b> en nuestros tractores</span><span class="nb-c"><span><b>Próximamente</b></span><span>Ofertas <b>Black Friday</b></span></span><button>Ver catálogo</button>`;
     b.hidden=false;document.documentElement.classList.add('con-nave');const alto=()=>document.documentElement.style.setProperty('--nb',b.offsetHeight+'px');alto();addEventListener('resize',alto)}}
 {const _c=new URLSearchParams(location.search).get('cita')??(/^\/(tiktok|cita|agenda|llamada)(\.html)?$/.test(location.pathname)?'1':null);if(_c!==null)setTimeout(()=>abrir(/^(1|tiktok|)$/.test(_c)?'':_c),400)}
 const [_h,_u]=decodeURIComponent(location.hash.slice(1)).replace(/-/g,' ').split('/');if(_h==='catalogo')setTimeout(()=>abrirCat(),300);else{setTimeout(()=>{const _t=_h&&(STOCK.find(t=>t.m===_h||t.slug===_h)||ACCI.find(t=>t.m===_h));if(_t)ficha(_t.m,_u&&t_u(_t,_u))},300)}
