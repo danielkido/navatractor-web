@@ -166,7 +166,7 @@ var UNI={
  '3350':[[0,0,'']],
  '2450M':[[0,12000,'']],
  'New Holland TD5050':[[0,0,'']],
- 'Massey Ferguson 4260':[[0,17000,'']],
+ 'Massey Ferguson 4260':[[0,17000,'Pala']],
  // altas 27-11-2026 (Manu): entran durante el Black Friday -> su precio es el de oferta y el de antes +2.500 €
  '6090MC':[[5700,51000,'Pala John Deere, 2 neumáticos traseros nuevos, cambio PowrQuad']],
  '5090GH':[[0,25000,'']],  // horas y extras: pendientes de Manu
