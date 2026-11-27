@@ -905,7 +905,7 @@ a.kick{cursor:pointer}
   </div>
 </div>
 
-<script src="js/datos.js?v=45"></script>
+<script src="js/datos.js?v=46"></script>
 <script>
 const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 const WA='34689631687', usados=STOCK.filter(t=>t.s==='oc'&&!t.vendido), conFoto=STOCK.filter(t=>t.img&&!t.vendido);
@@ -977,12 +977,12 @@ const GAMAS=[
  ['7000','Serie 7020 / 7030','2003–2010 · 180–240 CV'],
  ['6000','Serie 6020 / 6030','2002–2012 · 100–160 CV'],
  ['6010','Serie 6010','1997–2002 · 140 CV'],
- ['6m','Serie 6M y 6RC','110–150 CV'],
- ['5','Serie 5','5100R · 5125R · 5720'],
+ ['6m','Serie 6M y 6RC','90–150 CV'],
+ ['5','Serie 5','5090GH · 5100R · 5125R · 5720'],
  ['util','Clásicos','3350 · 2450M'],
  ['otras','Otras marcas','New Holland · Massey Ferguson · Renault'],
  ['tel','Telescópicas','Merlo · JCB']];
-const gamaDe=t=>t.s==='tel'?'tel':t.marca?'otras':/^[23]\d{3}/.test(t.m)?'util':/^5\d{3}/.test(t.m)?'5':/^\d{4}R$/.test(t.m)?'6r':/RC$|M$/.test(t.m.split(' ')[0])?'6m':/^7/.test(t.m)?'7000':/^6\d[23]0/.test(t.m)?'6000':/^6\d10\b/.test(t.m)?'6010':'util';
+const gamaDe=t=>t.s==='tel'?'tel':t.marca?'otras':/^[23]\d{3}/.test(t.m)?'util':/^5\d{3}/.test(t.m)?'5':/^\d{4}R$/.test(t.m)?'6r':/RC$|MC?$/.test(t.m.split(' ')[0])?'6m':/^7/.test(t.m)?'7000':/^6\d[23]0/.test(t.m)?'6000':/^6\d10\b/.test(t.m)?'6010':'util';
 STOCK.forEach(t=>t.g=gamaDe(t));
 const ordenar=l=>l.slice().sort((a,b)=>GAMAS.findIndex(g=>g[0]===a.g)-GAMAS.findIndex(g=>g[0]===b.g)||(a.vendido-b.vendido)||(b.dest-a.dest)||b.cv-a.cv);
 const F=[['todos','Todos'],...GAMAS.map(g=>[g[0],g[1]])];
@@ -1158,7 +1158,7 @@ function pintarCat(){
 /* ficha detallada */
 let fi=0,fT=null,fG=[],fU=null,ACCI=[];
 /* palas y aperos como fichas (también para las fotos de la portada) */
-let FOTO={};function hacerACCI(){FOTO={'Pala León 410E':'img/acc/pala-elleon-410e.jpg','Pala León 385E':'img/acc/pala-elleon-nueva.jpg','Remolque Griselda':GAL2.griselda[0],'Pala Metal-Technik':'img/acc/pala-metaltechnik.jpg','Cazos':'img/acc/cazos.jpg','Pantalla para alpacas':'img/acc/porta-palets.jpg','Atomizador':'img/acc/atomizador.jpg'};ACCI=[];Object.entries(ACC).forEach(([k,v])=>v.forEach(a=>ACCI.push({m:a[0],s:'acc',marca:k,g:'acc-'+k,img:FOTO[a[0]]||'',fotos:a[0]==='Remolque Griselda'?GAL2.griselda:FOTO[a[0]]?[FOTO[a[0]]]:[],cv:0,precio:a[3]||0,horas:0,uds:1,u:[{horas:0,precio:a[3]||0,extras:a[4]?a[4].split(/,\s*/):[],vendido:false,fotos:[]}]})));}
+let FOTO={};function hacerACCI(){FOTO={'Pala León 410E':'img/acc/pala-elleon-410e.jpg','Pala León 385E':'img/acc/pala-elleon-nueva.jpg','Remolque Griselda':GAL2.griselda[0],'Pala Metal-Technik':'img/acc/pala-metaltechnik.jpg','Cazos':'img/acc/cazos.jpg','Pantalla para alpacas':'img/acc/porta-palets.jpg','Atomizador':'img/acc/atomizador.jpg'};ACCI=[];Object.entries(ACC).forEach(([k,v])=>v.forEach(a=>ACCI.push({m:a[0],s:'acc',marca:k,g:'acc-'+k,img:FOTO[a[0]]||'',fotos:a[0]==='Remolque Griselda'?GAL2.griselda:FOTO[a[0]]?[FOTO[a[0]]]:[],cv:0,precio:a[3]||0,horas:0,uds:1,u:[{horas:0,precio:a[3]||0,extras:a[4]?a[4].split(/,\s+/):[],vendido:false,fotos:[]}]})));}
 const cap=e=>e[0].toUpperCase()+e.slice(1);
 const GAR=`<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M12 3l8 3v6c0 4.5-3.4 8.3-8 9-4.6-.7-8-4.5-8-9V6z"/><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M8.5 12l2.5 2.5 4.5-5"/></svg>`;
 function galHTML(t,f,vend,quedan){return `<div class="fic-gal">

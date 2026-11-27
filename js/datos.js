@@ -143,7 +143,7 @@ var UNI={
  '7820':[[8900,60000,'Suspensión delantera, cambio PowrQuad, 4 neumáticos nuevos'],[8900,54000,'Suspensión delantera, cambio PowrQuad, 4 neumáticos nuevos'],[8900,54000,'Suspensión delantera, cambio PowrQuad, 4 neumáticos nuevos'],[8900,54000,'Suspensión delantera, cambio PowrQuad, 4 neumáticos nuevos']],
  '7530 Premium':[[7400,55000,'Suspensión delantera, suspensión trasera, 50 km/h, equipo de aire, cambio PowrQuad, 4 neumáticos nuevos'],[7700,55000,'Suspensión delantera, suspensión en cabina, cambio PowrQuad'],[7400,55000,'Suspensión delantera, suspensión en cabina, 4 neumáticos nuevos, 50 km/h, equipo de aire, cambio AutoPowr']],
  '6920 S':[[8700,41000,'Tripuntal delantero con TDF, suspensión delantera, suspensión en cabina, equipo de aire, 50 km/h']],
- '6930 Premium':[[8100,45000,'Suspensión delantera, suspensión en cabina, equipo de aire, 50 km/h'],[8000,45000,'Suspensión delantera, suspensión en cabina, aire acondicionado, 50 km/h, cambio PowrQuad, 2 neumáticos delanteros nuevos']],
+ '6930 Premium':[[8100,45000,'Suspensión delantera, suspensión en cabina, equipo de aire, 50 km/h'],[8000,45000,'Suspensión delantera, suspensión en cabina, equipo de aire, 50 km/h, cambio PowrQuad, 2 neumáticos delanteros nuevos']],
  '6830 Premium':[[8100,45000,'Suspensión delantera, suspensión trasera, 50 km/h, equipo de aire, 4 neumáticos nuevos']],
  '6630 Premium':[[7700,43000,'Suspensión delantera, equipo de aire, 50 km/h, 2 neumáticos delanteros nuevos'],[8700,43000,'Tripuntal delantero, suspensión delantera, cambio AutoPowr']],
  '6910 Premium':[[9000,31000,'4 neumáticos nuevos']],
@@ -166,9 +166,12 @@ var UNI={
  '3350':[[0,0,'']],
  '2450M':[[0,12000,'']],
  'New Holland TD5050':[[0,0,'']],
- 'Massey Ferguson 4260':[[0,0,'']],
+ 'Massey Ferguson 4260':[[0,17000,'']],
+ // altas 27-11-2026 (Manu): entran durante el Black Friday -> su precio es el de oferta y el de antes +2.500 €
+ '6090MC':[[5700,51000,'Pala John Deere, 2 neumáticos traseros nuevos, cambio PowrQuad']],
+ '5090GH':[[0,25000,'']],  // horas y extras: pendientes de Manu
  'Renault Ares 640 RZ':[[0,30000,'Pala Tenias Evolution TE30 nueva']],
- 'Merlo':[[0,26000,'']],
+ 'Merlo':[[0,26000,'',1]],  // VENDIDA (Manu, 27-11-2026)
  'JCB':[[0,36000,''],[0,36000,''],[0,36000,'']]
 };
 // Nombres nuevos (se conserva la URL de siempre) y CV corregidos
@@ -184,13 +187,14 @@ var OFERTAS=[['6215R',0,75000,73000],['6190R',0,65000,62000],['6175R',0,74000,70
  ['7820',0,60000,54000],  // Manu 23-11: solo el tractor 1 del 7820
  ['7530 Premium',0,55000,53000],['7530 Premium',1,55000,53000],
  // tractores nuevos de estos días (Manu, 22-11): el precio de Javi es el de oferta; el de antes = +2.500 €
- ['6820',3,40000,37500],['6630 Premium',1,45500,43000],['6910 Premium',0,33500,31000]];
+ ['6820',3,40000,37500],['6630 Premium',1,45500,43000],['6910 Premium',0,33500,31000],
+ ['6090MC',0,53500,51000],['5090GH',0,27500,25000]];
 var HOY_ISO=(d=>d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'))(new Date());
 if(OFERTAS_ON)OFERTAS.forEach(([m,i,a,n])=>{const u=UNI[m]&&UNI[m][i];if(u&&(u[1]===a||u[1]===n)){u[1]=n;if(HOY_ISO<=TACHADO_HASTA)u.antes=a}});
 STOCK=STOCK.filter(t=>t.m!=='7720'&&t.m!=='Remolque Griselda');
 STOCK.forEach(t=>{if(RENOMBRA[t.m]){t.slug=t.m;t.m=RENOMBRA[t.m]}});
 STOCK.push(...[
- ['6210R',210],['6105R',105],['7920',240],['6110M',110],['6420 S',130],['6150M',150],['6220 SE',100],['6230 Premium',110],['Renault Ares 640 RZ',130,'Renault'],['6910 Premium',140]
+ ['6210R',210],['6105R',105],['7920',240],['6110M',110],['6420 S',130],['6150M',150],['6220 SE',100],['6230 Premium',110],['Renault Ares 640 RZ',130,'Renault'],['6910 Premium',140],['6090MC',90],['5090GH',90]
 ].map(a=>({m:a[0],s:'oc',cv:a[1],cvmax:0,mot:'',tr:'',anos:'',extra:'',img:'',fotos:[],dest:false,st:'ok',used:true,marca:a[2]||'',nuevo:true})));
 STOCK.forEach(t=>{
   if(CVOK[t.m])t.cv=CVOK[t.m];
@@ -210,7 +214,7 @@ ACC={
   ['Pala León 385E','Cargador frontal a estrenar','Según modelo',9500,'Botella reforzada'],
   ['Pala Metal-Technik','Cargador frontal con brazos y soportes','Según modelo',9000,'Tercera función, monomando en cruz']
  ],
- 'Cazos':[['Cazos','Para tierra, grano y materiales ligeros','Para las palas',1200,'']],
+ 'Cazos':[['Cazos','Para tierra, grano y materiales ligeros. Anchos de 1,80, 2,00, 2,20 y 2,40 m','Para las palas · enganche europeo o Tenias',1200,'Ancho 1,80 m, Ancho 2,00 m, Ancho 2,20 m, Ancho 2,40 m, Enganche europeo o enganche Tenias']],  // medidas: Manu, 27-11-2026
  'Pantalla para alpacas':[['Pantalla para alpacas','Para mover alpacas con la pala','Para las palas',1200,'']],
  'Atomizador':[['Atomizador','Tratamientos en viña y frutal','Tractores con TDF',9000,'']],
  'Remolques':[['Remolque Griselda','Remolque basculante','Tractores con hidráulico',12000,'Eje tándem, ejes direccionables, compuerta hidráulica']]
@@ -218,12 +222,12 @@ ACC={
 STOCK.forEach(t=>{t.conPala=t.u.some(x=>!x.vendido&&x.extras.some(e=>/^pala /i.test(e)))});
 
 // Fotos por unidad del paquete de Manuel (28-10-2026), en img/u/<carpeta>/NN.jpg (la 01 es la portada)
-var FU={"6330-premium":8,"6920s":9,"6820-4":10,"6630-2":13,"6910-premium":15,"6420s-3":9,"6930-2":13,"5100r":3,"5125r":10,"5720":7,"6110rc":14,"6125m":3,"6125m-2":6,"6135r":13,"6155r":8,"6220":11,"6250r":9,"6430-premium":13,"6620":13,"7530-premium":15,"7820":11,"telescopica-merlo":6,"5100r-2":3,"5720-2":11,"6115m-2":8,"6135r-2":9,"6150m":8,"6155r-2":11,"6155r-3":11,"6110m":5,"7920":6,"7920-2":6,"6105r":8,"6170r":6,"6175r":6,"6195r":6,"6195r-2":11,"6210r":14,"6210r-2":7,"6215r":5,"6215r-2":10,"6220-2":6,"6220-se":13,"6230-premium":12,"6520-2":6,"6620-2":10,"6620-3":8,"7530-premium-2":9,"renault-ares-640-rz":6,"telescopica-jcb-2":10,"telescopica-jcb-3":5,"6215r-3":10,"6215r-4":9,"6215r-5":8};
+var FU={"6090mc":11,"5090gh":5,"6330-premium":8,"6920s":9,"6820-4":10,"6630-2":13,"6910-premium":15,"6420s-3":9,"6930-2":13,"5100r":3,"5125r":10,"5720":7,"6110rc":14,"6125m":3,"6125m-2":6,"6135r":13,"6155r":8,"6220":11,"6250r":9,"6430-premium":13,"6620":13,"7530-premium":15,"7820":11,"telescopica-merlo":6,"5100r-2":3,"5720-2":11,"6115m-2":8,"6135r-2":9,"6150m":8,"6155r-2":11,"6155r-3":11,"6110m":5,"7920":6,"7920-2":6,"6105r":8,"6170r":6,"6175r":6,"6195r":6,"6195r-2":11,"6210r":14,"6210r-2":7,"6215r":5,"6215r-2":10,"6220-2":6,"6220-se":13,"6230-premium":12,"6520-2":6,"6620-2":10,"6620-3":8,"7530-premium-2":9,"renault-ares-640-rz":6,"telescopica-jcb-2":10,"telescopica-jcb-3":5,"6215r-3":10,"6215r-4":9,"6215r-5":8};
 var FU_MAPA={'6330-premium':['6330 Premium',0],'6920s':['6920 S',0],'6820-4':['6820',3],'6630-2':['6630 Premium',1],'6910-premium':['6910 Premium',0],'6420s-3':['6420 S',2],'6930-2':['6930 Premium',1],'5100r':['5100R',0],'5100r-2':['5100R',1],'5125r':['5125R',0],'5720':['5720',0],'5720-2':['5720',1],'6110rc':['6110RC',0],'6125m':['6125M',0],'6125m-2':['6125M',1],'6115m-2':['6115M',1],
  '6135r':['6135R',0],'6135r-2':['6135R',1],'6150m':['6150M',0],'6155r':['6155R',0],'6155r-2':['6155R',1],'6155r-3':['6155R',2],'6110m':['6110M',0],'7920':['7920',0],'7920-2':['7920',1],'6105r':['6105R',0],'6170r':['6170R',0],'6175r':['6175R',0],'6195r':['6195R',0],'6195r-2':['6195R',1],'6210r':['6210R',0],'6210r-2':['6210R',1],'6215r':['6215R',0],'6215r-2':['6215R',1],'6215r-3':['6215R',2],'6215r-4':['6215R',3],'6215r-5':['6215R',4],
  '6220':['6220 Premium',0],'6220-2':['6220 Premium',1],'6220-se':['6220 SE',0],'6230-premium':['6230 Premium',0],'6250r':['6250R',0],'6430-premium':['6430 Premium',0],'6520-2':['6520',1],
  '6620':['6620',0],'6620-2':['6620',1],'6620-3':['6620',2],'7530-premium':['7530 Premium',0],'7530-premium-2':['7530 Premium',1],'7820':['7820',0],
- 'renault-ares-640-rz':['Renault Ares 640 RZ',0],'telescopica-merlo':['Merlo',0],'telescopica-jcb-2':['JCB',1],'telescopica-jcb-3':['JCB',2]};
+ 'renault-ares-640-rz':['Renault Ares 640 RZ',0],'telescopica-merlo':['Merlo',0],'telescopica-jcb-2':['JCB',1],'telescopica-jcb-3':['JCB',2],'6090mc':['6090MC',0],'5090gh':['5090GH',0]};
 // portada del modelo cuando las fotos nuevas de la unidad 1 son solo de interior
 var FU_PORTADA={'6125M':'img/stock/6125m-pala.jpg'};
 // la unidad 1 sin fotos nuevas conserva las fotos que ya tenía la web (salvo ilustraciones)
@@ -232,6 +236,7 @@ Object.entries(FU_MAPA).forEach(([c,[m,i]])=>{const t=STOCK.find(x=>x.m===m);if(
 STOCK.forEach(t=>{if(t.m==='6110M')t.anos='2020'});
 // 6910 Premium (Manu, 20-11-2026): serie 6010; 140 CV según tractordata / OCDE (Manu había puesto 135)
 STOCK.forEach(t=>{if(t.m==='6910 Premium'){t.mot='6 cil. 6,8 L';t.tr='PowrQuad / AutoQuad';t.anos='1997–2002'}});
+STOCK.forEach(t=>{if(t.m==='6090MC'){t.mot='4 cil. 4,5 L';t.tr='PowrQuad'}});
 STOCK.forEach(t=>{if(t.m==='7920'){t.mot='6 cil. 8,1 L';t.anos='2003–2006'}});
 // 7820: cuatro tractores iguales con las mismas fotos (Dani, 14-11-2026)
 STOCK.forEach(t=>{if(t.m==='7820')t.u.forEach(x=>{if(!x.fotos.length)x.fotos=t.u[0].fotos.slice()})});
