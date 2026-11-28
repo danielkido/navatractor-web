@@ -147,7 +147,7 @@ var UNI={
  '6830 Premium':[[8100,45000,'Suspensión delantera, suspensión trasera, 50 km/h, equipo de aire, 4 neumáticos nuevos']],
  '6630 Premium':[[7700,43000,'Suspensión delantera, equipo de aire, 50 km/h, 2 neumáticos delanteros nuevos'],[8700,43000,'Tripuntal delantero, suspensión delantera, cambio AutoPowr']],
  '6910 Premium':[[9000,31000,'4 neumáticos nuevos']],
- '6430 Premium':[[7400,43000,'Tripuntal delantero con TDF, suspensión delantera, suspensión en cabina, cambio AutoPowr, 2 neumáticos delanteros nuevos']],
+ '6430 Premium':[[7400,43000,'Tripuntal delantero con TDF, suspensión delantera, suspensión en cabina, cambio AutoPowr, 2 neumáticos delanteros nuevos'],[8200,45000,'Pala John Deere, suspensión delantera, monomando en cruz, 2 neumáticos traseros nuevos']],  // tractor 2: alta Manu 27-11-2026
  '6330 Premium':[[7500,43000,'Pala Quicke, 4 neumáticos nuevos']],
  '6820':[[8000,41500,'Tripuntal delantero con TDF, suspensión delantera, suspensión en cabina'],[8000,40500,'Tripuntal delantero, suspensión delantera, suspensión trasera'],[8000,37500,''],[9000,37500,'Suspensión delantera, 2 neumáticos delanteros nuevos, cambio de 6 grupos']],
  '6220 Premium':[[8000,36000,'',1],[8000,38000,'Pala MX'],[8000,36000,'']],
@@ -164,7 +164,7 @@ var UNI={
  '5125R':[[9000,41000,'Suspensión delantera, creeper, anclajes de pala John Deere']],
  '5100R':[[3000,38000,'',1],[3000,39000,'Pala John Deere']],
  '3350':[[0,0,'']],
- '2450M':[[0,12000,'']],
+ '2450M':[[11000,12000,'Excéntricas (eje trasero elevado)']],  // unas 11.000 h (Manu, 27-11-2026)
  'New Holland TD5050':[[0,0,'']],
  'Massey Ferguson 4260':[[0,17000,'Pala']],
  // altas 27-11-2026 (Manu): entran durante el Black Friday -> su precio es el de oferta y el de antes +2.500 €
@@ -188,7 +188,7 @@ var OFERTAS=[['6215R',0,75000,73000],['6190R',0,65000,62000],['6175R',0,74000,70
  ['7530 Premium',0,55000,53000],['7530 Premium',1,55000,53000],
  // tractores nuevos de estos días (Manu, 22-11): el precio de Javi es el de oferta; el de antes = +2.500 €
  ['6820',3,40000,37500],['6630 Premium',1,45500,43000],['6910 Premium',0,33500,31000],
- ['6090MC',0,53500,51000],['5090GH',0,27500,25000]];
+ ['6090MC',0,53500,51000],['5090GH',0,27500,25000],['6430 Premium',1,47500,45000]];
 var HOY_ISO=(d=>d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'))(new Date());
 if(OFERTAS_ON)OFERTAS.forEach(([m,i,a,n])=>{const u=UNI[m]&&UNI[m][i];if(u&&(u[1]===a||u[1]===n)){u[1]=n;if(HOY_ISO<=TACHADO_HASTA)u.antes=a}});
 STOCK=STOCK.filter(t=>t.m!=='7720'&&t.m!=='Remolque Griselda');
@@ -222,12 +222,12 @@ ACC={
 STOCK.forEach(t=>{t.conPala=t.u.some(x=>!x.vendido&&x.extras.some(e=>/^pala /i.test(e)))});
 
 // Fotos por unidad del paquete de Manuel (28-10-2026), en img/u/<carpeta>/NN.jpg (la 01 es la portada)
-var FU={"6090mc":11,"5090gh":5,"6330-premium":8,"6920s":9,"6820-4":10,"6630-2":13,"6910-premium":15,"6420s-3":9,"6930-2":13,"5100r":3,"5125r":10,"5720":7,"6110rc":14,"6125m":3,"6125m-2":6,"6135r":13,"6155r":8,"6220":11,"6250r":9,"6430-premium":13,"6620":13,"7530-premium":15,"7820":11,"telescopica-merlo":6,"5100r-2":3,"5720-2":11,"6115m-2":8,"6135r-2":9,"6150m":8,"6155r-2":11,"6155r-3":11,"6110m":5,"7920":6,"7920-2":6,"6105r":8,"6170r":6,"6175r":6,"6195r":6,"6195r-2":11,"6210r":14,"6210r-2":7,"6215r":5,"6215r-2":10,"6220-2":6,"6220-se":13,"6230-premium":12,"6520-2":6,"6620-2":10,"6620-3":8,"7530-premium-2":9,"renault-ares-640-rz":6,"telescopica-jcb-2":10,"telescopica-jcb-3":5,"6215r-3":10,"6215r-4":9,"6215r-5":8};
+var FU={"6430-premium-2":13,"6090mc":11,"5090gh":5,"6330-premium":8,"6920s":9,"6820-4":10,"6630-2":13,"6910-premium":15,"6420s-3":9,"6930-2":13,"5100r":3,"5125r":10,"5720":7,"6110rc":14,"6125m":3,"6125m-2":6,"6135r":13,"6155r":8,"6220":11,"6250r":9,"6430-premium":13,"6620":13,"7530-premium":15,"7820":11,"telescopica-merlo":6,"5100r-2":3,"5720-2":11,"6115m-2":8,"6135r-2":9,"6150m":8,"6155r-2":11,"6155r-3":11,"6110m":5,"7920":6,"7920-2":6,"6105r":8,"6170r":6,"6175r":6,"6195r":6,"6195r-2":11,"6210r":14,"6210r-2":7,"6215r":5,"6215r-2":10,"6220-2":6,"6220-se":13,"6230-premium":12,"6520-2":6,"6620-2":10,"6620-3":8,"7530-premium-2":9,"renault-ares-640-rz":6,"telescopica-jcb-2":10,"telescopica-jcb-3":5,"6215r-3":10,"6215r-4":9,"6215r-5":8};
 var FU_MAPA={'6330-premium':['6330 Premium',0],'6920s':['6920 S',0],'6820-4':['6820',3],'6630-2':['6630 Premium',1],'6910-premium':['6910 Premium',0],'6420s-3':['6420 S',2],'6930-2':['6930 Premium',1],'5100r':['5100R',0],'5100r-2':['5100R',1],'5125r':['5125R',0],'5720':['5720',0],'5720-2':['5720',1],'6110rc':['6110RC',0],'6125m':['6125M',0],'6125m-2':['6125M',1],'6115m-2':['6115M',1],
  '6135r':['6135R',0],'6135r-2':['6135R',1],'6150m':['6150M',0],'6155r':['6155R',0],'6155r-2':['6155R',1],'6155r-3':['6155R',2],'6110m':['6110M',0],'7920':['7920',0],'7920-2':['7920',1],'6105r':['6105R',0],'6170r':['6170R',0],'6175r':['6175R',0],'6195r':['6195R',0],'6195r-2':['6195R',1],'6210r':['6210R',0],'6210r-2':['6210R',1],'6215r':['6215R',0],'6215r-2':['6215R',1],'6215r-3':['6215R',2],'6215r-4':['6215R',3],'6215r-5':['6215R',4],
  '6220':['6220 Premium',0],'6220-2':['6220 Premium',1],'6220-se':['6220 SE',0],'6230-premium':['6230 Premium',0],'6250r':['6250R',0],'6430-premium':['6430 Premium',0],'6520-2':['6520',1],
  '6620':['6620',0],'6620-2':['6620',1],'6620-3':['6620',2],'7530-premium':['7530 Premium',0],'7530-premium-2':['7530 Premium',1],'7820':['7820',0],
- 'renault-ares-640-rz':['Renault Ares 640 RZ',0],'telescopica-merlo':['Merlo',0],'telescopica-jcb-2':['JCB',1],'telescopica-jcb-3':['JCB',2],'6090mc':['6090MC',0],'5090gh':['5090GH',0]};
+ 'renault-ares-640-rz':['Renault Ares 640 RZ',0],'telescopica-merlo':['Merlo',0],'telescopica-jcb-2':['JCB',1],'telescopica-jcb-3':['JCB',2],'6090mc':['6090MC',0],'6430-premium-2':['6430 Premium',1],'5090gh':['5090GH',0]};
 // portada del modelo cuando las fotos nuevas de la unidad 1 son solo de interior
 var FU_PORTADA={'6125M':'img/stock/6125m-pala.jpg'};
 // la unidad 1 sin fotos nuevas conserva las fotos que ya tenía la web (salvo ilustraciones)
